@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -17,7 +18,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -32,5 +35,60 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // CardView dependency
+    implementation "androidx.cardview:cardview:1.0.0"
+
+
+    // Kotlin dependency
+    implementation "org.koin:koin-core:2.1.0-alpha-1"
+
+    // Material design library dependecy
+//    implementation 'com.google.android.material:material:1.2.0-alpha01'
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
+
+
+
+    implementation 'com.google.android.material:material:1.0.0'
+
+    // Android support dependency
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    def appcompat_version = "1.1.0"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+
+    // Fragment dependency
+    implementation 'androidx.fragment:fragment:1.1.0-rc04'
+
+    // sdp size dependency
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+
+
+
+
+
+    // Multidex dependecy
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
+
+    // Recyclerview dependency
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
+
+
+
+    // Room Database:::
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    implementation "androidx.room:room-ktx:$room_version"
+
+    // Lifecycle:::
+    def lifecycle_version = "2.1.0"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
 }
