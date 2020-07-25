@@ -1,71 +1,10 @@
 <resources>
-    <string name="app_name">Rentinget</string>
+    <string name="app_name">Tradinget</string>
 
-    <string name="splashScreenTitle">The Rental Reminder App</string>
-    <string name="splashScreenSubTitle">Rentinget</string>
+    <string name="splashScreenTitle">Payment Managent App</string>
+    <string name="splashScreenSubTitle">Tradinget</string>
 
-    <string name="logoContentDescription">Logo</string>
-    <string name="backUpMessage">Backup your data to keep safe</string>
-    <string name="backup">Backup</string>
-    <string name="restore">Restore</string>
-    <string name="joinDate">Join Date:</string>
-    <string name="issueDate">Issue Date:</string>
-
-    <string name="emptyTenant">No tenant</string>
-    <string name="emptyNumber">No number</string>
-    <string name="emptyIdProof">No ID proof</string>
-    <string name="editProperty">Edit property</string>
-    <string name="deleteProperty">Delete property</string>
-    <string name="editTenant">Edit tenant</string>
-    <string name="editRenewalDate">Edit renewal</string>
-
-    <!--    Hints-->
-
-    <string name="buildingName">Building name</string>
-    <string name="tenantName">Tenant name</string>
-    <string name="address">Address</string>
-    <string name="addressTitle">Address:</string>
-    <string name="phoneNumber">Phone number</string>
-    <string name="idProof">ID proof</string>
-    <string name="remark">Remark</string>
-
-    <!--    Home-->
-    <string name="totalRentOfThisMonth">Total rent received this month</string>
-    <string name="listOfMyProperties">List of my properties</string>
-
-    <!--    Property view-->
-    <string name="transactionType">Transaction type</string>
-    <string name="paymentType">Payment type</string>
-
-    <!--    Property list item-->
-    <string name="currentTenantName">Current tenant name</string>
-    <string name="currentTenantPhone">Mobile number</string>
-    <string name="totalDebit">Total debit:</string>
-    <string name="totalCredit">Total credit:</string>
-    <string name="comment">Comment</string>
-    <string name="renewTitle">Renew Date:</string>
-
-    <!--    Particular Items-->
-    <string name="dateTitle">Date:</string>
-    <string name="rupeeSign">₹</string>>
-    <string name="particulars">Particulars</string>
-    <string name="amount">Amount</string>
-    <string name="month">Month</string>
-    <string name="year">Year</string>
-
-    <!--    Menu items name-->
-    <string name="home">Home</string>
-    <string name="oldTenant">Old Tenant</string>
-    <string name="backupAndRestore">Backup and Restore</string>
-    <string name="exit">Exit</string>
-    <string name="leave">Leave</string>
-    <string name="done">Done</string>
-
-    <!--    Transaction-->
-    <string name="mobileNumberTransition">mobileNumberTransition</string>
-    <string name="tenantNameTransition">tenantNameTransition</string>
-    <string name="buildingNameTransition">buildingNameTransition</string>
-
+    <string name="logoContentDescription">Tradinget</string>
 
     <!--    Navigation toggle string-->
     <string name="open">Open</string>
