@@ -25,7 +25,7 @@
             android:title="@string/inventory"
             />
         <item
-            android:id="@+id/nav_payment_slip"
+            android:id="@+id/nav_invoice"
             android:icon="@drawable/ic_invoice"
             android:title="@string/paymentSlip"/>
     </group>
