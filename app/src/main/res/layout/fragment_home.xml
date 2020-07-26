@@ -1,19 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Features.View.Home.Home">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
         >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Home"
-            android:textColor="@color/white"
-            />
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/paymentOfThisMonthLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/duePaymentLayout"
+            app:layout_constraintBottom_toTopOf="@id/totalInventoryWeightLayout"
+            >
+
+            <TextView
+                android:id="@+id/paymentOfThisMonth"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:background="@drawable/view_home_item"
+                android:gravity="center"
+                android:text="20000"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/paymentThisMonthHint"
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/duePaymentLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/paymentOfThisMonthLayout"
+            app:layout_constraintBottom_toBottomOf="@id/paymentOfThisMonthLayout"
+            app:layout_constraintStart_toEndOf="@id/paymentOfThisMonthLayout"
+            >
+
+            <TextView
+                android:id="@+id/duePayment"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:background="@drawable/view_home_item"
+                android:gravity="center"
+                android:text="20000"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/duePaymentHint"
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/totalInventoryWeightLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/paymentOfThisMonthLayout"
+            app:layout_constraintBottom_toTopOf="@id/overDueDateLayout"
+            app:layout_constraintEnd_toStartOf="@id/totalInventoryValueLayout"
+            >
+
+            <TextView
+                android:id="@+id/totalInventoryWeight"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:background="@drawable/view_home_item"
+                android:gravity="center"
+                android:text="20000"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/totalInventoryWeightHint"
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/totalInventoryValueLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/totalInventoryWeightLayout"
+            app:layout_constraintBottom_toBottomOf="@id/totalInventoryWeightLayout"
+            app:layout_constraintStart_toEndOf="@id/totalInventoryWeightLayout"
+            >
+
+            <TextView
+                android:id="@+id/totalInventoryValue"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:background="@drawable/view_home_item"
+                android:gravity="center"
+                android:text="20000"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/totalInventoryValueHint"
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/overDueDateLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/underDueDateLayout"
+            app:layout_constraintTop_toBottomOf="@id/totalInventoryWeightLayout"
+            >
+
+            <TextView
+                android:id="@+id/overDueDate"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:background="@drawable/view_home_item"
+                android:gravity="center"
+                android:text="20000"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/overDueDateHint"
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/underDueDateLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/overDueDateLayout"
+            app:layout_constraintBottom_toBottomOf="@id/overDueDateLayout"
+            app:layout_constraintStart_toEndOf="@id/overDueDateLayout"
+            >
+
+            <TextView
+                android:id="@+id/underDueDate"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:background="@drawable/view_home_item"
+                android:gravity="center"
+                android:text="20000"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/underDueDateHint"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
