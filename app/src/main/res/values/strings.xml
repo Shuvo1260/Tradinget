@@ -9,6 +9,21 @@
     <!--    Navigation toggle string-->
     <string name="open">Open</string>
     <string name="close">Close</string>
+
+
+<!--    Menu items-->
+    <string name="home">Home</string>
+    <string name="buyers">Buyers</string>
+    <string name="sellers">Sellers</string>
+    <string name="brokers">Brokers</string>
+    <string name="inventory">Inventory</string>
+    <string name="paymentSlip">Make invoice</string>
+    <string name="packet">Packets</string>
+    <string name="backupAndRestore">Backup and restore</string>
+    <string name="exit">Exit</string>
+    <string name="done">Done</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

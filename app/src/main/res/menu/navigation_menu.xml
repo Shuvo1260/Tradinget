@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home"
+            />
+        <item
+            android:id="@+id/nav_buyers"
+            android:icon="@drawable/ic_buyer"
+            android:title="@string/buyers"/>
+        <item
+            android:id="@+id/nav_sellers"
+            android:icon="@drawable/ic_seller"
+            android:title="@string/sellers"
+            />
+        <item
+            android:id="@+id/nav_brokers"
+            android:icon="@drawable/ic_broker"
+            android:title="@string/brokers"/>
+        <item
+            android:id="@+id/nav_inventories"
+            android:icon="@drawable/ic_inventory"
+            android:title="@string/inventory"
+            />
+        <item
+            android:id="@+id/nav_payment_slip"
+            android:icon="@drawable/ic_invoice"
+            android:title="@string/paymentSlip"/>
+    </group>
+
+
+    <item android:title="Account Settings">
+        <menu>
+            <item
+                android:id="@+id/nav_backup_and_restore"
+                android:icon="@drawable/ic_backup_and_restore"
+                android:title="@string/backupAndRestore"/>
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/ic_exit"
+                android:title="@string/exit"/>
+        </menu>
+    </item>
+</menu>
