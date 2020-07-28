@@ -24,7 +24,7 @@
     <string name="done">Done</string>
 
 
-<!--    Hints-->
+    <!--    Hints-->
 
     <string name="paymentThisMonthHint">Total payment\nof this month</string>
     <string name="duePaymentHint">Due\npayment</string>
