@@ -6,6 +6,11 @@
 
     <string name="logoContentDescription">Tradinget</string>
 
+    <!--    Backup and restore section-->
+    <string name="backup">Backup</string>
+    <string name="restore">Restore</string>
+    <string name="backUpMessage">Backup your data to keep safe</string>
+
     <!--    Navigation toggle string-->
     <string name="open">Open</string>
     <string name="close">Close</string>
@@ -32,6 +37,13 @@
     <string name="totalInventoryValueHint">Total\ninventory value</string>
     <string name="overDueDateHint">Over\ndue date</string>
     <string name="underDueDateHint">Under\ndue date</string>
+    <string name="name">Name</string>
+    <string name="firmName">Firm name</string>
+    <string name="mobileNumber">Mobile number</string>
+    <string name="altMobileNumber">Alt mobile number</string>
+    <string name="address">Address</string>
+    <string name="gstNumber">GST number</string>
+    <string name="panNumber">Pan number</string>
 
 
     <string name="rupeeSign">₹</string>

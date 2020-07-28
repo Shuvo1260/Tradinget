@@ -19,9 +19,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Features.View.SplashScreen"
+        <activity android:name=".Features.View.Seller.AddSeller"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Features.View.Broker.AddBroker"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Features.View.Buyer.AddBuyer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Features.View.SplashScreen"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,8 +36,7 @@
         </activity>
         <activity
             android:name=".Features.View.MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

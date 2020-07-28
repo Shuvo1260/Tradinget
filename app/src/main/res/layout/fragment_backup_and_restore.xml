@@ -5,14 +5,50 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Backup and restore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/backUpMessage"
             android:textColor="@color/white"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:textStyle="bold"
+            android:textSize="@dimen/_20sdp"
             />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            />
+
+        <Button
+            android:id="@+id/backup"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_backup_restore_button"
+            android:textSize="@dimen/_16sdp"
+            android:text="@string/backup"
+            android:padding="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_70sdp"
+            />
+        <Button
+            android:id="@+id/restore"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_backup_restore_button"
+            android:textSize="@dimen/_16sdp"
+            android:text="@string/restore"
+            android:padding="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            />
+
     </LinearLayout>
 
 </layout>
