@@ -28,6 +28,7 @@
     <string name="backupAndRestore">Backup and restore</string>
     <string name="exit">Exit</string>
     <string name="done">Done</string>
+    <string name="appSettings">App Settings</string>
 
 
     <!--    Hints-->

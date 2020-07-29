@@ -9,6 +9,10 @@ class Config {
         val SUCCESS_MESSAGE = "Success"
         val FAILED_MESSAGE = "Failed"
 
+        // Codes
+        val BACKUP_REQUEST_CODE = 101
+        val RESTORE_REQUEST_CODE = 102
+
         // Toolbar titles
         val TOOLBAR_TITLE_HOME = "Home"
         val TOOLBAR_TITLE_BUYER = "Buyers"
@@ -43,6 +47,7 @@ class Config {
         // Database
         const val DATABASE_VERSION = 1
         const val DATABASE_NAME = "Tradinget_Database"
+        val SD_CARD_PATH = "/storage/emulated/0/Tradinget/Backup/"
 
         // Tables
         const val TABLE_STAKEHOLDER = "Stakeholder_table"
