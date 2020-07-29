@@ -3,24 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="230dp"
+    android:layout_height="wrap_content"
     android:background="@color/navigationHeadColor"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="15dp">
+    android:gravity="center">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_100sdp"
         android:src="@drawable/ic_launcher"
-        android:id="@+id/imageView"/>
+        android:id="@+id/imageView"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/splashScreenTitle"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:textStyle="bold"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/_15sdp"
+        />
 
 </LinearLayout>

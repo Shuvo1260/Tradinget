@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import org.binaryitplanet.tradinget.Features.Common.StakeholderView
+import org.binaryitplanet.tradinget.Features.Prsenter.StakeholderPresenterIml
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
+import org.binaryitplanet.tradinget.Utils.StakeholderUtils
 import org.binaryitplanet.tradinget.databinding.ActivityAddBuyerBinding
-import org.binaryitplanet.tradinget.databinding.ActivityMainBinding
 
-class AddBuyer : AppCompatActivity() {
+class AddBuyer : AppCompatActivity(), StakeholderView {
 
 
     private val TAG = "AddBuyer"
@@ -26,6 +29,8 @@ class AddBuyer : AppCompatActivity() {
     private lateinit var address: String
     private lateinit var gstNumber: String
     private lateinit var panNumber: String
+
+    private lateinit var stakeholder: StakeholderUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,15 +52,98 @@ class AddBuyer : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (!isAddOperation) {
+            stakeholder = intent?.getSerializableExtra(Config.STAKEHOLDER) as StakeholderUtils
+            setViews()
+        }
+    }
 
+
+
+    // Updating data portion starts
     private fun updateData() {
         Log.d(TAG, "Updating...")
+
+        stakeholder.name = name
+        stakeholder.firmName = firmName
+        stakeholder.mobileNumber = mobileNumber
+        stakeholder.address = address
+        stakeholder.gstNumber = gstNumber
+        stakeholder.panNumber = panNumber
+
+        val presenter = StakeholderPresenterIml(this, this)
+        presenter.updateStakeholder(stakeholder)
     }
 
+    override fun onUpdateStakeholderListener(status: Boolean) {
+        super.onUpdateStakeholderListener(status)
+        if (status) {
+            Toast.makeText(
+                this,
+                Config.SUCCESS_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+            onBackPressed()
+        } else {
+            Toast.makeText(
+                this,
+                Config.FAILED_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+    // Updating data portion ends
+
+    // Saving data portion starts
     private fun saveData() {
         Log.d(TAG, "Saving...")
+        stakeholder = StakeholderUtils(
+            null,
+            Config.TYPE_ID_BUYER,
+            name,
+            firmName,
+            mobileNumber,
+            altMobileNumber,
+            address,
+            gstNumber,
+            panNumber
+        )
+
+        val presenter = StakeholderPresenterIml(this, this)
+        presenter.insertStakeholder(stakeholder)
     }
 
+    override fun onSaveStakeholderListener(status: Boolean) {
+        super.onSaveStakeholderListener(status)
+        if (status) {
+            Toast.makeText(
+                this,
+                Config.SUCCESS_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+            onBackPressed()
+        } else {
+            Toast.makeText(
+                this,
+                Config.FAILED_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+    // Saving data portion ends
+
+
+    private fun setViews() {
+        binding.name.setText(stakeholder.name)
+        binding.firmName.setText(stakeholder.firmName)
+        binding.mobileNumber.setText(stakeholder.mobileNumber)
+        binding.altMobileNumber.setText(stakeholder.altMobileNumber)
+        binding.address.setText(stakeholder.address)
+        binding.gstNumber.setText(stakeholder.gstNumber)
+        binding.panNumber.setText(stakeholder.panNumber)
+    }
 
     private fun checkValidity(): Boolean {
         name = binding.name.text.toString()

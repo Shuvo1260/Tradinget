@@ -19,11 +19,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Features.View.Seller.AddSeller"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Features.View.Broker.AddBroker"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Features.View.Buyer.AddBuyer"
+        <activity android:name=".Features.View.Inventory.AddPacket"></activity>
+        <activity
+            android:name=".Features.View.Seller.AddSeller"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Features.View.Broker.AddBroker"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Features.View.Buyer.AddBuyer"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Features.View.SplashScreen"
