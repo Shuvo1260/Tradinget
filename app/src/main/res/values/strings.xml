@@ -5,6 +5,7 @@
     <string name="splashScreenSubTitle">Tradinget</string>
 
     <string name="logoContentDescription">Tradinget</string>
+    <string name="soldPackets">Sold packets</string>
 
     <!--    Backup and restore section-->
     <string name="backup">Backup</string>

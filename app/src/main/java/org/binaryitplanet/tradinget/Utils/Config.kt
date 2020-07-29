@@ -24,5 +24,9 @@ class Config {
 
         // Intent
         val OPERATION_FLAG = "OperationFlag"
+
+        // Inventory tab position
+        val PACKETS_CODE = 0
+        val SOLD_PACKETS_CODE = 1
     }
 }
