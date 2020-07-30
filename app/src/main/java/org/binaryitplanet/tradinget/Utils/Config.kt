@@ -8,6 +8,7 @@ class Config {
         val REQUIRED_FIELD = "Required field"
         val SUCCESS_MESSAGE = "Success"
         val FAILED_MESSAGE = "Failed"
+        val LIST_CACHED_SIZE = 1000
 
         // Codes
         val BACKUP_REQUEST_CODE = 101

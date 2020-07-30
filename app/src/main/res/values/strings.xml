@@ -50,6 +50,10 @@
 
     <string name="rupeeSign">₹</string>
 
+    <!--    Transition-->
+    <string name="nameTransition">nameTransition</string>
+    <string name="mobileNumberTransition">mobileNumberTransition</string>
+    <string name="altMobileNumberTransition">altMobileNumberTransition</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
