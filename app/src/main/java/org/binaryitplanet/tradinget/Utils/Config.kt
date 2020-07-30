@@ -9,10 +9,19 @@ class Config {
         val SUCCESS_MESSAGE = "Success"
         val FAILED_MESSAGE = "Failed"
         val LIST_CACHED_SIZE = 1000
+        val DELETE_BUYER_TITLE = "Deleting buyer"
+        val DELETE_BROKER_TITLE = "Deleting broker"
+        val DELETE_SELLER_TITLE = "Deleting seller"
+        val DELETE_BUYER_MESSAGE = "Do you want to delete the buyer?"
+        val DELETE_BROKER_MESSAGE = "Do you want to delete the broker?"
+        val DELETE_SELLER_MESSAGE = "Do you want to delete the seller?"
+        val YES_MESSAGE = "Yes"
+        val NO_MESSAGE = "No"
 
         // Codes
         val BACKUP_REQUEST_CODE = 101
         val RESTORE_REQUEST_CODE = 102
+        val REQUEST_CALL = 103
 
         // Toolbar titles
         val TOOLBAR_TITLE_HOME = "Home"

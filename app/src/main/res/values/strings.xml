@@ -46,6 +46,7 @@
     <string name="address">Address</string>
     <string name="gstNumber">GST number</string>
     <string name="panNumber">Pan number</string>
+    <string name="orders">Orders</string>
 
 
     <string name="rupeeSign">₹</string>

@@ -143,6 +143,8 @@ class AddBuyer : AppCompatActivity(), StakeholderView {
         binding.address.setText(stakeholder.address)
         binding.gstNumber.setText(stakeholder.gstNumber)
         binding.panNumber.setText(stakeholder.panNumber)
+
+        binding.name.setSelection(stakeholder.name.length)
     }
 
     private fun checkValidity(): Boolean {
