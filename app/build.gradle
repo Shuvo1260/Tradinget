@@ -96,4 +96,7 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
+
+    implementation 'com.itextpdf:itextpdf:5.5.13'
+
 }

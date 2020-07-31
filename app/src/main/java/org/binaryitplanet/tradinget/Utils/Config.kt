@@ -30,6 +30,7 @@ class Config {
         val TOOLBAR_TITLE_BROKER = "Brokers"
         val TOOLBAR_TITLE_INVENTORY = "Inventories"
         val TOOLBAR_TITLE_INVOICE = "Invoice"
+        val TOOLBAR_TITLE_CREATE_INVOICE = "Create invoice"
         val TOOLBAR_TITLE_BACKUP_AND_RESTORE = "Backup and restore"
         val TOOLBAR_TITLE_ADD_BUYER = "Add buyer"
         val TOOLBAR_TITLE_ADD_BROKER = "Add broker"
@@ -58,6 +59,7 @@ class Config {
         const val DATABASE_VERSION = 1
         const val DATABASE_NAME = "Tradinget_Database"
         val SD_CARD_PATH = "/storage/emulated/0/Tradinget/Backup/"
+        val PDF_DIR_PATH = "/storage/emulated/0/Tradinget/PDF/"
 
         // Tables
         const val TABLE_STAKEHOLDER = "Stakeholder_table"
@@ -72,5 +74,14 @@ class Config {
         const val COLUMN_ADDRESS = "Address"
         const val COLUMN_GST_NUMBER = "GST_number"
         const val COLUMN_PAN_NUMBER = "Pan_number"
+
+
+        // Invoice
+        val PDF_FORMAT = ".pdf"
+        val INVOICE_AUTHOR = "BinaryItPlanet"
+        val INVOICE_CREATOR = "Tradinget"
+        val INVOICE_NAME = "Invoice"
+        val TITLE_FONT_SIZE = 20.0f
+        val FONT_SIZE = 20.0f
     }
 }

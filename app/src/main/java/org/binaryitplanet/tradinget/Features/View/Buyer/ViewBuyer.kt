@@ -70,8 +70,8 @@ class ViewBuyer : AppCompatActivity(), StakeholderView {
 
         val builder = AlertDialog.Builder(this)
 
-        builder.setTitle(Config.DELETE_BROKER_TITLE)
-        builder.setMessage(Config.DELETE_BROKER_MESSAGE)
+        builder.setTitle(Config.DELETE_BUYER_TITLE)
+        builder.setMessage(Config.DELETE_BUYER_MESSAGE)
 
         builder.setIcon(R.drawable.ic_launcher)
 
