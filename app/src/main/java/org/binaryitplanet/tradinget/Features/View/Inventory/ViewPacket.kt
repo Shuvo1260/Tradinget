@@ -128,8 +128,8 @@ class ViewPacket : AppCompatActivity(), InventoryView {
 
     private fun setupViews() {
         binding.packetName.text = packet.packetName
-        binding.weight.text = packet.weight.toString()
-        binding.price.text = packet.price.toString()
+        binding.weight.text = packet.weight.toString() + " " + Config.CTS
+        binding.price.text = packet.price.toString() + " " + Config.RUPEE_SIGN
         binding.rate.text = packet.rate.toString()
         binding.code.text = packet.code
         if (packet.remark.isNullOrEmpty())
