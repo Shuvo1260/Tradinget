@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Features.View.Invoice.CreateInvoice"></activity>
+        <activity android:name=".Features.View.Inventory.AddPacketDetails"></activity>
+        <activity android:name=".Features.View.Inventory.ViewPacket" />
+        <activity android:name=".Features.View.Invoice.CreateInvoice" />
         <activity android:name=".Features.View.Seller.ViewSeller" />
         <activity android:name=".Features.View.Buyer.ViewBuyer" />
         <activity android:name=".Features.View.Broker.ViewBroker" />

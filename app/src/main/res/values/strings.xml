@@ -47,6 +47,17 @@
     <string name="gstNumber">GST number</string>
     <string name="panNumber">Pan number</string>
     <string name="orders">Orders</string>
+    <string name="packetNumber">Packet number</string>
+    <string name="packetName">Packet name</string>
+    <string name="sieve">Sieve</string>
+    <string name="weight">Weight (cts)</string>
+    <string name="soldWeight">Sold weight (cts)</string>
+    <string name="remainingWeight">Remaining weight (cts)</string>
+    <string name="rate">Rate</string>
+    <string name="price">Price</string>
+    <string name="code">Code</string>
+    <string name="remark">Remark</string>
+    <string name="packets">Packets</string>
 
 
     <string name="rupeeSign">₹</string>
@@ -55,6 +66,9 @@
     <string name="nameTransition">nameTransition</string>
     <string name="mobileNumberTransition">mobileNumberTransition</string>
     <string name="altMobileNumberTransition">altMobileNumberTransition</string>
+    <string name="packetNameTransition">packetNameTransition</string>
+    <string name="weightTransition">weightTransition</string>
+    <string name="priceTransition">priceTransition</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

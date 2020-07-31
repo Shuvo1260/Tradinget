@@ -18,7 +18,7 @@ class StakeholderPresenterIml(
     override fun insertStakeholder(stakeholder: StakeholderUtils) {
         try {
             val databaseManager = DatabaseManager.getInstance(context)!!
-            val id = databaseManager.getStaleholderDAO().insert(stakeholder)
+            val id = databaseManager.getStakeholderDAO().insert(stakeholder)
 
             if (id > 0)
                 stakeholderView.onSaveStakeholderListener(true)
@@ -34,7 +34,7 @@ class StakeholderPresenterIml(
     override fun deleteStakeholder(stakeholder: StakeholderUtils) {
         try {
             val databaseManager = DatabaseManager.getInstance(context)!!
-            val id = databaseManager.getStaleholderDAO().delete(stakeholder)
+            val id = databaseManager.getStakeholderDAO().delete(stakeholder)
 
             if (id > 0)
                 stakeholderView.onDeleteStakeholderListener(true)
@@ -50,7 +50,7 @@ class StakeholderPresenterIml(
     override fun updateStakeholder(stakeholder: StakeholderUtils) {
         try {
             val databaseManager = DatabaseManager.getInstance(context)!!
-            val id = databaseManager.getStaleholderDAO().update(stakeholder)
+            val id = databaseManager.getStakeholderDAO().update(stakeholder)
 
             if (id > 0)
                 stakeholderView.onUpdateStakeholderListener(true)
@@ -67,7 +67,7 @@ class StakeholderPresenterIml(
         try {
             val databaseManager = DatabaseManager.getInstance(context)!!
             val stakeholderList = databaseManager
-                .getStaleholderDAO().getStakeholderByType(type)
+                .getStakeholderDAO().getStakeholderByType(type)
 
             stakeholderView.onFetchStakeholderListListener(stakeholderList)
         }catch (e: Exception){
@@ -79,7 +79,7 @@ class StakeholderPresenterIml(
         try {
             val databaseManager = DatabaseManager.getInstance(context)!!
             val stakeholder = databaseManager
-                .getStaleholderDAO().getStakeholderById(id)
+                .getStakeholderDAO().getStakeholderById(id)
 
             stakeholderView.onFetchStakeholderListener(stakeholder)
         }catch (e: Exception){

@@ -12,11 +12,15 @@ class Config {
         val DELETE_BUYER_TITLE = "Deleting buyer"
         val DELETE_BROKER_TITLE = "Deleting broker"
         val DELETE_SELLER_TITLE = "Deleting seller"
+        val DELETE_PACKET_TITLE = "Deleting packet"
         val DELETE_BUYER_MESSAGE = "Do you want to delete the buyer?"
         val DELETE_BROKER_MESSAGE = "Do you want to delete the broker?"
         val DELETE_SELLER_MESSAGE = "Do you want to delete the seller?"
+        val DELETE_PACKET_MESSAGE = "Do you want to delete the packet?"
         val YES_MESSAGE = "Yes"
         val NO_MESSAGE = "No"
+        val RUPEE_SIGN = "₹"
+        val CTS = "cts"
 
         // Codes
         val BACKUP_REQUEST_CODE = 101
@@ -36,14 +40,18 @@ class Config {
         val TOOLBAR_TITLE_ADD_BROKER = "Add broker"
         val TOOLBAR_TITLE_ADD_SELLER = "Add seller"
         val TOOLBAR_TITLE_ADD_PACKET = "Add packet"
+        val TOOLBAR_TITLE_ADD_PACKET_DETAILS = "Add packet details"
         val TOOLBAR_TITLE_UPDATE_BUYER = "Update buyer"
         val TOOLBAR_TITLE_UPDATE_BROKER = "Update broker"
         val TOOLBAR_TITLE_UPDATE_SELLER = "Update seller"
         val TOOLBAR_TITLE_UPDATE_PACKET = "Update packet"
+        val TOOLBAR_TITLE_UPDATE_PACKET_DETAILS = "Update packet details"
 
         // Intent
         val OPERATION_FLAG = "OperationFlag"
         val STAKEHOLDER = "Stakeholder"
+        val PACKET = "Packet"
+        val PACKET_DETAILS = "PacketDetails"
 
         // Inventory tab position
         val PACKETS_CODE = 0
@@ -63,6 +71,8 @@ class Config {
 
         // Tables
         const val TABLE_STAKEHOLDER = "Stakeholder_table"
+        const val TABLE_PACKET = "Packet_table"
+        const val TABLE_PACKET_DETAILS = "Packet_details_table"
 
         // Columns
         const val COLUMN_ID = "ID"
@@ -74,6 +84,17 @@ class Config {
         const val COLUMN_ADDRESS = "Address"
         const val COLUMN_GST_NUMBER = "GST_number"
         const val COLUMN_PAN_NUMBER = "Pan_number"
+        const val COLUMN_PACKET_NUMBER = "Packet_number"
+        const val COLUMN_PACKET_DETAILS_NUMBER = "Packet_details_number"
+        const val COLUMN_PACKET_NAME = "Packet_name"
+        const val COLUMN_SIEVE = "Sieve"
+        const val COLUMN_WEIGHT = "Weight"
+        const val COLUMN_SOLD_WEIGHT = "Sold_weight"
+        const val COLUMN_REMAINING_WEIGHT = "Remaining_weight"
+        const val COLUMN_RATE = "Rate"
+        const val COLUMN_PRICE = "Price"
+        const val COLUMN_CODE = "Code"
+        const val COLUMN_REMARK = "Remark"
 
 
         // Invoice

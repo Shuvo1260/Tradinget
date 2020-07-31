@@ -7,36 +7,37 @@ import android.util.Log
 import android.view.Menu
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import org.binaryitplanet.tradinget.Features.Prsenter.PacketPresenterIml
+import org.binaryitplanet.tradinget.Features.Prsenter.PacketDetailsPresenterIml
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
+import org.binaryitplanet.tradinget.Utils.PacketDetailsUtils
 import org.binaryitplanet.tradinget.Utils.PacketUtils
 import org.binaryitplanet.tradinget.databinding.ActivityAddPacketBinding
+import org.binaryitplanet.tradinget.databinding.ActivityAddPacketDetailsBinding
 
-class AddPacket : AppCompatActivity(), InventoryView {
+class AddPacketDetails : AppCompatActivity(), ViewPacketDetails {
 
-
-    private val TAG = "AddPacket"
-    private lateinit var binding: ActivityAddPacketBinding
+    private val TAG = "AddPacketDetails"
+    private lateinit var binding: ActivityAddPacketDetailsBinding
 
     private var isAddOperation: Boolean = true
 
+
+    private lateinit var packetDetails: PacketDetailsUtils
     private lateinit var packet: PacketUtils
 
     private lateinit var packetNumber: String
-    private lateinit var packetName: String
+    private lateinit var sieve: String
     private var weight: Double = 0.0
-    private var rate: Double = 0.0
-    private var price: Double = 0.0
-    private lateinit var code: String
-    private lateinit var remark: String
+    private var soldWeight: Double = 0.0
+    private var remainingWeight: Double = 0.0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_packet)
+        setContentView(R.layout.activity_add_packet_details)
 
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_packet)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_packet_details)
 
         isAddOperation = intent?.getBooleanExtra(Config.OPERATION_FLAG, true)!!
 
@@ -54,42 +55,37 @@ class AddPacket : AppCompatActivity(), InventoryView {
 
     override fun onResume() {
         super.onResume()
+
+        packet = intent?.getSerializableExtra(Config.PACKET) as PacketUtils
         if (!isAddOperation) {
-            packet = intent?.getSerializableExtra(Config.PACKET) as PacketUtils
+            packetDetails = intent?.getSerializableExtra(Config.PACKET_DETAILS) as PacketDetailsUtils
             setViews()
         }
     }
 
     private fun setViews() {
-        binding.packetNumber.setText(packet.packetNumber)
-        binding.packetName.setText(packet.packetName)
-        binding.weight.setText(packet.weight.toString())
-        binding.rate.setText(packet.rate.toString())
-        binding.price.setText(packet.price.toString())
-        binding.code.setText(packet.code)
-        binding.remark.setText(packet.remark)
+        binding.packetNumber.setText(packetDetails.packetDetailsNumber)
+        binding.sieve.setText(packetDetails.packetDetailsNumber)
+        binding.weight.setText(packetDetails.weight.toString())
+        binding.soldWeight.setText(packetDetails.soldWeight.toString())
+        binding.remainingWeight.setText(packetDetails.remainingWeight.toString())
 
-        binding.packetNumber.setSelection(packet.packetNumber.length)
+        binding.packetNumber.setSelection(packetDetails.packetDetailsNumber.length)
     }
-
 
     private fun updateData() {
-        Log.d(TAG, "Updating...")
+        packetDetails.packetDetailsNumber = packetNumber
+        packetDetails.sieve = sieve
+        packetDetails.weight = weight
+        packetDetails.soldWeight = soldWeight
+        packetDetails.remainingWeight = remainingWeight
 
-        packet.packetNumber = packetNumber
-        packet.packetName = packetName
-        packet.weight = weight
-        packet.rate = rate
-        packet.price = price
-        packet.code = code
-        packet.remark = remark
-
-        val presenter = PacketPresenterIml(this, this)
-        presenter.updatePacket(packet)
+        val presenter = PacketDetailsPresenterIml(this, this)
+        presenter.updatePacketDetails(packetDetails)
     }
 
-    override fun onUpdatePacketListener(status: Boolean) {
-        super.onUpdatePacketListener(status)
+    override fun onUpdatePacketDetailsListener(status: Boolean) {
+        super.onUpdatePacketDetailsListener(status)
         if (status) {
             Toast.makeText(
                 this,
@@ -107,24 +103,21 @@ class AddPacket : AppCompatActivity(), InventoryView {
     }
 
     private fun saveData() {
-        Log.d(TAG, "Saving...")
-        packet = PacketUtils(
+        packetDetails = PacketDetailsUtils(
             null,
+            packet.packetNumber,
             packetNumber,
-            packetName,
+            sieve,
             weight,
-            rate,
-            price,
-            code,
-            remark
+            soldWeight,
+            remainingWeight
         )
-        val presenter = PacketPresenterIml(this, this)
-        presenter.insertPacket(packet)
+        val presenter = PacketDetailsPresenterIml(this, this)
+        presenter.insertPacketDetails(packetDetails)
     }
 
-    override fun onSavePacketListener(status: Boolean) {
-        super.onSavePacketListener(status)
-
+    override fun onSavePacketDetailsListener(status: Boolean) {
+        super.onSavePacketDetailsListener(status)
         if (status) {
             Toast.makeText(
                 this,
@@ -144,18 +137,16 @@ class AddPacket : AppCompatActivity(), InventoryView {
 
     private fun checkValidity(): Boolean {
         packetNumber = binding.packetNumber.text.toString()
-        packetName = binding.packetName.text.toString()
-        code = binding.code.text.toString()
-        remark = binding.remark.text.toString()
+        sieve = binding.sieve.text.toString()
 
         if (packetNumber.isNullOrEmpty()) {
             binding.packetNumber.error = Config.REQUIRED_FIELD
             binding.packetNumber.requestFocus()
             return false
         }
-        if (packetName.isNullOrEmpty()) {
-            binding.packetName.error = Config.REQUIRED_FIELD
-            binding.packetName.requestFocus()
+        if (sieve.isNullOrEmpty()) {
+            binding.sieve.error = Config.REQUIRED_FIELD
+            binding.sieve.requestFocus()
             return false
         }
         if (binding.weight.text.isNullOrEmpty()) {
@@ -163,30 +154,20 @@ class AddPacket : AppCompatActivity(), InventoryView {
             binding.weight.requestFocus()
             return false
         }
-        if (binding.rate.text.isNullOrEmpty()) {
-            binding.rate.error = Config.REQUIRED_FIELD
-            binding.rate.requestFocus()
+        if (binding.soldWeight.text.isNullOrEmpty()) {
+            binding.soldWeight.error = Config.REQUIRED_FIELD
+            binding.soldWeight.requestFocus()
             return false
         }
-        if (binding.price.text.isNullOrEmpty()) {
-            binding.price.error = Config.REQUIRED_FIELD
-            binding.price.requestFocus()
+        if (binding.remainingWeight.text.isNullOrEmpty()) {
+            binding.remainingWeight.error = Config.REQUIRED_FIELD
+            binding.remainingWeight.requestFocus()
             return false
         }
-        if (code.isNullOrEmpty()) {
-            binding.code.error = Config.REQUIRED_FIELD
-            binding.code.requestFocus()
-            return false
-        }
-//        if (remark.isNullOrEmpty()) {
-//            binding.remark.error = Config.REQUIRED_FIELD
-//            binding.remark.requestFocus()
-//            return false
-//        }
 
         weight = binding.weight.text.toString().toDouble()
-        rate = binding.rate.text.toString().toDouble()
-        price = binding.price.text.toString().toDouble()
+        soldWeight = binding.soldWeight.text.toString().toDouble()
+        remainingWeight = binding.remainingWeight.text.toString().toDouble()
 
         return true
     }
@@ -202,9 +183,9 @@ class AddPacket : AppCompatActivity(), InventoryView {
     private fun setUpToolbar() {
 
         binding.toolbar.title = if (isAddOperation)
-            Config.TOOLBAR_TITLE_ADD_PACKET
+            Config.TOOLBAR_TITLE_ADD_PACKET_DETAILS
         else
-            Config.TOOLBAR_TITLE_UPDATE_PACKET
+            Config.TOOLBAR_TITLE_UPDATE_PACKET_DETAILS
 
         binding.toolbar.setTitleTextColor(Color.WHITE)
         setSupportActionBar(binding.toolbar)
