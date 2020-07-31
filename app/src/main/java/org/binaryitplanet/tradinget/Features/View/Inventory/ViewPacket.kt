@@ -12,21 +12,26 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import org.binaryitplanet.tradinget.Features.Adapter.PacketDetailsAdapter
+import org.binaryitplanet.tradinget.Features.Prsenter.PacketDetailsPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.PacketPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.StakeholderPresenterIml
 import org.binaryitplanet.tradinget.Features.View.Broker.AddBroker
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
+import org.binaryitplanet.tradinget.Utils.PacketDetailsUtils
 import org.binaryitplanet.tradinget.Utils.PacketUtils
 import org.binaryitplanet.tradinget.databinding.ActivityViewBrokerBinding
 import org.binaryitplanet.tradinget.databinding.ActivityViewPacketBinding
 
-class ViewPacket : AppCompatActivity(), InventoryView {
+class ViewPacket : AppCompatActivity(), InventoryView, ViewPacketDetails {
 
     private val TAG = "ViewPacket"
     private lateinit var binding: ActivityViewPacketBinding
 
     private lateinit var packet: PacketUtils
+    private lateinit var packetDetailsList: ArrayList<PacketDetailsUtils>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +75,71 @@ class ViewPacket : AppCompatActivity(), InventoryView {
         super.onFetchPacketListener(Packet)
         packet = Packet
         setupViews()
+        setUpRecyclerView()
+    }
+
+    override fun onDeleteClickListener(position: Int) {
+        super.onDeleteClickListener(position)
+
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle(Config.DELETE_PACKET_TITLE)
+        builder.setMessage(Config.DELETE_PACKET_MESSAGE)
+
+        builder.setIcon(R.drawable.ic_launcher)
+
+        builder.setPositiveButton(Config.YES_MESSAGE){
+                dialog: DialogInterface?, which: Int ->
+            val presenter = PacketDetailsPresenterIml(this, this)
+            presenter.deletePacketDetails(packetDetailsList[position])
+        }
+
+        builder.setNegativeButton(
+            Config.NO_MESSAGE
+        ){
+                dialog: DialogInterface?, which: Int ->
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    override fun onDeletePacketDetailsListener(status: Boolean) {
+        super.onDeletePacketDetailsListener(status)
+        if (status) {
+            Toast.makeText(
+                this,
+                Config.SUCCESS_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+            setUpRecyclerView()
+        } else {
+            Toast.makeText(
+                this,
+                Config.FAILED_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun setUpRecyclerView() {
+        val presenter = PacketDetailsPresenterIml(this, this)
+        presenter.fetchPacketDetailsList(packet.packetNumber)
+    }
+
+    override fun onFetchPacketDetailsListListener(packetDetailsList: List<PacketDetailsUtils>) {
+        super.onFetchPacketDetailsListListener(packetDetailsList)
+        this.packetDetailsList = packetDetailsList as ArrayList<PacketDetailsUtils>
+        val adapter = PacketDetailsAdapter(
+            this,
+            this,
+            packet,
+            this.packetDetailsList
+        )
+
+        binding.list.adapter = adapter
+        binding.list.layoutManager = LinearLayoutManager(this)
+        binding.list.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
     }
 
 
