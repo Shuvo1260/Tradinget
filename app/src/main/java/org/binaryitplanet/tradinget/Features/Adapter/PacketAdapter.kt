@@ -42,7 +42,7 @@ class PacketAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var view = holder.itemView
 
-        view.packetNumber.text = packetList[position].packetName
+        view.packetNumber.text = packetList[position].packetNumber
         view.packetName.text = packetList[position].packetName
 
         view.weight.text = packetList[position].weight.toString() + " " + Config.CTS

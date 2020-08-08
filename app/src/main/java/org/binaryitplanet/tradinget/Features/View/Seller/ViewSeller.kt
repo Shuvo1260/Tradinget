@@ -19,6 +19,7 @@ import androidx.databinding.DataBindingUtil
 import org.binaryitplanet.tradinget.Features.Common.StakeholderView
 import org.binaryitplanet.tradinget.Features.Prsenter.StakeholderPresenterIml
 import org.binaryitplanet.tradinget.Features.View.Broker.AddBroker
+import org.binaryitplanet.tradinget.Features.View.Ledger.AddLedger
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.StakeholderUtils
@@ -51,6 +52,12 @@ class ViewSeller : AppCompatActivity(), StakeholderView {
                 deleteData()
             }
             return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
+        }
+
+        binding.add.setOnClickListener {
+            val intent = Intent(this, AddLedger::class.java)
+            intent.putExtra(Config.STAKEHOLDER, stakeholder)
+            startActivity(intent)
         }
     }
 

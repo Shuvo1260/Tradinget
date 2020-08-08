@@ -49,6 +49,7 @@
     <string name="orders">Orders</string>
     <string name="packetNumber">Packet number</string>
     <string name="packetName">Packet name</string>
+    <string name="subPacketName">Sub packet no</string>
     <string name="sieve">Sieve</string>
     <string name="weight">Weight (cts)</string>
     <string name="soldWeight">Sold weight (cts)</string>
@@ -58,6 +59,16 @@
     <string name="code">Code</string>
     <string name="remark">Remark</string>
     <string name="packets">Packets</string>
+    <string name="date">Date</string>
+    <string name="dueDate">Due date</string>
+    <string name="broker">Broker</string>
+    <string name="brokerPercentage">Broker percentage[%]</string>
+    <string name="brokerAmount">Broker amount</string>
+    <string name="discountPercentage">Discount percentage[%]</string>
+    <string name="discountAmount">Discount amount</string>
+    <string name="paidAmount">Paid amount</string>
+    <string name="ledgers">Ledgers</string>
+    <string name="addPacket">Add packet</string>
 
 
     <string name="rupeeSign">₹</string>

@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginVertical="@dimen/_10sdp"
-            android:text="@string/orders"
+            android:text="@string/ledgers"
             android:textColor="@color/white"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
@@ -136,17 +136,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/orders" />
 
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_20sdp"
-            android:src="@drawable/ic_add"
-            app:backgroundTint="@color/fabColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

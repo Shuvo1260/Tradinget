@@ -80,7 +80,7 @@ class PacketPresenterIml(
             val databaseManager = DatabaseManager.getInstance(context)!!
             val packetList = databaseManager
                 .getPacketDAO().getPacketList()
-
+            Log.d(TAG, "FetchPacketListSuccess: $packetList")
             inventoryView.onFetchPacketListListener(packetList)
         }catch (e: Exception){
             Log.d(TAG, "FetchPacketListError: ${e.message}")

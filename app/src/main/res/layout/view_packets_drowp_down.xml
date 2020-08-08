@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_5sdp"
+    >
+
+    <TextView
+        android:id="@+id/packetId"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:text="@string/packet"
+        android:textColor="@color/colorPrimaryDark"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/packetName"
+        />
+    <TextView
+        android:id="@+id/packetName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/packet"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginStart="@dimen/_5sdp"
+        app:layout_constraintStart_toEndOf="@id/packetId"
+        app:layout_constraintTop_toTopOf="@id/packetId"
+        app:layout_constraintBottom_toBottomOf="@id/packetId"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

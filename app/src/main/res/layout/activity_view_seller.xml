@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginVertical="@dimen/_10sdp"
-            android:text="@string/orders"
+            android:text="@string/ledgers"
             android:textColor="@color/white"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold"

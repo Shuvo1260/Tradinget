@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="invoiceDetails">Invoice information</string>
+    <string name="invoiceNo">Invoice no</string>
+    <string name="terms">Terms</string>
+    <string name="placeOfSupply">Place of supply</string>
+    <string name="shippingBillNo">Shipping bill no</string>
+    <string name="transporterName">Transporter name</string>
+    <string name="llRRNo">LL/RR No</string>
+    <string name="eCommerce">E-commerce party</string>
+    <string name="eCommerceDate">E-commerce date</string>
+    <string name="invoiceDate">Invoice date</string>
+    <string name="shippingDate">Shipping date:</string>
+
+
+    <string name="sellerDetails">Seller information</string>
+    <string name="buyerDetails">Buyer information</string>
+    <string name="sellerName">Seller name</string>
+    <string name="buyerName">Buyer name</string>
+    <string name="address1">Address 1</string>
+    <string name="address2">Address 2</string>
+    <string name="address3">Address 3</string>
+    <string name="address4">Address 4</string>
+    <string name="stateCode">State code</string>
+    <string name="pan">PAN</string>
+    <string name="gstin">GSTIN</string>
+    <string name="taxPayableOnReverseCharge">Tax is Payable on Reverse Charge:</string>
+
+    <string name="goodsDetails">Goods details</string>
+    <string name="goodsName">Goods name</string>
+    <string name="hsnSACCode">HSN / SAC code</string>
+    <string name="gstRate">GST Rate [%]</string>
+    <string name="mou">MOU</string>
+    <string name="quantity">Quantity</string>
+
+
+    <string name="bankDetails">Bank details</string>
+    <string name="bankNameAndBrunch">Bank name and brunch</string>
+    <string name="currentAccount">Current account</string>
+    <string name="ifsc">IFSC</string>
+
+    <string name="notes">Notes</string>
+    <string name="note">Note</string>
+</resources>

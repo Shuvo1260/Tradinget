@@ -98,5 +98,7 @@ dependencies {
 
 
     implementation 'com.itextpdf:itextpdf:5.5.13'
+//    implementation 'com.itextpdf:layout:7.0.0'
 
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

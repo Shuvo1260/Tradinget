@@ -4,13 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import org.binaryitplanet.tradinget.Utils.Config
-import org.binaryitplanet.tradinget.Utils.PacketDetailsUtils
-import org.binaryitplanet.tradinget.Utils.PacketUtils
-import org.binaryitplanet.tradinget.Utils.StakeholderUtils
+import org.binaryitplanet.tradinget.Utils.*
 
 @Database(
-    entities = [StakeholderUtils::class, PacketUtils::class, PacketDetailsUtils::class],
+    entities = [
+        StakeholderUtils::class, PacketUtils::class, PacketDetailsUtils::class,
+    SoldPacketUtils::class, LedgerUtils::class
+    ],
     version = Config.DATABASE_VERSION
 )
 abstract class DatabaseManager: RoomDatabase() {
@@ -18,6 +18,8 @@ abstract class DatabaseManager: RoomDatabase() {
     abstract fun getStakeholderDAO(): StakeholderDAO
     abstract fun getPacketDAO(): PacketDAO
     abstract fun getPacketDetailsDAO(): PacketDetailsDAO
+    abstract fun getSoldPacketDAO(): SoldPacketDAO
+    abstract fun getLedgerDAO(): LedgerDAO
 
     companion object{
         var INSTANCE: DatabaseManager? = null

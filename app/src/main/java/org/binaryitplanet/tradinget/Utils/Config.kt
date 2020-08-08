@@ -26,6 +26,8 @@ class Config {
         val BACKUP_REQUEST_CODE = 101
         val RESTORE_REQUEST_CODE = 102
         val REQUEST_CALL = 103
+        val PICK_IMAGE = "Pick image"
+        val PICK_IMAGE_REQUEST_CODE = 104
 
         // Toolbar titles
         val TOOLBAR_TITLE_HOME = "Home"
@@ -40,6 +42,7 @@ class Config {
         val TOOLBAR_TITLE_ADD_BROKER = "Add broker"
         val TOOLBAR_TITLE_ADD_SELLER = "Add seller"
         val TOOLBAR_TITLE_ADD_PACKET = "Add packet"
+        val TOOLBAR_TITLE_ADD_LEDGER = "Add ledger"
         val TOOLBAR_TITLE_ADD_PACKET_DETAILS = "Add packet details"
         val TOOLBAR_TITLE_UPDATE_BUYER = "Update buyer"
         val TOOLBAR_TITLE_UPDATE_BROKER = "Update broker"
@@ -72,6 +75,8 @@ class Config {
         // Tables
         const val TABLE_STAKEHOLDER = "Stakeholder_table"
         const val TABLE_PACKET = "Packet_table"
+        const val TABLE_LEDGER = "Ledger_table"
+        const val TABLE_SOLD_PACKET = "Sold_packet_table"
         const val TABLE_PACKET_DETAILS = "Packet_details_table"
 
         // Columns
@@ -95,7 +100,31 @@ class Config {
         const val COLUMN_PRICE = "Price"
         const val COLUMN_CODE = "Code"
         const val COLUMN_REMARK = "Remark"
+        const val COLUMN_LEDGER_ID = "Ledger_ID"
+        const val COLUMN_STAKEHOLDER_ID = "Stakeholder_ID"
+        const val COLUMN_BROKER_ID = "Broker_ID"
+        const val COLUMN_BROKER_NAME = "Broker_name"
+        const val COLUMN_BROKER_PERCENTAGE = "Broker_percentage"
+        const val COLUMN_BROKER_AMOUNT = "Broker_amount"
+        const val COLUMN_BROKERAGE_AMOUNT = "Brokerage_amount"
 
+        const val COLUMN_DISCOUNT_PERCENTAGE = "Discount_percentage"
+        const val COLUMN_DISCOUNT_AMOUNT = "Discount_amount"
+
+        const val COLUMN_TOTAL_AMOUNT = "Total_amount"
+        const val COLUMN_PAID_AMOUNT = "Paid_amount"
+        const val COLUMN_TOTAL_WEIGHT = "Total_weight"
+        const val COLUMN_TOTAL_PACKETS = "Total_packets"
+
+        const val COLUMN_MONTH = "Month"
+        const val COLUMN_DATE = "Date"
+        const val COLUMN_DATE_MILLI = "Date_milli"
+        const val COLUMN_DUE_DATE = "Due_date"
+        const val COLUMN_DUE_DATE_MILLI = "Due_date_milli"
+
+        const val COLUMN_IMAGE_URL = "Image_url"
+
+        const val COLUMN_INVOICE_URL = "Invoice_url"
 
         // Invoice
         val PDF_FORMAT = ".pdf"
