@@ -7,6 +7,7 @@ interface LedgerPresenter {
     fun insertLedger(ledgerUtils: LedgerUtils, soldPacketList: ArrayList<SoldPacketUtils>)
     fun deleteLedger(ledgerUtils: LedgerUtils)
     fun updateLedger(ledgerUtils: LedgerUtils)
+    fun fetchLedgerById(id: String)
     fun fetchLedgerListByStakeholderId(id: Long)
     fun fetchLedgerListByBrokerId(id: Long)
 

@@ -78,6 +78,18 @@ class LedgerPresenterIml(
         }
     }
 
+    override fun fetchLedgerById(id: String) {
+        try{
+
+            val databaseManager = DatabaseManager.getInstance(context)!!
+            val ledger = databaseManager.getLedgerDAO()
+                .getLedgerByLedgerId(id)
+            viewLedgers.onFetchLedger(ledger)
+        }catch (e: Exception){
+            Log.d(TAG, "FetchLedgerError: ${e.message}")
+        }
+    }
+
     override fun fetchLedgerListByStakeholderId(id: Long) {
         try {
             val databaseManager = DatabaseManager.getInstance(context)!!
@@ -85,7 +97,7 @@ class LedgerPresenterIml(
                 .getLedgerListByStakeholderId(id)
             viewLedgers.onFetchLedgerListListener(ledgerList)
         }catch (e: Exception){
-            Log.d(TAG, "InsertLedgerError: ${e.message}")
+            Log.d(TAG, "FetchLedgerListError: ${e.message}")
         }
     }
 
@@ -97,7 +109,7 @@ class LedgerPresenterIml(
                 .getLedgerListByBrokerId(id)
             viewLedgers.onFetchLedgerListListener(ledgerList)
         }catch (e: Exception){
-            Log.d(TAG, "InsertLedgerError: ${e.message}")
+            Log.d(TAG, "FetchLedgerListError: ${e.message}")
         }
     }
 

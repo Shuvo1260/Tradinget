@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Features.View.Ledger.ViewLedger">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorPrimaryDark"
+        >
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/navigationHeadColor"
+            android:theme="@style/overFlowMenuTheme"
+            app:popupTheme="@style/popupStyle" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:src="@drawable/ic_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/middleLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    app:layout_constraintTop_toBottomOf="@id/image"
+                    >
+
+                    <TextView
+                        android:id="@+id/ledgerId"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="32443"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:transitionName="@string/nameTransition"
+                        />
+
+                    <TextView
+                        android:id="@+id/stakeHolderName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="stakeHolder"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/ledgerId"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/brokerName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="broker"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/stakeHolderName"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/brokerPercentage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="broker"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/brokerName"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/brokerAmount"
+                        />
+
+                    <TextView
+                        android:id="@+id/brokerAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="broker"
+                        android:gravity="end"
+                        app:layout_constraintTop_toTopOf="@id/brokerPercentage"
+                        app:layout_constraintBottom_toBottomOf="@id/brokerPercentage"
+                        app:layout_constraintStart_toEndOf="@id/brokerPercentage"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/discountPercentage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/discountPercentage"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/brokerPercentage"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/discountAmount"
+                        />
+
+                    <TextView
+                        android:id="@+id/discountAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/discountAmount"
+                        android:gravity="end"
+                        app:layout_constraintTop_toTopOf="@id/discountPercentage"
+                        app:layout_constraintBottom_toBottomOf="@id/discountPercentage"
+                        app:layout_constraintStart_toEndOf="@id/discountPercentage"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/totalWeight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/weight"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/discountPercentage"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/totalPackets"
+                        android:transitionName="@string/weightTransition"
+                        />
+
+                    <TextView
+                        android:id="@+id/totalPackets"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/packet"
+                        android:gravity="end"
+                        app:layout_constraintTop_toTopOf="@id/totalWeight"
+                        app:layout_constraintBottom_toBottomOf="@id/totalWeight"
+                        app:layout_constraintStart_toEndOf="@id/totalWeight"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/totalAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/weight"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/totalWeight"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/paidAmount"
+                        android:transitionName="@string/priceTransition"
+                        />
+
+                    <TextView
+                        android:id="@+id/paidAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/packet"
+                        android:gravity="end"
+                        app:layout_constraintTop_toTopOf="@id/totalAmount"
+                        app:layout_constraintBottom_toBottomOf="@id/totalAmount"
+                        app:layout_constraintStart_toEndOf="@id/totalAmount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/brokerage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/weight"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/totalAmount"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/due"
+                        />
+
+                    <TextView
+                        android:id="@+id/due"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/packet"
+                        android:gravity="end"
+                        app:layout_constraintTop_toTopOf="@id/brokerage"
+                        app:layout_constraintBottom_toBottomOf="@id/brokerage"
+                        app:layout_constraintStart_toEndOf="@id/brokerage"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/weight"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/brokerage"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/dueDate"
+                        />
+
+                    <TextView
+                        android:id="@+id/dueDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/packet"
+                        android:gravity="end"
+                        app:layout_constraintTop_toTopOf="@id/date"
+                        app:layout_constraintBottom_toBottomOf="@id/date"
+                        app:layout_constraintStart_toEndOf="@id/date"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/remark"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/remark"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/date"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+
+
+                    <Button
+                        android:id="@+id/makeTransaction"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@drawable/button_background"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingVertical="@dimen/_5sdp"
+                        android:text="@string/makeTransaction"
+                        app:layout_constraintEnd_toStartOf="@id/invoice"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/remark" />
+
+
+                    <Button
+                        android:id="@+id/invoice"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/button_background"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingVertical="@dimen/_5sdp"
+                        android:text="Invoice"
+
+                        app:layout_constraintBottom_toBottomOf="@+id/makeTransaction"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/makeTransaction"
+                        app:layout_constraintTop_toTopOf="@+id/makeTransaction" />
+
+
+                    <TextView
+                        android:id="@+id/packets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/packets"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintTop_toBottomOf="@id/makeTransaction"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/middleLayout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

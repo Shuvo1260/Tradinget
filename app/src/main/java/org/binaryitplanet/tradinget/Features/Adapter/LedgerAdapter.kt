@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.view_ledger_list_item.view.*
 import kotlinx.android.synthetic.main.view_list_item_packet.view.*
 import org.binaryitplanet.tradinget.Features.View.Buyer.ViewBuyer
 import org.binaryitplanet.tradinget.Features.View.Inventory.ViewPacket
+import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedger
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.LedgerUtils
@@ -48,7 +49,7 @@ class LedgerAdapter(
         view.ledgerId.text = ledgerList[position].ledgerId
 
         view.date.text = "Date: " + ledgerList[position].date
-        view.date.text = "Due date: " + ledgerList[position].dueDate
+        view.dueDate.text = "Due date: " + ledgerList[position].dueDate
 
         view.totalWeight.text = ledgerList[position].totalWeight.toString() + " " + Config.CTS
         view.totalAmount.text = Config.RUPEE_SIGN + " " + ledgerList[position].totalAmount.toString()
@@ -58,11 +59,12 @@ class LedgerAdapter(
         view.setOnClickListener {
             Log.d(TAG, "PacketClicked: $position")
 
-            var intent: Intent? = Intent(context, ViewPacket::class.java)
+            var intent: Intent? = Intent(context, ViewLedger::class.java)
 
 
             // Passing selected item data
-            intent!!.putExtra(Config.PACKET, ledgerList[position])
+            intent!!.putExtra(Config.LEDGER, ledgerList[position])
+            intent!!.putExtra(Config.BROKER_FLAG, isBroker)
 
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                // Creating animation options
@@ -86,8 +88,8 @@ class LedgerAdapter(
 //                context.window.exitTransition = null
 //                context.startActivity(intent, options.toBundle())
 //            } else {
-//                context.startActivity(intent)
 //            }
+            context.startActivity(intent)
         }
     }
 

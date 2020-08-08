@@ -21,6 +21,8 @@ class Config {
         val NO_MESSAGE = "No"
         val RUPEE_SIGN = "₹"
         val CTS = "cts"
+        val DEBIT = "Debit"
+        val CREDIT = "Credit"
 
         // Codes
         val BACKUP_REQUEST_CODE = 101
@@ -28,6 +30,7 @@ class Config {
         val REQUEST_CALL = 103
         val PICK_IMAGE = "Pick image"
         val PICK_IMAGE_REQUEST_CODE = 104
+        val INVOICE_REQUEST_CODE = 105
 
         // Toolbar titles
         val TOOLBAR_TITLE_HOME = "Home"
@@ -54,6 +57,8 @@ class Config {
         val OPERATION_FLAG = "OperationFlag"
         val STAKEHOLDER = "Stakeholder"
         val PACKET = "Packet"
+        val LEDGER = "Ledger"
+        val BROKER_FLAG = "BrokerFlag"
         val PACKET_DETAILS = "PacketDetails"
 
         // Inventory tab position

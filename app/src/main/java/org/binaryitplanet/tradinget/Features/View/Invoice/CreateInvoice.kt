@@ -2,12 +2,14 @@ package org.binaryitplanet.tradinget.Features.View.Invoice
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
 import android.util.Log
 import android.view.Menu
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.*
@@ -26,6 +28,7 @@ class CreateInvoice : AppCompatActivity() {
     // Variables
     private lateinit var invoiceName: String
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_invoice)
@@ -36,10 +39,25 @@ class CreateInvoice : AppCompatActivity() {
 
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.done) {
-                val invoiceBuilder = InvoiceBuilder(this)
-                invoiceBuilder.createPdf()
+
+                val permissions:Array<String> = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                requestPermissions(permissions, Config.INVOICE_REQUEST_CODE)
             }
             return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        Log.d(TAG, "code: $requestCode, $permissions, $grantResults")
+        if (requestCode == Config.INVOICE_REQUEST_CODE && grantResults.isNotEmpty()) {
+            val invoiceBuilder = InvoiceBuilder(this)
+            invoiceBuilder.createPdf()
         }
     }
 

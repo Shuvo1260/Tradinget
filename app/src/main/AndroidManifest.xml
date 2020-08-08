@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Features.View.Ledger.AddLedger"></activity>
+        <activity android:name=".Features.View.Ledger.Transaction"></activity>
+        <activity android:name=".Features.View.Ledger.ViewLedger" />
+        <activity android:name=".Features.View.Ledger.AddLedger" />
         <activity android:name=".Features.View.Inventory.AddPacketDetails" />
         <activity android:name=".Features.View.Inventory.ViewPacket" />
         <activity android:name=".Features.View.Invoice.CreateInvoice" />

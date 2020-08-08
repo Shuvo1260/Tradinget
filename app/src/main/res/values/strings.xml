@@ -69,6 +69,8 @@
     <string name="paidAmount">Paid amount</string>
     <string name="ledgers">Ledgers</string>
     <string name="addPacket">Add packet</string>
+    <string name="makeTransaction">Make Transaction</string>
+    <string name="transactionType">Transaction type</string>
 
 
     <string name="rupeeSign">₹</string>

@@ -2,6 +2,7 @@ package org.binaryitplanet.tradinget.Features.View.Invoice
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,14 +34,31 @@ class Invoice : Fragment() {
             activity?.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
         }
 
+        val permissions:Array<String> = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        requestPermissions(permissions, Config.INVOICE_REQUEST_CODE)
+
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
+
         getInvoices()
     }
 
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        Log.d(TAG, "code: $requestCode, $permissions, $grantResults")
+        if (requestCode == Config.INVOICE_REQUEST_CODE && grantResults.isNotEmpty()) {
+            onResume()
+        }
+    }
     private fun getInvoices() {
         var source = File(Config.PDF_DIR_PATH)
 

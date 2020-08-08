@@ -10,6 +10,8 @@ interface ViewLedgers {
     fun onLedgerDeleteListener(status: Boolean){}
     fun onLedgerUpdateListener(status: Boolean){}
 
+    fun onFetchLedger(ledger: LedgerUtils){}
+
     fun onFetchLedgerListListener(ledgerList: List<LedgerUtils>){}
 
     fun onFetchSoldPacketListListener(soldPacketList: List<SoldPacketUtils>){}
