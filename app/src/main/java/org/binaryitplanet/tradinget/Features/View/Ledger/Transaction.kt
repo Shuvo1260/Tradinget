@@ -77,14 +77,19 @@ class Transaction : AppCompatActivity(), ViewLedgers {
             binding.amount.requestFocus()
             return false
         }
+        if (transactionType.isNullOrEmpty()) {
+            binding.transactionType.error = Config.REQUIRED_FIELD
+            binding.transactionType.requestFocus()
+            return false
+        }
         return true
     }
 
     private fun setViews() {
         var type = arrayListOf<String>(Config.CREDIT, Config.DEBIT)
+        Log.d(TAG, "Types: $type")
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, type)
         binding.transactionType.setAdapter(adapter)
-        binding.transactionType.setText(type[0])
     }
 
     override fun onResume() {
