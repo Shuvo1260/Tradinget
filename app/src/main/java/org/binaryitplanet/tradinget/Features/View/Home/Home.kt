@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.binaryitplanet.tradinget.Features.Prsenter.HomePresenterIml
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.databinding.FragmentHomeBinding
 
-class Home : Fragment() {
+class Home : Fragment(), HomeView {
 
     private val TAG = "Home"
     private lateinit var binding: FragmentHomeBinding
@@ -22,6 +23,37 @@ class Home : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         setupListeners()
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val presenter = HomePresenterIml(context!!, this)
+        presenter.fetchHomeItems()
+    }
+
+    override fun onHomeItemsFetchListner(
+        totalPayment: Double,
+        duePayment: Double,
+        weight: Double,
+        inventoryValue: Double,
+        overDueDate: Int,
+        underDueDate: Int
+    ) {
+        super.onHomeItemsFetchListner(
+            totalPayment,
+            duePayment,
+            weight,
+            inventoryValue,
+            overDueDate,
+            underDueDate
+        )
+        binding.paymentOfThisMonth.text = Config.RUPEE_SIGN + " " + totalPayment
+        binding.duePayment.text = Config.RUPEE_SIGN + " " + duePayment
+        binding.totalInventoryWeight.text = weight.toString() + " " + Config.CTS
+        binding.totalInventoryValue.text = Config.RUPEE_SIGN + " " + inventoryValue
+
+        binding.overDueDate.text = overDueDate.toString()
+        binding.underDueDate.text = underDueDate.toString()
     }
 
     private fun setupListeners() {

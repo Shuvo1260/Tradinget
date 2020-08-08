@@ -2,6 +2,7 @@ package org.binaryitplanet.tradinget.Features.Model
 
 import androidx.room.*
 import org.binaryitplanet.tradinget.Utils.LedgerUtils
+import java.time.Month
 
 @Dao
 interface LedgerDAO {
@@ -20,4 +21,22 @@ interface LedgerDAO {
 
     @Query("SELECT * FROM LEDGER_TABLE WHERE Broker_ID ==:brokerId")
     fun getLedgerListByBrokerId(brokerId: Long): List<LedgerUtils>
+
+    @Query("SELECT SUM(Total_amount) FROM LEDGER_TABLE WHERE Month ==:month")
+    fun getTotalPaymentOfMonth(month: Int): Double
+
+    @Query("SELECT * FROM LEDGER_TABLE WHERE Paid_amount < Total_amount")
+    fun getDueLedgerList(): List<LedgerUtils>
+
+    @Query("SELECT COUNT(Due_date_milli) FROM LEDGER_TABLE WHERE Due_date_milli <= :currentTime")
+    fun getTotalOverDueDate(currentTime: Long): Int
+
+    @Query("SELECT COUNT(Due_date_milli) FROM LEDGER_TABLE WHERE Due_date_milli > :currentTime")
+    fun getTotalUnderDueDate(currentTime: Long): Int
+
+    @Query("SELECT * FROM LEDGER_TABLE WHERE Due_date_milli <= :currentTime")
+    fun getOverDueDateList(currentTime: Long): List<LedgerUtils>
+
+    @Query("SELECT * FROM LEDGER_TABLE WHERE Due_date_milli > :currentTime")
+    fun getUnderDueDateList(currentTime: Long): List<LedgerUtils>
 }
