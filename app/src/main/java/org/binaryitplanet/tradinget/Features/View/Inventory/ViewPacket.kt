@@ -199,7 +199,7 @@ class ViewPacket : AppCompatActivity(), InventoryView, ViewPacketDetails {
     private fun setupViews() {
         binding.packetName.text = packet.packetName
         binding.weight.text = packet.weight.toString() + " " + Config.CTS
-        binding.price.text = packet.price.toString() + " " + Config.RUPEE_SIGN
+        binding.price.text = Config.RUPEE_SIGN + " " + packet.price.toString()
         binding.rate.text = packet.rate.toString()
         binding.code.text = packet.code
         if (packet.remark.isNullOrEmpty())

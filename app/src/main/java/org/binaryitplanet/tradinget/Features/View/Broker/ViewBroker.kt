@@ -17,15 +17,20 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import org.binaryitplanet.tradinget.Features.Adapter.LedgerAdapter
 import org.binaryitplanet.tradinget.Features.Common.StakeholderView
+import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.StakeholderPresenterIml
+import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedgers
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
+import org.binaryitplanet.tradinget.Utils.LedgerUtils
 import org.binaryitplanet.tradinget.Utils.StakeholderUtils
 import org.binaryitplanet.tradinget.databinding.ActivityAddBrokerBinding
 import org.binaryitplanet.tradinget.databinding.ActivityViewBrokerBinding
 
-class ViewBroker : AppCompatActivity(), StakeholderView {
+class ViewBroker : AppCompatActivity(), StakeholderView, ViewLedgers {
 
     private val TAG = "ViewBroker"
     private lateinit var binding: ActivityViewBrokerBinding
@@ -65,6 +70,21 @@ class ViewBroker : AppCompatActivity(), StakeholderView {
         super.onFetchStakeholderListener(stakeholder)
         this.stakeholder = stakeholder
         setupViews()
+        val presenter = LedgerPresenterIml(this, this)
+        presenter.fetchLedgerListByBrokerId(stakeholder.id!!)
+    }
+
+    override fun onFetchLedgerListListener(ledgerList: List<LedgerUtils>) {
+        super.onFetchLedgerListListener(ledgerList)
+        val adapter = LedgerAdapter(
+            this,
+            ledgerList as ArrayList<LedgerUtils>,
+            false
+        )
+
+        binding.list.adapter = adapter
+        binding.list.layoutManager = LinearLayoutManager(this)
+        binding.list.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
     }
 
     private fun deleteData() {

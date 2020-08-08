@@ -16,17 +16,22 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import org.binaryitplanet.tradinget.Features.Adapter.LedgerAdapter
 import org.binaryitplanet.tradinget.Features.Common.StakeholderView
+import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.StakeholderPresenterIml
 import org.binaryitplanet.tradinget.Features.View.Broker.AddBroker
 import org.binaryitplanet.tradinget.Features.View.Ledger.AddLedger
+import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedgers
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
+import org.binaryitplanet.tradinget.Utils.LedgerUtils
 import org.binaryitplanet.tradinget.Utils.StakeholderUtils
 import org.binaryitplanet.tradinget.databinding.ActivityViewBrokerBinding
 import org.binaryitplanet.tradinget.databinding.ActivityViewSellerBinding
 
-class ViewSeller : AppCompatActivity(), StakeholderView {
+class ViewSeller : AppCompatActivity(), StakeholderView, ViewLedgers {
 
     private val TAG = "ViewSeller"
     private lateinit var binding: ActivityViewSellerBinding
@@ -71,6 +76,21 @@ class ViewSeller : AppCompatActivity(), StakeholderView {
         super.onFetchStakeholderListener(stakeholder)
         this.stakeholder = stakeholder
         setupViews()
+        val presenter = LedgerPresenterIml(this, this)
+        presenter.fetchLedgerListByStakeholderId(stakeholder.id!!)
+    }
+
+    override fun onFetchLedgerListListener(ledgerList: List<LedgerUtils>) {
+        super.onFetchLedgerListListener(ledgerList)
+        val adapter = LedgerAdapter(
+            this,
+            ledgerList as ArrayList<LedgerUtils>,
+            false
+        )
+
+        binding.list.adapter = adapter
+        binding.list.layoutManager = LinearLayoutManager(this)
+        binding.list.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
     }
 
     private fun deleteData() {

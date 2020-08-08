@@ -46,7 +46,7 @@ class PacketAdapter(
         view.packetName.text = packetList[position].packetName
 
         view.weight.text = packetList[position].weight.toString() + " " + Config.CTS
-        view.price.text = packetList[position].price.toString() + " " + Config.RUPEE_SIGN
+        view.price.text = Config.RUPEE_SIGN + " " + packetList[position].price.toString()
 
 
 
