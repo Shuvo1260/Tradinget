@@ -100,4 +100,27 @@ class LedgerPresenterIml(
             Log.d(TAG, "InsertLedgerError: ${e.message}")
         }
     }
+
+    override fun fetchSoldPacketListByLedgerId(ledgerId: String) {
+        try {
+            val databaseManager = DatabaseManager.getInstance(context)!!
+            val soldPacketList = databaseManager.getSoldPacketDAO()
+                .getSoldPacketListByLedgerId(ledgerId)
+            viewLedgers.onFetchSoldPacketListListener(soldPacketList)
+        } catch (e: Exception) {
+            Log.d(TAG, "FetchSoldPacketListByLedgerIdError: ${e.message}")
+        }
+    }
+
+    override fun fetchSoldPacketList() {
+
+        try {
+            val databaseManager = DatabaseManager.getInstance(context)!!
+            val soldPacketList = databaseManager.getSoldPacketDAO()
+                .getSoldPacketList()
+            viewLedgers.onFetchSoldPacketListListener(soldPacketList)
+        } catch (e: Exception) {
+            Log.d(TAG, "FetchSoldPacketListByError: ${e.message}")
+        }
+    }
 }

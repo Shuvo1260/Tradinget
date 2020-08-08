@@ -9,4 +9,8 @@ interface LedgerPresenter {
     fun updateLedger(ledgerUtils: LedgerUtils)
     fun fetchLedgerListByStakeholderId(id: Long)
     fun fetchLedgerListByBrokerId(id: Long)
+
+    fun fetchSoldPacketListByLedgerId(ledgerId: String)
+
+    fun fetchSoldPacketList()
 }

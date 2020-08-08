@@ -5,18 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.view_ledger_packet_list_item.view.*
-import kotlinx.android.synthetic.main.view_list_item_packet.view.weight
-import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedgers
+import kotlinx.android.synthetic.main.view_sold_packet_item_view.view.*
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.SoldPacketUtils
 
-class LedgerPacketAdapter(
+class SoldPacketAdapter(
     val context: Context,
-    val packetList: ArrayList<SoldPacketUtils>,
-    val viewLedger: ViewLedgers
-): RecyclerView.Adapter<LedgerPacketAdapter.ViewHolder>() {
+    val packetList: ArrayList<SoldPacketUtils>
+): RecyclerView.Adapter<SoldPacketAdapter.ViewHolder>() {
     private val TAG = "PacketAdapter"
     // Holding the view
 
@@ -25,7 +22,7 @@ class LedgerPacketAdapter(
             LayoutInflater
                 .from(context)
                 .inflate(
-                    R.layout.view_ledger_packet_list_item,
+                    R.layout.view_sold_packet_item_view,
                     parent,
                     false
                 )
@@ -37,15 +34,14 @@ class LedgerPacketAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var view = holder.itemView
 
-        view.packet.text = "Packet: " + packetList[position].packetNumber
-        view.subPacket.text = "Sub packet: " + packetList[position].packetDetailsNumber
+        view.ledgerId.text = "Ledger id: " + packetList[position].ledgerId
+        view.packetName.text = "Packet name: " + packetList[position].packetName
+
+        view.packetNumber.text = "Packet: " + packetList[position].packetNumber
+        view.subPacketNumber.text = "Sub packet: " + packetList[position].packetDetailsNumber
 
         view.weight.text = packetList[position].weight.toString() + " " + Config.CTS
         view.rate.text = Config.RUPEE_SIGN + " " + packetList[position].rate.toString()
-
-        view.delete.setOnClickListener {
-            viewLedger.onPacketDeleteListener(position)
-        }
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {}

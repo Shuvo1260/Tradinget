@@ -17,4 +17,7 @@ interface SoldPacketDAO {
 
     @Query("SELECT * FROM Sold_packet_table WHERE Ledger_ID ==:ledgerId")
     fun getSoldPacketListByLedgerId(ledgerId: String): List<SoldPacketUtils>
+
+    @Query("SELECT * FROM Sold_packet_table")
+    fun getSoldPacketList(): List<SoldPacketUtils>
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_item_background"
+    android:layout_marginHorizontal="@dimen/_10sdp"
+    android:layout_marginVertical="@dimen/_5sdp"
+    android:padding="@dimen/_10sdp"
+    >
+
+    <TextView
+        android:id="@+id/ledgerId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="46556"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/packetName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/packetName"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ledgerId" />
+
+    <TextView
+        android:id="@+id/packetNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/packetName"
+        android:textColor="@color/white"
+        android:gravity="start"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintEnd_toStartOf="@id/subPacketNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/packetName" />
+
+    <TextView
+        android:id="@+id/subPacketNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/packetName"
+        android:textColor="@color/white"
+        android:gravity="end"
+        android:layout_marginStart="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/packetNumber"
+        app:layout_constraintTop_toTopOf="@id/packetNumber"
+        app:layout_constraintBottom_toBottomOf="@id/packetNumber"
+        />
+
+    <TextView
+        android:id="@+id/weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/packetName"
+        android:textColor="@color/white"
+        android:gravity="start"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintEnd_toStartOf="@id/rate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/packetNumber" />
+
+    <TextView
+        android:id="@+id/rate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/packetName"
+        android:textColor="@color/white"
+        android:gravity="end"
+        android:layout_marginStart="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/weight"
+        app:layout_constraintTop_toTopOf="@id/weight"
+        app:layout_constraintBottom_toBottomOf="@id/weight"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
