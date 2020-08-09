@@ -35,10 +35,15 @@
 
 
     <string name="bankDetails">Bank details</string>
+    <string name="taxDetails">Tax details</string>
     <string name="bankNameAndBrunch">Bank name and brunch</string>
     <string name="currentAccount">Current account</string>
     <string name="ifsc">IFSC</string>
 
     <string name="notes">Notes</string>
     <string name="note">Note</string>
+    <string name="cgst">CGST rate[%]</string>
+    <string name="sgst">SGST rate[%]</string>
+    <string name="igst">IGST rate[%]</string>
+    <string name="roundingDifference">Rounding difference</string>
 </resources>

@@ -1,24 +1,17 @@
 package org.binaryitplanet.tradinget.Features.View.Invoice
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.print.PrintAttributes
-import android.print.PrintManager
 import android.util.Log
 import android.view.Menu
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import com.itextpdf.text.*
-import com.itextpdf.text.pdf.*
-import org.binaryitplanet.tradinget.Features.Adapter.InvoicePrintAdapter
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
+import org.binaryitplanet.tradinget.Utils.InvoiceUtils
 import org.binaryitplanet.tradinget.databinding.ActivityCreateInvoiceBinding
-import java.io.File
-import java.io.FileOutputStream
 import java.util.*
 
 class CreateInvoice : AppCompatActivity() {
@@ -56,8 +49,77 @@ class CreateInvoice : AppCompatActivity() {
 
         Log.d(TAG, "code: $requestCode, $permissions, $grantResults")
         if (requestCode == Config.INVOICE_REQUEST_CODE && grantResults.isNotEmpty()) {
+
+
+            var serialNo = "1\n2"
+            var goods = "Cut & Polished \nDiamond"
+            var hsnSACCode = "24323243\n4343243"
+            var gstRate = "0.25\n0.35"
+            var mou = "Carats\nTola"
+            var quality = "3.95\n3.45"
+            var rate = "1,000.00\n2,000.00"
+            var amount = "3.950.00\n3,450,00"
+            var notes = "Notes\n 1. sfdlkjsdf"
+
             val invoiceBuilder = InvoiceBuilder(this)
-            invoiceBuilder.createPdf()
+            val invoice = InvoiceUtils(
+                "123456",
+                "09/08/2020",
+                "10",
+                "SURAT",
+                "N.A.",
+                "N.A.",
+                "BY HAND TO HAND",
+                "N.A",
+                "N.A.",
+                "N.A.",
+                "Sharee brahmani gems",
+                "1",
+                "2",
+                "3",
+                "4",
+                "24",
+                "SellerPan",
+                "SellerGSTIN",
+                "HARSH DIAM",
+                "Ad1",
+                "Ad2",
+                "Ad3",
+                "Ad4",
+                "24",
+                "BuyerPan",
+                "BuyerGSTIN",
+                "No",
+                "243234342",
+                "0.125",
+                "4.94",
+                "0.125",
+                "4.94",
+                "0.000",
+                "-",
+                "-9.88",
+                "3.95",
+                "3,950.0",
+                "3,950.0",
+                "3.95",
+                "Bank",
+                "53264545",
+                "2423432"
+            )
+            if (invoiceBuilder.createPdf(
+                    invoice,
+                    serialNo,
+                    goods,
+                    hsnSACCode,
+                    gstRate,
+                    mou,
+                    quality,
+                    rate,
+                    amount,
+                    notes
+                )){
+//                onBackPressed()
+            }
         }
     }
 

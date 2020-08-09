@@ -776,6 +776,16 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/goodsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxHeight="@dimen/_150sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/goodsDetailsTitle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/goodsNameLayout"
@@ -788,7 +798,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/goodsDetailsTitle">
+                        app:layout_constraintTop_toBottomOf="@+id/goodsList">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/goodsName"
@@ -799,28 +809,6 @@
                             android:textColor="@color/white" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/goodsHscSacCodeLayout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hsnSACCode"
-                        android:textColorHint="@color/colorPrimary"
-                        app:boxStrokeColor="@color/white"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        app:layout_constraintEnd_toStartOf="@id/gstRateLayout"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/goodsNameLayout">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/goodsHscSacCode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:imeOptions="actionNext"
-                            android:singleLine="true"
-                            android:textColor="@color/white" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/gstRateLayout"
@@ -830,10 +818,10 @@
                         android:hint="@string/gstRate"
                         android:textColorHint="@color/colorPrimary"
                         app:boxStrokeColor="@color/white"
-                        app:layout_constraintBottom_toBottomOf="@+id/goodsHscSacCodeLayout"
+                        android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/goodsHscSacCodeLayout"
-                        app:layout_constraintTop_toTopOf="@+id/goodsHscSacCodeLayout">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/goodsNameLayout">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/gstRate"
@@ -856,7 +844,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/goodsHscSacCodeLayout">
+                        app:layout_constraintTop_toBottomOf="@+id/gstRateLayout">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/mou"
@@ -916,8 +904,168 @@
                             android:textColor="@color/white" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <Button
+                        android:id="@+id/addGood"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_background"
+                        android:text="Add good"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingVertical="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/goodsRateLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 <!--                Goods section ends-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/taxSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    app:layout_constraintTop_toBottomOf="@id/goodsDetailsLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    >
+
+                    <TextView
+                        android:id="@+id/taxDetailsTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/taxDetails"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/goodsHscSacCodeLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hsnSACCode"
+                        android:textColorHint="@color/colorPrimary"
+                        app:boxStrokeColor="@color/white"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/taxDetailsTitle">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/goodsHscSacCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/cgstRateLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/cgst"
+                        android:textColorHint="@color/colorPrimary"
+                        app:boxStrokeColor="@color/white"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/goodsHscSacCodeLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/cgstRate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/sgstRateLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/sgst"
+                        android:textColorHint="@color/colorPrimary"
+                        app:boxStrokeColor="@color/white"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cgstRateLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/sgstRate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/igstRateLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/igst"
+                        android:textColorHint="@color/colorPrimary"
+                        app:boxStrokeColor="@color/white"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/sgstRateLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/igstRate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/roundingDifferenceLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/roundingDifference"
+                        android:textColorHint="@color/colorPrimary"
+                        app:boxStrokeColor="@color/white"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/igstRateLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/roundingDifference"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
 
 <!--                Bank section starts-->
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -927,7 +1075,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/goodsDetailsLayout">
+                    app:layout_constraintTop_toBottomOf="@id/taxSection">
 
                     <TextView
                         android:id="@+id/bankDetailsTitle"
