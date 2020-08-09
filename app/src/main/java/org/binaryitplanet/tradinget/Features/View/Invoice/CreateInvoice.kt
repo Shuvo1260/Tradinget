@@ -10,6 +10,10 @@ import android.view.Menu
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_create_invoice.view.*
+import org.binaryitplanet.tradinget.Features.Adapter.GoodsAdapter
+import org.binaryitplanet.tradinget.Features.Adapter.NoteListAdapter
 import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedgers
 import org.binaryitplanet.tradinget.R
@@ -46,6 +50,13 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
     private lateinit var ecommerceDateString: String
     private lateinit var invoiceDateString: String
     private lateinit var shippingDateString: String
+    
+    private lateinit var goodsName: String
+    private lateinit var goodsGstRateString: String
+    private lateinit var goodsMou: String
+    private lateinit var goodsQuantityString: String
+    private lateinit var goodsRateString: String
+    private lateinit var goodsTotalString: String
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +75,97 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
             }
             return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
         }
+
+        binding.addNote.setOnClickListener {
+            if (binding.note.text.isNullOrEmpty()) {
+                binding.note.error = Config.REQUIRED_FIELD
+                binding.note.requestFocus()
+            } else {
+                notesList.add(
+                    (notesList.size + 1).toString() + ". " + binding.note.text.toString()
+                )
+
+                val adapter = NoteListAdapter(this, notesList)
+                binding.notesList.adapter = adapter
+                binding.notesList.layoutManager = LinearLayoutManager(this)
+                binding.notesList.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
+
+                binding.note.setText("")
+            }
+        }
+        
+        binding.addGood.setOnClickListener { 
+            if (checkGoodsValidity()) {
+                var gstRate = goodsGstRateString.toDouble()
+                var quantity = goodsQuantityString.toDouble()
+                var rate = goodsRateString.toDouble()
+                var total = quantity * rate
+
+                val goods = GoodUtils(
+                    (goodsList.size + 1).toString(),
+                    goodsName,
+                    gstRate,
+                    goodsMou,
+                    quantity,
+                    rate,
+                    total
+                )
+
+                goodsList.add(goods)
+
+                val adapter = GoodsAdapter(this, goodsList)
+                binding.goodsList.adapter = adapter
+                binding.goodsList.layoutManager = LinearLayoutManager(this)
+                binding.goodsList.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
+
+                binding.goodsName.setText("")
+                binding.gstRate.setText("")
+                binding.mou.setText("")
+                binding.quantity.setText("")
+                binding.goodsRate.setText("")
+            }
+        }
+    }
+
+    private fun checkGoodsValidity(): Boolean {
+
+        goodsName = binding.goodsName.text.toString()
+        goodsGstRateString = binding.gstRate.text.toString()
+        goodsMou = binding.mou.text.toString()
+        goodsQuantityString = binding.quantity.text.toString()
+        goodsRateString = binding.goodsRate.text.toString()
+
+        if (goodsName.isNullOrEmpty()) {
+            binding.goodsName.error = Config.REQUIRED_FIELD
+            binding.goodsName.requestFocus()
+            return false
+        }
+        
+        if (goodsGstRateString.isNullOrEmpty()) {
+            binding.gstRate.error = Config.REQUIRED_FIELD
+            binding.gstRate.requestFocus()
+            return false
+        }
+        
+        if (goodsMou.isNullOrEmpty()) {
+            binding.mou.error = Config.REQUIRED_FIELD
+            binding.mou.requestFocus()
+            return false
+        }
+        
+        if (goodsQuantityString.isNullOrEmpty()) {
+            binding.quantity.error = Config.REQUIRED_FIELD
+            binding.quantity.requestFocus()
+            return false
+        }
+        
+        if (goodsRateString.isNullOrEmpty()) {
+            binding.goodsRate.error = Config.REQUIRED_FIELD
+            binding.goodsRate.requestFocus()
+            return false
+        }
+        
+        return true
     }
 
     private fun checkValidity(): Boolean {
@@ -198,16 +300,64 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
         Log.d(TAG, "code: $requestCode, $permissions, $grantResults")
         if (requestCode == Config.INVOICE_REQUEST_CODE && grantResults.isNotEmpty()) {
 
+            var cgstRateString = binding.cgstRate.text.toString()
+            var sgstRateString = binding.sgstRate.text.toString()
+            var igstRateString = binding.igstRate.text.toString()
+            var roundingDifferenceString = binding.roundingDifference.text.toString()
+            var cgstRate = 0.0
+            var sgstRate = 0.0
+            var igstRate = 0.0
+            var roundingDifference = 0.0
 
-            var serialNo = "1\n2"
-            var goods = "Cut & Polished \nDiamond"
-            var hsnSACCode = "24323243\n4343243"
-            var gstRate = "0.25\n0.35"
-            var mou = "Carats\nTola"
-            var quality = "3.95\n3.45"
-            var rate = "1,000.00\n2,000.00"
-            var amount = "3.950.00\n3,450,00"
-            var notes = "Notes\n 1. sfdlkjsdf"
+            if (!cgstRateString.isNullOrEmpty())
+                cgstRate = cgstRateString.toDouble()
+            if (!sgstRateString.isNullOrEmpty())
+                sgstRate = sgstRateString.toDouble()
+            if (!igstRateString.isNullOrEmpty())
+                igstRate = igstRateString.toDouble()
+            if (!roundingDifferenceString.isNullOrEmpty())
+                roundingDifference = roundingDifferenceString.toDouble()
+
+
+
+            var serialNo = ""
+            var goods = ""
+            var hsnSACCode = ""
+            var gstRate = ""
+            var mou = ""
+            var quality = ""
+            var rate = ""
+            var amount = ""
+            var notes = "Notes\n"
+
+            hsnSACCode = binding.goodsHscSacCode.text.toString()
+
+            notesList.forEach {
+                notes += "  $it\n"
+            }
+
+            var totalAmount = 0.0
+            var totalRate = 0.0
+            var totalQuantity = 0.0
+
+            goodsList.forEach {
+                serialNo += "${it.serialNo}\n"
+                goods += "${it.name}\n"
+                gstRate += "${it.gstRate}%\n"
+                mou += "${it.mou}\n"
+                quality += "${it.quantity}\n"
+                rate += "${it.rate}\n"
+                amount += "${it.total}\n"
+                totalAmount += it.total
+                totalRate += totalRate
+                totalQuantity += it.quantity
+            }
+
+            var cgstAmount = totalAmount * (cgstRate / 100)
+            var sgstAmount = totalAmount * (sgstRate / 100)
+            var igstAmount = totalAmount * (igstRate / 100)
+
+            var finalAmount = totalAmount + cgstAmount + sgstAmount + igstAmount - roundingDifference
 
             val invoiceBuilder = InvoiceBuilder(this)
             val invoice = InvoiceUtils(
@@ -239,20 +389,20 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
                 getValue(binding.buyerGSTIN.text.toString()),
                 getValue(binding.taxPayableOnReverseCharge.text.toString()),
                 getValue(binding.goodsHscSacCode.text.toString()),
-                "0.125",
-                "4.94",
-                "0.125",
-                "4.94",
-                "0.000",
-                "-",
-                "-9.88",
-                "3.95",
-                "3,950.0",
-                "3,950.0",
-                "3.95",
+                "$cgstRate",
+                cgstAmount.toString(),
+                "$sgstRate",
+                sgstAmount.toString(),
+                "$igstRate",
+                igstAmount.toString(),
+                "-$roundingDifference",
+                totalRate.toString(),
+                totalAmount.toString(),
+                finalAmount.toString(),
+                totalQuantity.toString(),
                 getValue(binding.bankName.text.toString()),
                 getValue(binding.currentAccount.text.toString()),
-                getValue(binding.ifsc.text.toString())"
+                getValue(binding.ifsc.text.toString())
             )
             if (invoiceBuilder.createPdf(
                     invoice,
