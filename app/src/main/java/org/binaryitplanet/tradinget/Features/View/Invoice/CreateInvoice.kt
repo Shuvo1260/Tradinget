@@ -20,6 +20,7 @@ import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.GoodUtils
 import org.binaryitplanet.tradinget.Utils.InvoiceUtils
+import org.binaryitplanet.tradinget.Utils.LedgerUtils
 import org.binaryitplanet.tradinget.databinding.ActivityCreateInvoiceBinding
 import java.util.*
 import kotlin.collections.ArrayList
@@ -57,6 +58,7 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
     private lateinit var goodsQuantityString: String
     private lateinit var goodsRateString: String
     private lateinit var goodsTotalString: String
+    private lateinit var pdfPath: String
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -404,21 +406,36 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
                 getValue(binding.currentAccount.text.toString()),
                 getValue(binding.ifsc.text.toString())
             )
-            if (invoiceBuilder.createPdf(
+            pdfPath = invoiceBuilder.createPdf(
                     invoice,
-                    serialNo,
-                    goods,
-                    hsnSACCode,
-                    gstRate,
-                    mou,
-                    quality,
-                    rate,
-                    amount,
-                    notes
-                )){
-//                onBackPressed()
+            serialNo,
+            goods,
+            hsnSACCode,
+            gstRate,
+            mou,
+            quality,
+            rate,
+            amount,
+            notes
+            )
+
+            if (!pdfPath.isNullOrEmpty()) {
+                val presenter = LedgerPresenterIml(this, this)
+                presenter.fetchLedgerById(binding.invoiceNo.text.toString().trim())
             }
         }
+    }
+
+    override fun onFetchLedger(ledger: LedgerUtils) {
+        super.onFetchLedger(ledger)
+        ledger.invoicePath = pdfPath
+        val presenter = LedgerPresenterIml(this, this)
+        presenter.updateLedger(ledger)
+    }
+
+    override fun onLedgerUpdateListener(status: Boolean) {
+        super.onLedgerUpdateListener(status)
+        Log.d(TAG, "UpdateStatus: $status")
     }
 
     private fun getValue(value: String?): String {

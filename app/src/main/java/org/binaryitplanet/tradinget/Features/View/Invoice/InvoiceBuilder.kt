@@ -30,7 +30,7 @@ class InvoiceBuilder(
         rate: String,
         amount: String,
         notes: String
-    ): Boolean {
+    ): String {
 
         try {
             // Preparing path
@@ -1195,11 +1195,11 @@ class InvoiceBuilder(
 
             printPDF(invoicePath.absolutePath)
 
-            return true
+            return invoicePath.absolutePath
 
         } catch (e: Exception) {
             Log.d(TAG, "Exception: ${e.message}")
-            return false
+            return ""
         }
 
 

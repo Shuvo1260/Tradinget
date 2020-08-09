@@ -909,7 +909,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_background"
-                        android:text="Add good"
+                        android:text="Add product"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:paddingHorizontal="@dimen/_10sdp"
                         android:paddingVertical="@dimen/_5sdp"
