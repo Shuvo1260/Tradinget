@@ -3,10 +3,10 @@ package org.binaryitplanet.tradinget.Utils
 data class GoodUtils(
     var serialNo: String,
     var name: String,
-    var gstRate: String,
+    var gstRate: Double,
     var mou: String,
-    var quantity: String,
-    var rate: String,
-    var total: String
+    var quantity: Double,
+    var rate: Double,
+    var total: Double
 ) {
 }

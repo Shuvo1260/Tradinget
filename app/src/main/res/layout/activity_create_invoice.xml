@@ -1198,7 +1198,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:hint="@string/bankNameAndBrunch"
+                        android:hint="@string/note"
                         android:textColorHint="@color/colorPrimary"
                         app:boxStrokeColor="@color/white"
                         app:layout_constraintEnd_toStartOf="@id/addNote"
@@ -1206,7 +1206,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/notesList">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/noteName"
+                            android:id="@+id/note"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"

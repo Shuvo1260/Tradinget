@@ -42,4 +42,7 @@ interface LedgerDAO {
 
     @Query("SELECT * FROM LEDGER_TABLE WHERE Due_date_milli > :currentTime AND Paid_amount < Total_amount")
     fun getUnderDueDateList(currentTime: Long): List<LedgerUtils>
+
+    @Query("SELECT Ledger_ID FROM LEDGER_TABLE")
+    fun getLedgerIDList(): List<String>
 }

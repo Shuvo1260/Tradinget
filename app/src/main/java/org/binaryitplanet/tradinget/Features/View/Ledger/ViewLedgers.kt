@@ -15,4 +15,6 @@ interface ViewLedgers {
     fun onFetchLedgerListListener(ledgerList: List<LedgerUtils>){}
 
     fun onFetchSoldPacketListListener(soldPacketList: List<SoldPacketUtils>){}
+
+    fun onFetchLedgerIdListListener(ledgerList: List<String>){}
 }

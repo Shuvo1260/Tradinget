@@ -135,4 +135,16 @@ class LedgerPresenterIml(
             Log.d(TAG, "FetchSoldPacketListByError: ${e.message}")
         }
     }
+
+    override fun fetchLedgerIdList() {
+
+        try {
+            val databaseManager = DatabaseManager.getInstance(context)!!
+            val ledgerIdList = databaseManager.getLedgerDAO()
+                .getLedgerIDList()
+            viewLedgers.onFetchLedgerIdListListener(ledgerIdList)
+        } catch (e: Exception) {
+            Log.d(TAG, "FetchLedgerIdListByError: ${e.message}")
+        }
+    }
 }
