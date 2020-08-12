@@ -68,7 +68,7 @@ class Invoice : Fragment() {
         if (source.isDirectory) {
             val invoices = source.list()
 
-            if (invoices.isNotEmpty())
+            if (!invoices.isNullOrEmpty())
                 setupList(invoices)
         }
     }

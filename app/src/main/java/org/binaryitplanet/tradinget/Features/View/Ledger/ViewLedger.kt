@@ -49,6 +49,15 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
         binding.makeTransaction.setOnClickListener {
             val intent = Intent(this, Transaction::class.java)
             intent.putExtra(Config.LEDGER, ledger)
+            intent.putExtra(Config.OPERATION_FLAG, true)
+            startActivity(intent)
+            overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
+        }
+
+        binding.brokerTransaction.setOnClickListener {
+            val intent = Intent(this, Transaction::class.java)
+            intent.putExtra(Config.LEDGER, ledger)
+            intent.putExtra(Config.OPERATION_FLAG, false)
             startActivity(intent)
             overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
         }
@@ -118,6 +127,9 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
 
         binding.brokerPercentage.text = "Broker percentage: " + ledger.brokerPercentage.toString() + "%"
         binding.brokerAmount.text = "Broker amount: " + Config.RUPEE_SIGN + " " + ledger.brokerAmount.toString()
+
+        binding.brokerAmountPaid.text = "Paid broker amount: " + Config.RUPEE_SIGN + " " + ledger.brokerAmountPaid.toString()
+        binding.brokerAmountRemaining.text = "Remaining broker amount: " + Config.RUPEE_SIGN + " " + ledger.brokerAmountRemaining
 
         binding.discountPercentage.text = "Discount percentage: " + ledger.discountPercentage.toString() + "%"
         binding.discountAmount.text = "Discount amount: " + Config.RUPEE_SIGN + " " + ledger.discountAmount.toString()

@@ -106,6 +106,32 @@
                         app:layout_constraintStart_toEndOf="@id/brokerPercentage"
                         app:layout_constraintEnd_toEndOf="parent"
                         />
+
+                    <TextView
+                        android:id="@+id/brokerAmountPaid"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="broker"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintTop_toBottomOf="@id/brokerPercentage"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/brokerAmountRemaining"
+                        />
+
+                    <TextView
+                        android:id="@+id/brokerAmountRemaining"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="broker"
+                        android:gravity="end"
+                        app:layout_constraintTop_toTopOf="@id/brokerAmountPaid"
+                        app:layout_constraintBottom_toBottomOf="@id/brokerAmountPaid"
+                        app:layout_constraintStart_toEndOf="@id/brokerAmountPaid"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
                     <TextView
                         android:id="@+id/discountPercentage"
                         android:layout_width="0dp"
@@ -114,7 +140,7 @@
                         android:text="@string/discountPercentage"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        app:layout_constraintTop_toBottomOf="@id/brokerPercentage"
+                        app:layout_constraintTop_toBottomOf="@id/brokerAmountPaid"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/discountAmount"
                         />
@@ -276,6 +302,21 @@
                         app:layout_constraintTop_toTopOf="@+id/makeTransaction" />
 
 
+                    <Button
+                        android:id="@+id/brokerTransaction"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_background"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingVertical="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="Broker transaction"
+                        app:layout_constraintTop_toBottomOf="@+id/makeTransaction"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        />
+
+
                     <TextView
                         android:id="@+id/packets"
                         android:layout_width="wrap_content"
@@ -284,7 +325,7 @@
                         android:text="@string/packets"
                         android:textStyle="bold"
                         android:layout_marginTop="@dimen/_10sdp"
-                        app:layout_constraintTop_toBottomOf="@id/makeTransaction"
+                        app:layout_constraintTop_toBottomOf="@id/brokerTransaction"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         />

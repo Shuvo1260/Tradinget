@@ -30,6 +30,12 @@ data class LedgerUtils(
     @ColumnInfo(name = Config.COLUMN_BROKER_AMOUNT)
     var brokerAmount: Double,
 
+    @ColumnInfo(name = Config.COLUMN_BROKER_AMOUNT_PAID)
+    var brokerAmountPaid: Double,
+
+    @ColumnInfo(name = Config.COLUMN_BROKER_AMOUNT_REMAINING)
+    var brokerAmountRemaining: Double,
+
     @ColumnInfo(name = Config.COLUMN_BROKERAGE_AMOUNT)
     var brokerageAmount: Double,
 

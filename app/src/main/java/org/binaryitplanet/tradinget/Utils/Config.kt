@@ -114,6 +114,8 @@ class Config {
         const val COLUMN_BROKER_NAME = "Broker_name"
         const val COLUMN_BROKER_PERCENTAGE = "Broker_percentage"
         const val COLUMN_BROKER_AMOUNT = "Broker_amount"
+        const val COLUMN_BROKER_AMOUNT_PAID = "Broker_amount_paid"
+        const val COLUMN_BROKER_AMOUNT_REMAINING = "Broker_amount_remaining"
         const val COLUMN_BROKERAGE_AMOUNT = "Brokerage_amount"
 
         const val COLUMN_DISCOUNT_PERCENTAGE = "Discount_percentage"

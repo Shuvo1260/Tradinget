@@ -24,6 +24,7 @@ class Transaction : AppCompatActivity(), ViewLedgers {
     private lateinit var ledger: LedgerUtils
     private lateinit var amount: String
     private lateinit var transactionType: String
+    private var flag: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +36,22 @@ class Transaction : AppCompatActivity(), ViewLedgers {
 
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.done && checkValidity()) {
-                if (transactionType == Config.CREDIT) {
-                    ledger.paidAmount += amount.toDouble()
-                } else {
-                    ledger.paidAmount -= amount.toDouble()
-                }
+                if (flag) {
+                    if (transactionType == Config.CREDIT) {
+                        ledger.paidAmount += amount.toDouble()
+                    } else {
+                        ledger.paidAmount -= amount.toDouble()
+                    }
 
+                } else {
+                    if (transactionType == Config.CREDIT) {
+                        ledger.brokerAmountPaid += amount.toDouble()
+                        ledger.brokerAmountRemaining -= amount.toDouble()
+                    } else {
+                        ledger.brokerAmountRemaining -= amount.toDouble()
+                        ledger.brokerAmountRemaining += amount.toDouble()
+                    }
+                }
                 val presenter = LedgerPresenterIml(this, this)
                 presenter.updateLedger(ledger)
             }
@@ -96,6 +107,7 @@ class Transaction : AppCompatActivity(), ViewLedgers {
         super.onResume()
 
         ledger = intent?.getSerializableExtra(Config.LEDGER) as LedgerUtils
+        flag = intent?.getBooleanExtra(Config.OPERATION_FLAG, true)!!
     }
 
 
