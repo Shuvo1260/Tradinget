@@ -21,7 +21,7 @@ class PacketDetailsPresenterIml(
             val databaseManager = DatabaseManager.getInstance(context)!!
             val id = databaseManager.getPacketDetailsDAO().insert(packetDetails)
 
-            databaseManager.getPacketDAO().update(packet)
+//            databaseManager.getPacketDAO().update(packet)
 
             if (id > 0)
                 viewPacketDetails.onSavePacketDetailsListener(true)

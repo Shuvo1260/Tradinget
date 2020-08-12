@@ -34,7 +34,7 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
 
     private var goodsList = arrayListOf<GoodUtils>()
     private var notesList = arrayListOf<String>()
-    private var ledgerList = arrayListOf<String>()
+//    private var ledgerList = arrayListOf<String>()
     
     private var ecommerceDay: Int = 0
     private var ecommerceMonth: Int = 0
@@ -59,6 +59,8 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
     private lateinit var goodsRateString: String
     private lateinit var goodsTotalString: String
     private lateinit var pdfPath: String
+
+    private lateinit var ledger: LedgerUtils
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -171,11 +173,11 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
     }
 
     private fun checkValidity(): Boolean {
-        if (binding.invoiceNo.text.toString().isNullOrEmpty()) {
-            binding.invoiceNo.error = Config.REQUIRED_FIELD
-            binding.invoiceNo.requestFocus()
-            return false
-        }
+//        if (binding.invoiceNo.text.toString().isNullOrEmpty()) {
+//            binding.invoiceNo.error = Config.REQUIRED_FIELD
+//            binding.invoiceNo.requestFocus()
+//            return false
+//        }
 
         if (goodsList.size < 1) {
             binding.goodsName.error = Config.REQUIRED_FIELD
@@ -194,8 +196,10 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
 
     override fun onResume() {
         super.onResume()
-        val presenter = LedgerPresenterIml(this, this)
-        presenter.fetchLedgerIdList()
+//        val presenter = LedgerPresenterIml(this, this)
+//        presenter.fetchLedgerIdList()
+
+        ledger = intent?.getSerializableExtra(Config.LEDGER) as LedgerUtils
         
         setViews()
     }
@@ -276,21 +280,21 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
     }
 
 
-    override fun onFetchLedgerIdListListener(ledgerList: List<String>) {
-        super.onFetchLedgerIdListListener(ledgerList)
-        this.ledgerList = ledgerList as ArrayList<String>
-
-        val adapter = ArrayAdapter<String>(
-            this, android.R.layout.simple_list_item_1, this.ledgerList)
-
-        binding.invoiceNo.setAdapter(adapter)
-
-        val taxPayableTypes = arrayListOf<String>("Yes", "No")
-        val taxAdapter = ArrayAdapter<String>(
-            this, android.R.layout.simple_list_item_1, taxPayableTypes
-        )
-        binding.taxPayableOnReverseCharge.setAdapter(taxAdapter)
-    }
+//    override fun onFetchLedgerIdListListener(ledgerList: List<String>) {
+//        super.onFetchLedgerIdListListener(ledgerList)
+//        this.ledgerList = ledgerList as ArrayList<String>
+//
+//        val adapter = ArrayAdapter<String>(
+//            this, android.R.layout.simple_list_item_1, this.ledgerList)
+//
+//        binding.invoiceNo.setAdapter(adapter)
+//
+//        val taxPayableTypes = arrayListOf<String>("Yes", "No")
+//        val taxAdapter = ArrayAdapter<String>(
+//            this, android.R.layout.simple_list_item_1, taxPayableTypes
+//        )
+//        binding.taxPayableOnReverseCharge.setAdapter(taxAdapter)
+//    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -363,7 +367,7 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
 
             val invoiceBuilder = InvoiceBuilder(this)
             val invoice = InvoiceUtils(
-                binding.invoiceNo.text.toString(),
+                ledger.ledgerId,
                 invoiceDateString,
                 getValue(binding.terms.text.toString()),
                 getValue(binding.placeOfSupply.text.toString()),
@@ -420,18 +424,23 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
             )
 
             if (!pdfPath.isNullOrEmpty()) {
+//                val presenter = LedgerPresenterIml(this, this)
+////                presenter.fetchLedgerById(binding.invoiceNo.text.toString().trim())
+//                presenter.fetchLedgerById(ledger.ledgerId.trim())
+
+                ledger.invoicePath = pdfPath
                 val presenter = LedgerPresenterIml(this, this)
-                presenter.fetchLedgerById(binding.invoiceNo.text.toString().trim())
+                presenter.updateLedger(ledger)
             }
         }
     }
 
-    override fun onFetchLedger(ledger: LedgerUtils) {
-        super.onFetchLedger(ledger)
-        ledger.invoicePath = pdfPath
-        val presenter = LedgerPresenterIml(this, this)
-        presenter.updateLedger(ledger)
-    }
+//    override fun onFetchLedger(ledger: LedgerUtils) {
+//        super.onFetchLedger(ledger)
+//        ledger.invoicePath = pdfPath
+//        val presenter = LedgerPresenterIml(this, this)
+//        presenter.updateLedger(ledger)
+//    }
 
     override fun onLedgerUpdateListener(status: Boolean) {
         super.onLedgerUpdateListener(status)

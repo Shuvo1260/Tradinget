@@ -61,6 +61,7 @@ class Config {
         val STAKEHOLDER = "Stakeholder"
         val PACKET = "Packet"
         val LEDGER = "Ledger"
+        val LEDGER_ID = "LedgerId"
         val BROKER_FLAG = "BrokerFlag"
         val PACKET_DETAILS = "PacketDetails"
 

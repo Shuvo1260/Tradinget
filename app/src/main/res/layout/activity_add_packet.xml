@@ -125,29 +125,29 @@
                         android:textColor="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/priceLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/price"
-                    android:textColorHint="@color/colorPrimary"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    app:layout_constraintEnd_toStartOf="@id/codeLayout"
-                    app:layout_constraintStart_toStartOf="@+id/weightLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/weightLayout">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/priceLayout"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="@string/price"-->
+<!--                    android:textColorHint="@color/colorPrimary"-->
+<!--                    app:boxStrokeColor="@color/white"-->
+<!--                    android:layout_marginTop="@dimen/_10sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/codeLayout"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/weightLayout"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/weightLayout">-->
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/price"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
-                        android:singleLine="true"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/price"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:imeOptions="actionNext"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:singleLine="true"-->
+<!--                        android:textColor="@color/white" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/codeLayout"
@@ -155,12 +155,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/code"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textColorHint="@color/colorPrimary"
                     app:boxStrokeColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/priceLayout"
                     app:layout_constraintEnd_toEndOf="@+id/rateLayout"
-                    app:layout_constraintStart_toEndOf="@+id/priceLayout"
-                    app:layout_constraintTop_toTopOf="@+id/priceLayout">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/weightLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/code"
@@ -181,8 +181,8 @@
                     app:boxStrokeColor="@color/white"
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="@+id/codeLayout"
-                    app:layout_constraintStart_toStartOf="@+id/priceLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/priceLayout">
+                    app:layout_constraintStart_toStartOf="@+id/codeLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/codeLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/remark"

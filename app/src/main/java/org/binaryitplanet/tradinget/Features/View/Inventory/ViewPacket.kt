@@ -200,7 +200,7 @@ class ViewPacket : AppCompatActivity(), InventoryView, ViewPacketDetails {
         binding.packetName.text = packet.packetName
         binding.weight.text = "Weight: " + packet.weight.toString() + " " + Config.CTS
         binding.price.text = "Price: " + Config.RUPEE_SIGN + " " + packet.price.toString()
-        binding.rate.text = "Rate: " + packet.rate.toString()
+        binding.rate.text = "Rate: " + Config.RUPEE_SIGN + " " + packet.rate.toString()
         binding.code.text = "Code: " + packet.code
         if (packet.remark.isNullOrEmpty())
             binding.remark.visibility = View.GONE

@@ -65,7 +65,7 @@ class AddPacket : AppCompatActivity(), InventoryView {
         binding.packetName.setText(packet.packetName)
         binding.weight.setText(packet.weight.toString())
         binding.rate.setText(packet.rate.toString())
-        binding.price.setText(packet.price.toString())
+//        binding.price.setText(packet.price.toString())
         binding.code.setText(packet.code)
         binding.remark.setText(packet.remark)
 
@@ -168,11 +168,11 @@ class AddPacket : AppCompatActivity(), InventoryView {
             binding.rate.requestFocus()
             return false
         }
-        if (binding.price.text.isNullOrEmpty()) {
-            binding.price.error = Config.REQUIRED_FIELD
-            binding.price.requestFocus()
-            return false
-        }
+//        if (binding.price.text.isNullOrEmpty()) {
+//            binding.price.error = Config.REQUIRED_FIELD
+//            binding.price.requestFocus()
+//            return false
+//        }
         if (code.isNullOrEmpty()) {
             binding.code.error = Config.REQUIRED_FIELD
             binding.code.requestFocus()
@@ -186,7 +186,7 @@ class AddPacket : AppCompatActivity(), InventoryView {
 
         weight = binding.weight.text.toString().toDouble()
         rate = binding.rate.text.toString().toDouble()
-        price = binding.price.text.toString().toDouble()
+        price = weight * rate
 
         return true
     }

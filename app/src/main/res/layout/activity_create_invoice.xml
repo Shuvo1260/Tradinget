@@ -42,27 +42,27 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/invoiceNoLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/invoiceNo"
-                    android:textColorHint="@color/colorPrimary"
-                    app:hintTextColor="@color/white"
-                    app:boxStrokeColor="@color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/invoiceDetailsTitle"
-                    >
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/invoiceNoLayout"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="@string/invoiceNo"-->
+<!--                    android:textColorHint="@color/colorPrimary"-->
+<!--                    app:hintTextColor="@color/white"-->
+<!--                    app:boxStrokeColor="@color/white"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/invoiceDetailsTitle"-->
+<!--                    >-->
 
-                    <AutoCompleteTextView
-                        android:id="@+id/invoiceNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/invoiceNo"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:inputType="none"-->
+<!--                        android:textColor="@color/white" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/termsLayout"
@@ -75,7 +75,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/invoiceNoLayout">
+                    app:layout_constraintTop_toBottomOf="@+id/invoiceDetailsTitle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/terms"

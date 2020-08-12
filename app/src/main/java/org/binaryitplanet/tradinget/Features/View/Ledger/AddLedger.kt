@@ -97,14 +97,20 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
 
         binding.addPacket.setOnClickListener {
             if (isPacketValid()) {
+                var subPacketNumber = ""
+                var sieve = ""
+                if (subPacketPosition != -1) {
+                    subPacketNumber = subPacketList[subPacketPosition].packetDetailsNumber
+                    sieve = subPacketList[subPacketPosition].sieve
+                }
                 soldPacketList.add(
                     SoldPacketUtils(
                         null,
                         ledgerId,
                         packetList[packetPosition].packetNumber,
                         packetList[packetPosition].packetName,
-                        subPacketList[subPacketPosition].packetDetailsNumber,
-                        subPacketList[subPacketPosition].sieve,
+                        subPacketNumber,
+                        sieve,
                         weight.toDouble(),
                         rate.toDouble(),
                         packetList[packetPosition].code,
@@ -177,11 +183,11 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             binding.packet.requestFocus()
             return false
         }
-        if (subPacketPosition == -1) {
-            binding.subPacket.error = Config.REQUIRED_FIELD
-            binding.subPacket.requestFocus()
-            return false
-        }
+//        if (subPacketPosition == -1) {
+//            binding.subPacket.error = Config.REQUIRED_FIELD
+//            binding.subPacket.requestFocus()
+//            return false
+//        }
 
         if (weight.isNullOrEmpty()) {
             binding.weight.error = Config.REQUIRED_FIELD

@@ -41,12 +41,15 @@ class LedgerPresenterIml(
                 soldPacketList.forEach {
                     databaseManager.getSoldPacketDAO().insert(it)
                     packetFlag[it.packetIndex] = true
-                    subPacketFlag[it.subPacketIndex] = true
 
                     packetList[it.packetIndex].weight -= it.weight
-                    subPacketList[it.subPacketIndex].weight -= it.weight
-                    subPacketList[it.subPacketIndex].soldWeight += it.weight
-                    subPacketList[it.subPacketIndex].remainingWeight -= it.weight
+                    packetList[it.packetIndex].price -= (it.weight * packetList[it.packetIndex].rate)
+//                    subPacketList[it.subPacketIndex].weight -= it.weight
+                    if (it.subPacketIndex != -1) {
+                        subPacketFlag[it.subPacketIndex] = true
+                        subPacketList[it.subPacketIndex].soldWeight += it.weight
+                        subPacketList[it.subPacketIndex].remainingWeight -= it.weight
+                    }
                 }
 
                 for (index in 0 until packetList.size) {

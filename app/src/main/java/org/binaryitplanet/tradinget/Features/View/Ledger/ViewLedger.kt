@@ -16,6 +16,7 @@ import org.binaryitplanet.tradinget.Features.Adapter.SoldPacketAdapter
 import org.binaryitplanet.tradinget.Features.Common.StakeholderView
 import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.StakeholderPresenterIml
+import org.binaryitplanet.tradinget.Features.View.Invoice.CreateInvoice
 import org.binaryitplanet.tradinget.Features.View.Invoice.InvoiceBuilder
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
@@ -74,6 +75,15 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
                 invoiceBuilder.printPDF(ledger.invoicePath!!)
             }
         }
+
+
+        binding.addInvoice.setOnClickListener {
+            var intent = Intent(this, CreateInvoice::class.java)
+            intent.putExtra(Config.LEDGER, ledger)
+            startActivity(intent)
+            overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
+        }
+
     }
 
     override fun onResume() {
@@ -86,6 +96,7 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
 
     override fun onFetchLedger(ledger: LedgerUtils) {
         super.onFetchLedger(ledger)
+        Log.d(TAG, "Ledger: $ledger")
         this.ledger = ledger
         val presenter = StakeholderPresenterIml(this, this)
         presenter.fetchStakeholderById(ledger.stakeHolderId)
