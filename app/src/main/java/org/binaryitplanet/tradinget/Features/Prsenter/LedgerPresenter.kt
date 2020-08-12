@@ -1,10 +1,17 @@
 package org.binaryitplanet.tradinget.Features.Prsenter
 
 import org.binaryitplanet.tradinget.Utils.LedgerUtils
+import org.binaryitplanet.tradinget.Utils.PacketDetailsUtils
+import org.binaryitplanet.tradinget.Utils.PacketUtils
 import org.binaryitplanet.tradinget.Utils.SoldPacketUtils
 
 interface LedgerPresenter {
-    fun insertLedger(ledgerUtils: LedgerUtils, soldPacketList: ArrayList<SoldPacketUtils>)
+    fun insertLedger(
+        ledgerUtils: LedgerUtils,
+        soldPacketList: ArrayList<SoldPacketUtils>,
+        packetList: ArrayList<PacketUtils>,
+        subPacketList: ArrayList<PacketDetailsUtils>
+    )
     fun deleteLedger(ledgerUtils: LedgerUtils)
     fun updateLedger(ledgerUtils: LedgerUtils)
     fun fetchLedgerById(id: String)

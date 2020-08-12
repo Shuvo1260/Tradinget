@@ -55,7 +55,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:transitionName="@string/nameTransition"
                         />
 
                     <TextView
@@ -143,7 +142,6 @@
                         app:layout_constraintTop_toBottomOf="@id/discountPercentage"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/totalPackets"
-                        android:transitionName="@string/weightTransition"
                         />
 
                     <TextView
@@ -169,7 +167,6 @@
                         app:layout_constraintTop_toBottomOf="@id/totalWeight"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/paidAmount"
-                        android:transitionName="@string/priceTransition"
                         />
 
                     <TextView

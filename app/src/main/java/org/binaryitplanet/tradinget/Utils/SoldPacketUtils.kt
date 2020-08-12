@@ -34,6 +34,10 @@ data class SoldPacketUtils(
     var rate: Double,
 
     @ColumnInfo(name = Config.COLUMN_CODE)
-    var code: String
+    var code: String,
+
+    var packetIndex: Int,
+
+    var subPacketIndex: Int
 ): Serializable {
 }

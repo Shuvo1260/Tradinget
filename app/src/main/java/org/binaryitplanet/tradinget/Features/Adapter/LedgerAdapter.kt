@@ -65,30 +65,6 @@ class LedgerAdapter(
             // Passing selected item data
             intent!!.putExtra(Config.LEDGER, ledgerList[position])
             intent!!.putExtra(Config.BROKER_FLAG, isBroker)
-
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                // Creating animation options
-//                val options =
-//                    ActivityOptions
-//                        .makeSceneTransitionAnimation(
-//                            context as Activity,
-//                            UtilPair.create(
-//                                view.packetName,
-//                                context.resources.getString(R.string.packetNameTransition)
-//                            ),
-//                            UtilPair.create(
-//                                view.weight,
-//                                context.resources.getString(R.string.weightTransition)
-//                            ),
-//                            UtilPair.create(
-//                                view.price,
-//                                context.resources.getString(R.string.priceTransition)
-//                            )
-//                        )
-//                context.window.exitTransition = null
-//                context.startActivity(intent, options.toBundle())
-//            } else {
-//            }
             context.startActivity(intent)
         }
     }

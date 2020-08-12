@@ -5,6 +5,7 @@ import android.util.Log
 import org.binaryitplanet.tradinget.Features.Model.DatabaseManager
 import org.binaryitplanet.tradinget.Features.View.Inventory.ViewPacketDetails
 import org.binaryitplanet.tradinget.Utils.PacketDetailsUtils
+import org.binaryitplanet.tradinget.Utils.PacketUtils
 import java.lang.Exception
 
 class PacketDetailsPresenterIml(
@@ -14,11 +15,13 @@ class PacketDetailsPresenterIml(
 
     private val TAG = "PacketDetailsPresenter"
 
-    override fun insertPacketDetails(packetDetails: PacketDetailsUtils) {
+    override fun insertPacketDetails(packet: PacketUtils, packetDetails: PacketDetailsUtils) {
 
         try {
             val databaseManager = DatabaseManager.getInstance(context)!!
             val id = databaseManager.getPacketDetailsDAO().insert(packetDetails)
+
+            databaseManager.getPacketDAO().update(packet)
 
             if (id > 0)
                 viewPacketDetails.onSavePacketDetailsListener(true)
@@ -84,6 +87,18 @@ class PacketDetailsPresenterIml(
             viewPacketDetails.onFetchPacketDetailsListListener(packetList)
         }catch (e: Exception){
             Log.d(TAG, "FetchPacketDetailsListError: ${e.message}")
+        }
+    }
+
+    override fun fetchAllPacketDetailsList() {
+        try {
+            val databaseManager = DatabaseManager.getInstance(context)!!
+            val packetList = databaseManager
+                .getPacketDetailsDAO().getAllPacketDetailsList()
+
+            viewPacketDetails.onFetchAllPacketDetailsListListener(packetList)
+        }catch (e: Exception){
+            Log.d(TAG, "FetchAllPacketDetailsListError: ${e.message}")
         }
     }
 }

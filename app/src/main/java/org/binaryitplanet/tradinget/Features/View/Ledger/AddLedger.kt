@@ -2,10 +2,12 @@ package org.binaryitplanet.tradinget.Features.View.Ledger
 
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -31,6 +33,7 @@ import org.binaryitplanet.tradinget.Utils.*
 import org.binaryitplanet.tradinget.databinding.ActivityAddLedgerBinding
 import java.util.*
 
+@Suppress("DEPRECATION")
 class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, StakeholderView, ViewLedgers {
 
 
@@ -38,6 +41,7 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
     private lateinit var binding: ActivityAddLedgerBinding
     private lateinit var packetList: ArrayList<PacketUtils>
     private lateinit var subPacketList: ArrayList<PacketDetailsUtils>
+    private lateinit var allSubPacketList: ArrayList<PacketDetailsUtils>
     private lateinit var brokerList: ArrayList<StakeholderUtils>
     private lateinit var stakeholder: StakeholderUtils
     private var soldPacketList = arrayListOf<SoldPacketUtils>()
@@ -69,6 +73,7 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
     private var discountAmount: Double = 0.0
 
     private lateinit var remark: String
+    private lateinit var progressDialog: ProgressDialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,9 +84,12 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_ledger)
 
+        progressDialog = ProgressDialog(this)
+
         setUpToolbar()
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.done && checkValidity()) {
+                Log.d(TAG, "Size: ${subPacketList.size}")
                 saveData()
             }
             return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
@@ -99,7 +107,9 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
                         subPacketList[subPacketPosition].sieve,
                         weight.toDouble(),
                         rate.toDouble(),
-                        packetList[packetPosition].code
+                        packetList[packetPosition].code,
+                        packetPosition,
+                        subPacketPosition
                     )
                 )
                 totalWeight += weight.toDouble()
@@ -199,7 +209,16 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
         val brokerPresenter = StakeholderPresenterIml(this, this)
         brokerPresenter.fetchStakeholder(Config.TYPE_ID_BROKER)
 
+
+        val subPacketPresenter = PacketDetailsPresenterIml(this, this)
+        subPacketPresenter.fetchAllPacketDetailsList()
+
         setupDate()
+    }
+
+    override fun onFetchAllPacketDetailsListListener(subPacketList: List<PacketDetailsUtils>) {
+        super.onFetchAllPacketDetailsListListener(subPacketList)
+        allSubPacketList = subPacketList as ArrayList<PacketDetailsUtils>
     }
 
     private fun setupDate() {
@@ -273,10 +292,10 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
     override fun onFetchPacketDetailsListListener(packetDetailsList: List<PacketDetailsUtils>) {
         super.onFetchPacketDetailsListListener(packetDetailsList)
         subPacketList = packetDetailsList as ArrayList<PacketDetailsUtils>
-        Log.d(TAG, "SubPacketList: $subPacketList")
+        Log.d(TAG, "SubPacketList: ${subPacketList.size}")
         setSubPacketDropDownAdapter()
         binding.subPacket.setOnItemClickListener { parent, view, position, id ->
-            subPacketPosition = position
+            subPacketPosition = allSubPacketList.indexOf(subPacketList[position])
             binding.subPacket.setText(subPacketList[position].packetDetailsNumber)
         }
     }
@@ -310,6 +329,10 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
     private fun saveData() {
         Log.d(TAG, "Saving...")
 
+        progressDialog.setTitle(Config.CREATING_LEDGER_TITLE)
+        progressDialog.setMessage(Config.CREATING_LEDGER_MESSAGE)
+        progressDialog.show()
+
         val calendar = Calendar.getInstance()
         calendar.set(year, month, day)
         val dateMilli = calendar.timeInMillis
@@ -340,9 +363,15 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             imageURL,
             null
         )
+        Log.d(TAG, "Size: ${subPacketList.size}")
 
         val presenter = LedgerPresenterIml(this, this)
-        presenter.insertLedger(ledgerUtils, soldPacketList)
+        presenter.insertLedger(
+            ledgerUtils,
+            soldPacketList,
+            packetList,
+            allSubPacketList
+        )
     }
 
     override fun onLedgerInsertListener(status: Boolean) {
@@ -361,6 +390,7 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
                 Toast.LENGTH_SHORT
             ).show()
         }
+        progressDialog.dismiss()
     }
 
     private fun checkValidity(): Boolean {
@@ -406,7 +436,6 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
         discountAmount = binding.discountAmount.text.toString().toDouble()
         return true
     }
-
 
     // Toolbar menu setting
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

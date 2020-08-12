@@ -24,6 +24,9 @@ class Config {
         val DEBIT = "Debit"
         val CREDIT = "Credit"
 
+        val CREATING_LEDGER_TITLE = "Creating ledger"
+        val CREATING_LEDGER_MESSAGE = "Inserting ledger data, wait a moment..."
+
         // Codes
         val BACKUP_REQUEST_CODE = 101
         val RESTORE_REQUEST_CODE = 102

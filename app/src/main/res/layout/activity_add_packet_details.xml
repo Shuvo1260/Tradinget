@@ -84,49 +84,49 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/soldWeight"
-            android:textColorHint="@color/colorPrimary"
-            app:boxStrokeColor="@color/white"
-            android:layout_marginVertical="@dimen/_5sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            >
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="@string/soldWeight"-->
+<!--            android:textColorHint="@color/colorPrimary"-->
+<!--            app:boxStrokeColor="@color/white"-->
+<!--            android:layout_marginVertical="@dimen/_5sdp"-->
+<!--            android:layout_marginHorizontal="@dimen/_10sdp"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            >-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/soldWeight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:inputType="numberDecimal"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/soldWeight"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:imeOptions="actionNext"-->
+<!--                android:singleLine="true"-->
+<!--                android:inputType="numberDecimal"-->
+<!--                />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/remainingWeight"
-            android:textColorHint="@color/colorPrimary"
-            app:boxStrokeColor="@color/white"
-            android:layout_marginVertical="@dimen/_5sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            >
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="@string/remainingWeight"-->
+<!--            android:textColorHint="@color/colorPrimary"-->
+<!--            app:boxStrokeColor="@color/white"-->
+<!--            android:layout_marginVertical="@dimen/_5sdp"-->
+<!--            android:layout_marginHorizontal="@dimen/_10sdp"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            >-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/remainingWeight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:inputType="numberDecimal"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/remainingWeight"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:imeOptions="actionNext"-->
+<!--                android:singleLine="true"-->
+<!--                android:inputType="numberDecimal"-->
+<!--                />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
     </LinearLayout>
 

@@ -37,7 +37,7 @@ class HomePresenterIml(
 
             packetList.forEach{
                 totalWeight += it.weight
-                totalValue += (it.weight * it.price)
+                totalValue += (it.weight * it.rate)
             }
 
             val currentTime = Calendar.getInstance().timeInMillis

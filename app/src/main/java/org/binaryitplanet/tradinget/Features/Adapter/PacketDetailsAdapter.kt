@@ -55,9 +55,9 @@ class PacketDetailsAdapter(
         view.packetNumber.text = packetDetailsList[position].packetDetailsNumber
         view.sieve.text = packetDetailsList[position].sieve
 
-        view.weight.text = packetDetailsList[position].weight.toString() + " " + Config.CTS
-        view.soldWeight.text = packetDetailsList[position].soldWeight.toString() + " " + Config.CTS
-        view.remainingWeight.text = packetDetailsList[position].remainingWeight.toString() + " " + Config.CTS
+        view.weight.text = "Total: " + packetDetailsList[position].weight.toString() + " " + Config.CTS
+        view.soldWeight.text = "Sold: " + packetDetailsList[position].soldWeight.toString() + " " + Config.CTS
+        view.remainingWeight.text = "Remaining: " + packetDetailsList[position].remainingWeight.toString() + " " + Config.CTS
 
         view.delete.setOnClickListener {
             viewPacketDetails.onDeleteClickListener(position)

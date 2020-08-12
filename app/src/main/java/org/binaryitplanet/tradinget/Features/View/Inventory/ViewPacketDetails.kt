@@ -9,4 +9,6 @@ interface ViewPacketDetails {
     fun onFetchPacketDetailsListListener(packetDetailsList: List<PacketDetailsUtils>){}
     fun onFetchPacketDetailsListener(packetDetails: PacketDetailsUtils){}
     fun onDeleteClickListener(position: Int){}
+
+    fun onFetchAllPacketDetailsListListener(subPacketList: List<PacketDetailsUtils>){}
 }

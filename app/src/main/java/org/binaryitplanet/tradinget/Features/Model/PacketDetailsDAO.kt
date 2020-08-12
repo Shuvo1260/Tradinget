@@ -20,4 +20,7 @@ interface PacketDetailsDAO {
     
     @Query("SELECT * FROM Packet_details_table WHERE Packet_number ==:packetId ORDER BY Packet_number ASC")
     fun getPacketDetailsList(packetId: String): List<PacketDetailsUtils>
+
+    @Query("SELECT * FROM Packet_details_table ORDER BY Packet_number ASC")
+    fun getAllPacketDetailsList(): List<PacketDetailsUtils>
 }

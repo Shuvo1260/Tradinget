@@ -198,10 +198,10 @@ class ViewPacket : AppCompatActivity(), InventoryView, ViewPacketDetails {
 
     private fun setupViews() {
         binding.packetName.text = packet.packetName
-        binding.weight.text = packet.weight.toString() + " " + Config.CTS
-        binding.price.text = Config.RUPEE_SIGN + " " + packet.price.toString()
-        binding.rate.text = packet.rate.toString()
-        binding.code.text = packet.code
+        binding.weight.text = "Weight: " + packet.weight.toString() + " " + Config.CTS
+        binding.price.text = "Price: " + Config.RUPEE_SIGN + " " + packet.price.toString()
+        binding.rate.text = "Rate: " + packet.rate.toString()
+        binding.code.text = "Code: " + packet.code
         if (packet.remark.isNullOrEmpty())
             binding.remark.visibility = View.GONE
         else

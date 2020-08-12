@@ -67,8 +67,8 @@ class AddPacketDetails : AppCompatActivity(), ViewPacketDetails {
         binding.packetNumber.setText(packetDetails.packetDetailsNumber)
         binding.sieve.setText(packetDetails.packetDetailsNumber)
         binding.weight.setText(packetDetails.weight.toString())
-        binding.soldWeight.setText(packetDetails.soldWeight.toString())
-        binding.remainingWeight.setText(packetDetails.remainingWeight.toString())
+//        binding.soldWeight.setText(packetDetails.soldWeight.toString())
+//        binding.remainingWeight.setText(packetDetails.remainingWeight.toString())
 
         binding.packetNumber.setSelection(packetDetails.packetDetailsNumber.length)
     }
@@ -77,8 +77,8 @@ class AddPacketDetails : AppCompatActivity(), ViewPacketDetails {
         packetDetails.packetDetailsNumber = packetNumber
         packetDetails.sieve = sieve
         packetDetails.weight = weight
-        packetDetails.soldWeight = soldWeight
-        packetDetails.remainingWeight = remainingWeight
+//        packetDetails.soldWeight = soldWeight
+//        packetDetails.remainingWeight = remainingWeight
 
         val presenter = PacketDetailsPresenterIml(this, this)
         presenter.updatePacketDetails(packetDetails)
@@ -103,6 +103,7 @@ class AddPacketDetails : AppCompatActivity(), ViewPacketDetails {
     }
 
     private fun saveData() {
+
         packetDetails = PacketDetailsUtils(
             null,
             packet.packetNumber,
@@ -110,10 +111,13 @@ class AddPacketDetails : AppCompatActivity(), ViewPacketDetails {
             sieve,
             weight,
             soldWeight,
-            remainingWeight
+            weight
         )
+
+        packet.weight += weight
+
         val presenter = PacketDetailsPresenterIml(this, this)
-        presenter.insertPacketDetails(packetDetails)
+        presenter.insertPacketDetails(packet, packetDetails)
     }
 
     override fun onSavePacketDetailsListener(status: Boolean) {
@@ -154,20 +158,20 @@ class AddPacketDetails : AppCompatActivity(), ViewPacketDetails {
             binding.weight.requestFocus()
             return false
         }
-        if (binding.soldWeight.text.isNullOrEmpty()) {
-            binding.soldWeight.error = Config.REQUIRED_FIELD
-            binding.soldWeight.requestFocus()
-            return false
-        }
-        if (binding.remainingWeight.text.isNullOrEmpty()) {
-            binding.remainingWeight.error = Config.REQUIRED_FIELD
-            binding.remainingWeight.requestFocus()
-            return false
-        }
+//        if (binding.soldWeight.text.isNullOrEmpty()) {
+//            binding.soldWeight.error = Config.REQUIRED_FIELD
+//            binding.soldWeight.requestFocus()
+//            return false
+//        }
+//        if (binding.remainingWeight.text.isNullOrEmpty()) {
+//            binding.remainingWeight.error = Config.REQUIRED_FIELD
+//            binding.remainingWeight.requestFocus()
+//            return false
+//        }
 
         weight = binding.weight.text.toString().toDouble()
-        soldWeight = binding.soldWeight.text.toString().toDouble()
-        remainingWeight = binding.remainingWeight.text.toString().toDouble()
+//        soldWeight = binding.soldWeight.text.toString().toDouble()
+//        remainingWeight = binding.remainingWeight.text.toString().toDouble()
 
         return true
     }

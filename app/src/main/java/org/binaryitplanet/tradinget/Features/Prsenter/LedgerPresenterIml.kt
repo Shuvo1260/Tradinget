@@ -5,6 +5,8 @@ import android.util.Log
 import org.binaryitplanet.tradinget.Features.Model.DatabaseManager
 import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedgers
 import org.binaryitplanet.tradinget.Utils.LedgerUtils
+import org.binaryitplanet.tradinget.Utils.PacketDetailsUtils
+import org.binaryitplanet.tradinget.Utils.PacketUtils
 import org.binaryitplanet.tradinget.Utils.SoldPacketUtils
 import java.lang.Exception
 
@@ -17,16 +19,52 @@ class LedgerPresenterIml(
 
     override fun insertLedger(
         ledgerUtils: LedgerUtils,
-        soldPacketList: ArrayList<SoldPacketUtils>
+        soldPacketList: ArrayList<SoldPacketUtils>,
+        packetList: ArrayList<PacketUtils>,
+        subPacketList: ArrayList<PacketDetailsUtils>
     ) {
+        var packetFlag = arrayListOf<Boolean>()
+        var subPacketFlag = arrayListOf<Boolean>()
+        packetList.forEach {
+            packetFlag.add(false)
+        }
+        subPacketList.forEach {
+            subPacketFlag.add(false)
+        }
         try {
             val databaseManager = DatabaseManager.getInstance(context)!!
             val id = databaseManager.getLedgerDAO().insert(ledgerUtils)
 
             if (id > 0) {
+                Log.d(TAG, "PacketSize: ${packetList.size}")
+                Log.d(TAG, "SubPacketSize: ${subPacketList.size}")
                 soldPacketList.forEach {
                     databaseManager.getSoldPacketDAO().insert(it)
+                    packetFlag[it.packetIndex] = true
+                    subPacketFlag[it.subPacketIndex] = true
+
+                    packetList[it.packetIndex].weight -= it.weight
+                    subPacketList[it.subPacketIndex].weight -= it.weight
+                    subPacketList[it.subPacketIndex].soldWeight += it.weight
+                    subPacketList[it.subPacketIndex].remainingWeight -= it.weight
                 }
+
+                for (index in 0 until packetList.size) {
+                    Log.d(TAG, "PacketIndex: $index")
+                    if (packetFlag[index]) {
+                        databaseManager.getPacketDAO()
+                            .update(packetList[index])
+                    }
+                }
+
+                for (index in 0 until subPacketList.size) {
+                    Log.d(TAG, "SubPacketIndex: $index")
+                    if (subPacketFlag[index]){
+                        databaseManager.getPacketDetailsDAO()
+                            .update(subPacketList[index])
+                    }
+                }
+
                 viewLedgers.onLedgerInsertListener(true)
             }
             else
