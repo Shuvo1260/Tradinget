@@ -73,6 +73,7 @@
     <string name="addPacket">Add packet</string>
     <string name="makeTransaction">Make Transaction</string>
     <string name="transactionType">Transaction type</string>
+    <string name="paymentType">Payment type</string>
     <string name="stateType">State type</string>
 
 

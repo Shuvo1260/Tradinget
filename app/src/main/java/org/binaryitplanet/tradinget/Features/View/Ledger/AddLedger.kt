@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -72,6 +73,7 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
     private var discountPercentage: Double = 0.0
     private var discountAmount: Double = 0.0
 
+    private lateinit var paymentType: String
     private lateinit var remark: String
     private lateinit var progressDialog: ProgressDialog
 
@@ -220,6 +222,10 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
         subPacketPresenter.fetchAllPacketDetailsList()
 
         setupDate()
+
+        val paymentTypes = resources.getStringArray(R.array.paymentType)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, paymentTypes)
+        binding.paymentType.setAdapter(adapter)
     }
 
     override fun onFetchAllPacketDetailsListListener(subPacketList: List<PacketDetailsUtils>) {
@@ -368,6 +374,7 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             dateMilli,
             dueDateString,
             dueDateMilli,
+            paymentType,
             remark,
             imageURL,
             null
@@ -416,6 +423,13 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
         }
 
         remark = binding.remark.text.toString()
+        paymentType = binding.paymentType.text.toString()
+
+        if (paymentType.isNullOrEmpty()) {
+            binding.paymentType.error = Config.REQUIRED_FIELD
+            binding.paymentType.requestFocus()
+            return false
+        }
 
         if (binding.brokerPercentage.text.toString().isNullOrEmpty()) {
             binding.brokerPercentage.error = Config.REQUIRED_FIELD

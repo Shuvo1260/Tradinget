@@ -135,6 +135,7 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
 
 
         binding.ledgerId.text = ledger.ledgerId
+        binding.paymentType.text = "Payment type: " + ledger.paymentType
         binding.brokerName.text = "Broker: " + ledger.brokerName
 
         binding.brokerPercentage.text = "Broker percentage: " + ledger.brokerPercentage.toString() + "%"

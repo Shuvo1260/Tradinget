@@ -75,6 +75,9 @@ data class LedgerUtils(
     @ColumnInfo(name = Config.COLUMN_DUE_DATE_MILLI)
     var dueDateInMilli: Long,
 
+    @ColumnInfo(name = Config.COLUMN_PAYMENT_TYPE)
+    var paymentType: String?,
+
     @ColumnInfo(name = Config.COLUMN_REMARK)
     var remark: String?,
 

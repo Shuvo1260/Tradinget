@@ -150,6 +150,29 @@
                     />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/paymentTypeLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/paymentType"
+                    android:textColorHint="@color/colorPrimary"
+                    app:hintTextColor="@color/white"
+                    app:boxStrokeColor="@color/white"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/addPacket"
+                    >
+
+                    <AutoCompleteTextView
+                        android:id="@+id/paymentType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/brokerLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
@@ -161,7 +184,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/addPacket"
+                    app:layout_constraintTop_toBottomOf="@id/paymentTypeLayout"
                     >
 
                     <AutoCompleteTextView
