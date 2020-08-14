@@ -43,6 +43,12 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_view_ledger)
 
+
+        val permissions:Array<String> = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(permissions, Config.PICK_IMAGE_REQUEST_CODE)
+        }
+
         ledger = intent?.getSerializableExtra(Config.LEDGER) as LedgerUtils
         isBroker = intent?.getBooleanExtra(Config.BROKER_FLAG, false)!!
         setUpToolbar()
@@ -124,16 +130,26 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
         binding.list.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == Config.PICK_IMAGE_REQUEST_CODE && grantResults.isNotEmpty()) {
+            onResume()
+        }
+    }
     private fun setViews() {
+
         if (isBroker)
             binding.makeTransaction.visibility = View.GONE
+
         if (ledger.imageUrl.isNullOrEmpty())
             binding.image.visibility = View.GONE
         else {
             binding.image.setImageURI(Uri.parse(ledger.imageUrl))
         }
-
-
         binding.ledgerId.text = ledger.ledgerId
         binding.paymentType.text = "Payment type: " + ledger.paymentType
         binding.brokerName.text = "Broker: " + ledger.brokerName

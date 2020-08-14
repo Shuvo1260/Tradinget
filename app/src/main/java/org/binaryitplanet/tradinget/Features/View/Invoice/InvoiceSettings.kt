@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_create_invoice.*
+import org.binaryitplanet.tradinget.Features.Adapter.NoteListAdapter
 import org.binaryitplanet.tradinget.Features.Prsenter.InvoicePresenterIml
 import org.binaryitplanet.tradinget.Features.View.Ledger.AddLedger
 import org.binaryitplanet.tradinget.R
@@ -58,6 +60,30 @@ class InvoiceSettings : Fragment(), InvoiceSettingsView {
         super.onFetchInvoiceSettingsListener(invoiceSEttings, noteList)
         this.invoiceSettings = invoiceSEttings
         this.noteList = noteList as ArrayList<NotesUtils>
+
+        setupViews()
+    }
+
+    private fun setupViews() {
+        binding.name.text = "Name: ${invoiceSettings.name}"
+        binding.firmName.text = "Firm name: ${invoiceSettings.firmName}"
+        binding.mobileNumber.text = "Mobile number: ${invoiceSettings.mobileNumber}"
+        binding.altMobileNumber.text = "Alt mobile number: ${invoiceSettings.altMobileNumber}"
+        binding.address.text = "Address: ${invoiceSettings.address1},${invoiceSettings.address2}" +
+                ",${invoiceSettings.address3},${invoiceSettings.address4}"
+        binding.stateCode.text = "State code: ${invoiceSettings.stateCode}"
+        binding.gstNumber.text = "GST number: ${invoiceSettings.gstNumber}"
+        binding.panNumber.text = "PAN number: ${invoiceSettings.panNumber}"
+        binding.bankNameAndBrunch.text = "Bank name and brunch: ${invoiceSettings.bankNameAndBrunch}"
+        binding.bankAccount.text = "Bank account: ${invoiceSettings.bankAccount}"
+        binding.ifsc.text = "Bank IFSC: ${invoiceSettings.bankIFSC}"
+
+
+
+        val adapter = NoteListAdapter(context!!, noteList)
+        binding.list.adapter = adapter
+        binding.list.layoutManager = LinearLayoutManager(context!!)
+        binding.list.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
     }
 
 }
