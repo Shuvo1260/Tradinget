@@ -45,4 +45,8 @@ interface LedgerDAO {
 
     @Query("SELECT Ledger_ID FROM LEDGER_TABLE")
     fun getLedgerIDList(): List<String>
+
+
+    @Query("SELECT * FROM LEDGER_TABLE WHERE Paid_amount < Total_amount ORDER BY Stakeholder_name ASC")
+    fun getPendingLedgerList(): List<LedgerUtils>
 }

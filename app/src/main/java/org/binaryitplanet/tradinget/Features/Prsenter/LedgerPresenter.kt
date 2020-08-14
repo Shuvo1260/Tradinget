@@ -23,4 +23,7 @@ interface LedgerPresenter {
     fun fetchSoldPacketList()
 
     fun fetchLedgerIdList()
+
+
+    fun fetchPendingLedgerList()
 }
