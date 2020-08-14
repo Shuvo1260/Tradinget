@@ -28,6 +28,14 @@
             android:id="@+id/nav_invoice"
             android:icon="@drawable/ic_invoice"
             android:title="@string/paymentSlip"/>
+        <item
+            android:id="@+id/nav_invoice_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/invoiceSettings"/>
+        <item
+            android:id="@+id/nav_pending_payments"
+            android:icon="@drawable/ic_payments"
+            android:title="@string/pendingPayments"/>
     </group>
 
 

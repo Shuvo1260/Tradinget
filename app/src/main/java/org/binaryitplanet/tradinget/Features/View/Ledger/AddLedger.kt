@@ -349,6 +349,7 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             null,
             ledgerId,
             stakeholder.id!!,
+            stakeholder.name,
             brokerList[brokerPosition].id!!,
             brokerList[brokerPosition].name,
             brokerPercentage,

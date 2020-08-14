@@ -27,12 +27,6 @@ class Invoice : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentInvoiceBinding.inflate(inflater, container, false)
-//
-//        binding.add.setOnClickListener {
-//            var intent = Intent(context, CreateInvoice::class.java)
-//            startActivity(intent)
-//            activity?.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
-//        }
 
         val permissions:Array<String> = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
         requestPermissions(permissions, Config.INVOICE_REQUEST_CODE)

@@ -28,6 +28,8 @@ class Config {
         val STATE_CODE = "State code"
         val PAN_NUMBER = "PAN number"
         val GST_NUMBER = "GST number"
+        val SAME_STATE = "Same state"
+        val INTER_STATE = "Interstate"
 
         val CREATING_LEDGER_TITLE = "Creating ledger"
         val CREATING_LEDGER_MESSAGE = "Inserting ledger data, wait a moment..."
@@ -47,6 +49,8 @@ class Config {
         val TOOLBAR_TITLE_BROKER = "Brokers"
         val TOOLBAR_TITLE_INVENTORY = "Inventories"
         val TOOLBAR_TITLE_INVOICE = "Invoice"
+        val TOOLBAR_TITLE_INVOICE_SETTINGS = "Invoice settings"
+        val TOOLBAR_TITLE_PENDING_PAYMENTS = "Pending payments"
         val TOOLBAR_TITLE_CREATE_INVOICE = "Create invoice"
         val TOOLBAR_TITLE_BACKUP_AND_RESTORE = "Backup and restore"
         val TOOLBAR_TITLE_ADD_BUYER = "Add buyer"
@@ -90,17 +94,25 @@ class Config {
         const val TABLE_STAKEHOLDER = "Stakeholder_table"
         const val TABLE_PACKET = "Packet_table"
         const val TABLE_LEDGER = "Ledger_table"
+        const val TABLE_INVOICE_SETTINGS = "Invoice_settings_table"
+        const val TABLE_NOTES = "Notes_table"
+        const val TABLE_SELLER_LEDGER = "Seller_ledger_table"
         const val TABLE_SOLD_PACKET = "Sold_packet_table"
         const val TABLE_PACKET_DETAILS = "Packet_details_table"
 
         // Columns
         const val COLUMN_ID = "ID"
+        const val COLUMN_SELLER_ID = "Seller_ID"
         const val COLUMN_TYPE = "Type"
         const val COLUMN_NAME = "Name"
         const val COLUMN_FIRM_NAME = "Firm_name"
         const val COLUMN_MOBILE_NUMBER = "Mobile_number"
         const val COLUMN_ALT_MOBILE_NUMBER = "Alt_mobile_number"
         const val COLUMN_ADDRESS = "Address"
+        const val COLUMN_ADDRESS1 = "Address1"
+        const val COLUMN_ADDRESS2 = "Address2"
+        const val COLUMN_ADDRESS3 = "Address3"
+        const val COLUMN_ADDRESS4 = "Address4"
         const val COLUMN_STATE_CODE = "State_code"
         const val COLUMN_GST_NUMBER = "GST_number"
         const val COLUMN_PAN_NUMBER = "Pan_number"
@@ -116,6 +128,7 @@ class Config {
         const val COLUMN_CODE = "Code"
         const val COLUMN_REMARK = "Remark"
         const val COLUMN_LEDGER_ID = "Ledger_ID"
+        const val COLUMN_STAKEHOLDER_NAME = "Stakeholder_name"
         const val COLUMN_STAKEHOLDER_ID = "Stakeholder_ID"
         const val COLUMN_BROKER_ID = "Broker_ID"
         const val COLUMN_BROKER_NAME = "Broker_name"
@@ -142,6 +155,16 @@ class Config {
         const val COLUMN_IMAGE_URL = "Image_url"
 
         const val COLUMN_INVOICE_URL = "Invoice_url"
+
+
+        const val COLUMN_NOTE = "Note"
+        const val COLUMN_BANK_NAME = "Bank_name"
+        const val COLUMN_BANK_ACCOUNT = "Bank_account"
+        const val COLUMN_BANK_IFSC = "Bank_ifsc"
+
+        const val COLUMN_TRANSACTION_TYPE = "Transaction_type"
+        const val COLUMN_PAYMENT_TYPE = "Payment_type"
+        const val COLUMN_YEAR = "Year"
 
         // Invoice
         val PDF_FORMAT = ".pdf"

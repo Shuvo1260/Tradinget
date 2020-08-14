@@ -9,7 +9,8 @@ import org.binaryitplanet.tradinget.Utils.*
 @Database(
     entities = [
         StakeholderUtils::class, PacketUtils::class, PacketDetailsUtils::class,
-    SoldPacketUtils::class, LedgerUtils::class
+    SoldPacketUtils::class, LedgerUtils::class, InvoiceSettingsUtils::class,
+    NotesUtils::class, SellerLedgerUtils::class
     ],
     version = Config.DATABASE_VERSION
 )
@@ -20,6 +21,9 @@ abstract class DatabaseManager: RoomDatabase() {
     abstract fun getPacketDetailsDAO(): PacketDetailsDAO
     abstract fun getSoldPacketDAO(): SoldPacketDAO
     abstract fun getLedgerDAO(): LedgerDAO
+    abstract fun getInvoiceSettingsDAO(): InvoiceSettingsDAO
+    abstract fun getNotesDAO(): NotesDAO
+    abstract fun getSellerLedgerDAO(): SellerLedgerDAO
 
     companion object{
         var INSTANCE: DatabaseManager? = null

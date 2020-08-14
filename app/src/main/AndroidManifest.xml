@@ -19,26 +19,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Features.View.Ledger.Transaction"
-            android:screenOrientation="portrait" ></activity>
-        <activity android:name=".Features.View.Ledger.ViewLedger"
+        <activity android:name=".Features.View.Invoice.InvoiceSettingsEdit"></activity>
+        <activity
+            android:name=".Features.View.Ledger.Transaction"
             android:screenOrientation="portrait" />
-        <activity android:name=".Features.View.Ledger.AddLedger"
+        <activity
+            android:name=".Features.View.Ledger.ViewLedger"
             android:screenOrientation="portrait" />
-        <activity android:name=".Features.View.Inventory.AddPacketDetails"
+        <activity
+            android:name=".Features.View.Ledger.AddLedger"
             android:screenOrientation="portrait" />
-        <activity android:name=".Features.View.Inventory.ViewPacket"
+        <activity
+            android:name=".Features.View.Inventory.AddPacketDetails"
             android:screenOrientation="portrait" />
-        <activity android:name=".Features.View.Invoice.CreateInvoice"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".Features.View.Seller.ViewSeller"
+        <activity
+            android:name=".Features.View.Inventory.ViewPacket"
             android:screenOrientation="portrait" />
-        <activity android:name=".Features.View.Buyer.ViewBuyer"
+        <activity
+            android:name=".Features.View.Invoice.CreateInvoice"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Features.View.Seller.ViewSeller"
             android:screenOrientation="portrait" />
-        <activity android:name=".Features.View.Broker.ViewBroker"
+        <activity
+            android:name=".Features.View.Buyer.ViewBuyer"
             android:screenOrientation="portrait" />
-        <activity android:name=".Features.View.Inventory.AddPacket"
+        <activity
+            android:name=".Features.View.Broker.ViewBroker"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Features.View.Inventory.AddPacket"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Features.View.Seller.AddSeller"
@@ -52,7 +62,6 @@
         <activity
             android:name=".Features.View.SplashScreen"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

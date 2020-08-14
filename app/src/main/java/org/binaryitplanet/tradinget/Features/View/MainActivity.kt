@@ -15,6 +15,7 @@ import org.binaryitplanet.tradinget.Features.View.Buyer.Buyer
 import org.binaryitplanet.tradinget.Features.View.Home.Home
 import org.binaryitplanet.tradinget.Features.View.Inventory.Inventory
 import org.binaryitplanet.tradinget.Features.View.Invoice.Invoice
+import org.binaryitplanet.tradinget.Features.View.Invoice.InvoiceSettings
 import org.binaryitplanet.tradinget.Features.View.Seller.Seller
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
@@ -139,6 +140,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.frameLayout,
                 Invoice(),
                 Config.TOOLBAR_TITLE_INVOICE
+            )
+
+        }else if (item.itemId == R.id.nav_invoice_settings) {
+
+            setUpToolbarTitle(Config.TOOLBAR_TITLE_INVOICE_SETTINGS)
+            fragmentTransition.replace(
+                R.id.frameLayout,
+                InvoiceSettings(),
+                Config.TOOLBAR_TITLE_INVOICE_SETTINGS
+            )
+
+        }else if (item.itemId == R.id.nav_pending_payments) {
+
+            setUpToolbarTitle(Config.TOOLBAR_TITLE_PENDING_PAYMENTS)
+            fragmentTransition.replace(
+                R.id.frameLayout,
+                PendingPayments(),
+                Config.TOOLBAR_TITLE_PENDING_PAYMENTS
             )
 
         }else if (item.itemId == R.id.nav_backup_and_restore) {

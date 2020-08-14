@@ -25,6 +25,8 @@
     <string name="inventory">Inventory</string>
     <string name="paymentSlip">Invoices</string>
     <string name="packet">Packets</string>
+    <string name="invoiceSettings">Invoice settings</string>
+    <string name="pendingPayments">Pending payments</string>
     <string name="backupAndRestore">Backup and restore</string>
     <string name="exit">Exit</string>
     <string name="done">Done</string>
@@ -71,6 +73,7 @@
     <string name="addPacket">Add packet</string>
     <string name="makeTransaction">Make Transaction</string>
     <string name="transactionType">Transaction type</string>
+    <string name="stateType">State type</string>
 
 
     <string name="rupeeSign">₹</string>

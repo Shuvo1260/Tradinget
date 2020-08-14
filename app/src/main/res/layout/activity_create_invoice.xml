@@ -523,211 +523,31 @@
 
 
 
-<!--                Buyer section starts-->
-                <TextView
-                    android:id="@+id/buyerDetailsTitle"
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/stateTypeLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/buyerDetails"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_14sdp"
-                    android:textStyle="bold"
+                    android:hint="@string/stateType"
+                    android:textColorHint="@color/colorPrimary"
+                    app:hintTextColor="@color/white"
+                    app:boxStrokeColor="@color/white"
                     android:layout_marginTop="@dimen/_20sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sellerGSTINLayout" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/buyerNameLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/buyerName"
-                    android:textColorHint="@color/colorPrimary"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_marginTop="@dimen/_5sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buyerDetailsTitle" >
+                    app:layout_constraintTop_toBottomOf="@id/sellerGSTINLayout"
+                    >
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/buyerName"
+                    <AutoCompleteTextView
+                        android:id="@+id/stateType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:singleLine="true"
+                        android:inputType="none"
                         android:textColor="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/buyerAddress1Layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/address1"
-                    android:textColorHint="@color/colorPrimary"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buyerNameLayout" >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/buyerAddress1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:singleLine="true"
-                        android:maxLength="30"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/buyerAddress2Layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/address2"
-                    android:textColorHint="@color/colorPrimary"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buyerAddress1Layout" >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/buyerAddress2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:singleLine="true"
-                        android:maxLength="30"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/buyerAddress3Layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/address3"
-                    android:textColorHint="@color/colorPrimary"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buyerAddress2Layout" >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/buyerAddress3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:singleLine="true"
-                        android:maxLength="30"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/buyerAddress4Layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/address4"
-                    android:textColorHint="@color/colorPrimary"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buyerAddress3Layout" >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/buyerAddress4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:singleLine="true"
-                        android:maxLength="30"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/buyerStateCodeLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/stateCode"
-                    android:textColorHint="@color/colorPrimary"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buyerAddress4Layout" >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/buyerStateCode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:singleLine="true"
-                        android:inputType="number"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/buyerPANLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/pan"
-                    android:textColorHint="@color/colorPrimary"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buyerStateCodeLayout" >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/buyerPAN"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:singleLine="true"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/buyerGSTINLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/gstin"
-                    android:textColorHint="@color/colorPrimary"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buyerPANLayout" >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/buyerGSTIN"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:singleLine="true"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
-<!--                Buyer section ends-->
-
-
-
-
-
-
-
-
-
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/taxPayableOnReverseChargeLayout"
@@ -738,10 +558,10 @@
                     android:textColorHint="@color/colorPrimary"
                     app:hintTextColor="@color/white"
                     app:boxStrokeColor="@color/white"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/buyerGSTINLayout"
+                    app:layout_constraintTop_toBottomOf="@id/stateTypeLayout"
                     >
 
                     <AutoCompleteTextView
@@ -921,148 +741,29 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 <!--                Goods section ends-->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/taxSection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    app:layout_constraintTop_toBottomOf="@id/goodsDetailsLayout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    >
 
-                    <TextView
-                        android:id="@+id/taxDetailsTitle"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/roundingDifferenceLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/roundingDifference"
+                    android:textColorHint="@color/colorPrimary"
+                    app:boxStrokeColor="@color/white"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/goodsDetailsLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/roundingDifference"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/taxDetails"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/goodsHscSacCodeLayout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hsnSACCode"
-                        android:textColorHint="@color/colorPrimary"
-                        app:boxStrokeColor="@color/white"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/taxDetailsTitle">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/goodsHscSacCode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:imeOptions="actionNext"
-                            android:singleLine="true"
-                            android:textColor="@color/white" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/cgstRateLayout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/cgst"
-                        android:textColorHint="@color/colorPrimary"
-                        app:boxStrokeColor="@color/white"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/goodsHscSacCodeLayout">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/cgstRate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:imeOptions="actionNext"
-                            android:singleLine="true"
-                            android:textColor="@color/white" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/sgstRateLayout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/sgst"
-                        android:textColorHint="@color/colorPrimary"
-                        app:boxStrokeColor="@color/white"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cgstRateLayout">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/sgstRate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:imeOptions="actionNext"
-                            android:singleLine="true"
-                            android:textColor="@color/white" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/igstRateLayout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/igst"
-                        android:textColorHint="@color/colorPrimary"
-                        app:boxStrokeColor="@color/white"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/sgstRateLayout">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/igstRate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:imeOptions="actionNext"
-                            android:singleLine="true"
-                            android:textColor="@color/white" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/roundingDifferenceLayout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/roundingDifference"
-                        android:textColorHint="@color/colorPrimary"
-                        app:boxStrokeColor="@color/white"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/igstRateLayout">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/roundingDifference"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:imeOptions="actionNext"
-                            android:singleLine="true"
-                            android:textColor="@color/white" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
 
@@ -1075,7 +776,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/taxSection">
+                    app:layout_constraintTop_toBottomOf="@id/roundingDifferenceLayout">
 
                     <TextView
                         android:id="@+id/bankDetailsTitle"

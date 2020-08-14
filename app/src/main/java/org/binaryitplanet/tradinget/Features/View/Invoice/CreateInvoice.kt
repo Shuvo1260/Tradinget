@@ -171,6 +171,13 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
 
     private fun checkValidity(): Boolean {
 
+
+        if (binding.stateType.text.toString().isNullOrEmpty()){
+            binding.stateType.error = Config.REQUIRED_FIELD
+            binding.stateType.requestFocus()
+            return false
+        }
+
         if (goodsList.size < 1) {
             binding.goodsName.error = Config.REQUIRED_FIELD
             binding.goodsName.requestFocus()
@@ -182,7 +189,6 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
             binding.note.requestFocus()
             return false
         }
-
         return true
     }
 
@@ -260,6 +266,14 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
                 }, shippingYear, shippingMonth, shippingDay)
             datePickerDialog.show()
         }
+
+        var stateTypes = arrayListOf(Config.SAME_STATE, Config.INTER_STATE)
+        var adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, stateTypes)
+        binding.stateType.setAdapter(adapter)
+
+        var taxTypes = arrayListOf(Config.YES_MESSAGE, Config.NO_MESSAGE)
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, taxTypes)
+        binding.taxPayableOnReverseCharge.setAdapter(adapter)
     }
 
 
@@ -283,21 +297,14 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
         Log.d(TAG, "code: $requestCode, $permissions, $grantResults")
         if (requestCode == Config.INVOICE_REQUEST_CODE && grantResults.isNotEmpty()) {
 
-            var cgstRateString = binding.cgstRate.text.toString()
-            var sgstRateString = binding.sgstRate.text.toString()
-            var igstRateString = binding.igstRate.text.toString()
             var roundingDifferenceString = binding.roundingDifference.text.toString()
             var cgstRate = 0.0
             var sgstRate = 0.0
             var igstRate = 0.0
             var roundingDifference = 0.0
 
-            if (!cgstRateString.isNullOrEmpty())
-                cgstRate = cgstRateString.toDouble()
-            if (!sgstRateString.isNullOrEmpty())
-                sgstRate = sgstRateString.toDouble()
-            if (!igstRateString.isNullOrEmpty())
-                igstRate = igstRateString.toDouble()
+            var stateType = binding.stateType.text.toString().trim()
+
             if (!roundingDifferenceString.isNullOrEmpty())
                 roundingDifference = roundingDifferenceString.toDouble()
 
@@ -312,8 +319,9 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
             var rate = ""
             var amount = ""
             var notes = "Notes\n"
+            var totalGSTRate = 0.0
 
-            hsnSACCode = binding.goodsHscSacCode.text.toString()
+            hsnSACCode = "binding.goodsHscSacCode.text.toString()"
 
             notesList.forEach {
                 notes += "  $it\n"
@@ -334,6 +342,15 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
                 totalAmount += it.total
                 totalRate += totalRate
                 totalQuantity += it.quantity
+                totalGSTRate = it.gstRate
+            }
+
+
+            if (stateType == Config.SAME_STATE) {
+                cgstRate = totalGSTRate / 2
+                sgstRate = totalGSTRate / 2
+            } else {
+                igstRate = totalGSTRate
             }
 
             var cgstAmount = totalAmount * (cgstRate / 100)
@@ -342,6 +359,8 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
 
             var finalAmount = totalAmount + cgstAmount + sgstAmount + igstAmount - roundingDifference
 
+
+            // Buyer details starts
             var buyerAddressLength = buyer.address?.length!!
             var buyerAddress = buyer.address!!
             var buyerAddresses = arrayListOf<String>()
@@ -404,7 +423,7 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
                 buyer.panNumber,
                 buyer.gstNumber,
                 getValue(binding.taxPayableOnReverseCharge.text.toString()),
-                getValue(binding.goodsHscSacCode.text.toString()),
+                getValue(hsnSACCode),
                 "$cgstRate",
                 cgstAmount.toString(),
                 "$sgstRate",
