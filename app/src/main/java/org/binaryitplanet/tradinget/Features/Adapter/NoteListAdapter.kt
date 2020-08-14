@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.view_due_dates_list.view.*
 import kotlinx.android.synthetic.main.view_list_note_item.view.*
 import org.binaryitplanet.tradinget.R
-import org.binaryitplanet.tradinget.Utils.LedgerUtils
+import org.binaryitplanet.tradinget.Utils.NotesUtils
 
 class NoteListAdapter(
     val context: Context,
-    val noteList: ArrayList<String>
+    val noteList: ArrayList<NotesUtils>
 ): RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
     private val TAG = "NoteListAdapter"
     // Holding the view
@@ -34,7 +33,7 @@ class NoteListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var view = holder.itemView
 
-        view.note.text = noteList[position]
+        view.note.text = noteList[position].note
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {}

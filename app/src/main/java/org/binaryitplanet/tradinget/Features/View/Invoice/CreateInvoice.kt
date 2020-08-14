@@ -8,12 +8,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_create_invoice.view.*
 import org.binaryitplanet.tradinget.Features.Adapter.GoodsAdapter
 import org.binaryitplanet.tradinget.Features.Adapter.NoteListAdapter
+import org.binaryitplanet.tradinget.Features.Prsenter.InvoicePresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedgers
 import org.binaryitplanet.tradinget.R
@@ -22,14 +23,13 @@ import org.binaryitplanet.tradinget.databinding.ActivityCreateInvoiceBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CreateInvoice : AppCompatActivity(), ViewLedgers {
+class CreateInvoice : AppCompatActivity(), ViewLedgers, InvoiceSettingsView {
     private val TAG = "CreateInvoice"
     private lateinit var binding: ActivityCreateInvoiceBinding
 
     // Variables
 
     private var goodsList = arrayListOf<GoodUtils>()
-    private var notesList = arrayListOf<String>()
 //    private var ledgerList = arrayListOf<String>()
     
     private var ecommerceDay: Int = 0
@@ -58,6 +58,8 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
 
     private lateinit var ledger: LedgerUtils
     private lateinit var buyer: StakeholderUtils
+    private lateinit var invoiceSettings: InvoiceSettingsUtils
+    private var notesList = arrayListOf<NotesUtils>()
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,24 +77,6 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
                 requestPermissions(permissions, Config.INVOICE_REQUEST_CODE)
             }
             return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
-        }
-
-        binding.addNote.setOnClickListener {
-            if (binding.note.text.isNullOrEmpty()) {
-                binding.note.error = Config.REQUIRED_FIELD
-                binding.note.requestFocus()
-            } else {
-                notesList.add(
-                    (notesList.size + 1).toString() + ". " + binding.note.text.toString()
-                )
-
-                val adapter = NoteListAdapter(this, notesList)
-                binding.notesList.adapter = adapter
-                binding.notesList.layoutManager = LinearLayoutManager(this)
-                binding.notesList.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
-
-                binding.note.setText("")
-            }
         }
         
         binding.addGood.setOnClickListener { 
@@ -171,6 +155,14 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
 
     private fun checkValidity(): Boolean {
 
+        if (notesList.size <= 0) {
+            Toast.makeText(
+                this,
+                Config.INVOICE_SETTINGS_FAILED_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
 
         if (binding.stateType.text.toString().isNullOrEmpty()){
             binding.stateType.error = Config.REQUIRED_FIELD
@@ -184,11 +176,6 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
             return false
         }
 
-        if (notesList.size < 1) {
-            binding.note.error = Config.REQUIRED_FIELD
-            binding.note.requestFocus()
-            return false
-        }
         return true
     }
 
@@ -197,8 +184,20 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
 
         ledger = intent?.getSerializableExtra(Config.LEDGER) as LedgerUtils
         buyer = intent?.getSerializableExtra(Config.STAKEHOLDER) as StakeholderUtils
+
+        val presenter = InvoicePresenterIml(this, this)
+        presenter.fetchInvoiceSettings()
         
         setViews()
+    }
+
+    override fun onFetchInvoiceSettingsListener(
+        invoiceSEttings: InvoiceSettingsUtils,
+        noteList: List<NotesUtils>
+    ) {
+        super.onFetchInvoiceSettingsListener(invoiceSEttings, noteList)
+        invoiceSettings = invoiceSEttings
+        notesList = noteList as ArrayList<NotesUtils>
     }
 
     private fun setViews() {
@@ -324,7 +323,7 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
             hsnSACCode = "binding.goodsHscSacCode.text.toString()"
 
             notesList.forEach {
-                notes += "  $it\n"
+                notes += "  ${it.note}\n"
             }
 
             var totalAmount = 0.0
@@ -406,14 +405,14 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
                 getValue(binding.llRRNo.text.toString()),
                 getValue(binding.eCommerce.text.toString()),
                 ecommerceDateString,
-                getValue(binding.sellerName.text.toString()),
-                binding.sellerAddress1.text.toString(),
-                binding.sellerAddress2.text.toString(),
-                binding.sellerAddress3.text.toString(),
-                binding.sellerAddress4.text.toString(),
-                getValue(binding.sellerStateCode.text.toString()),
-                getValue(binding.sellerPAN.text.toString()),
-                getValue(binding.sellerGSTIN.text.toString()),
+                invoiceSettings.name,
+                invoiceSettings.address1,
+                invoiceSettings.address2,
+                invoiceSettings.address3,
+                invoiceSettings.address4,
+                invoiceSettings.stateCode,
+                invoiceSettings.panNumber,
+                invoiceSettings.gstNumber,
                 buyer.name,
                 buyerAddresses[0],
                 buyerAddresses[1],
@@ -435,9 +434,9 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
                 totalAmount.toString(),
                 finalAmount.toString(),
                 totalQuantity.toString(),
-                getValue(binding.bankName.text.toString()),
-                getValue(binding.currentAccount.text.toString()),
-                getValue(binding.ifsc.text.toString())
+                invoiceSettings.bankNameAndBrunch,
+                invoiceSettings.bankAccount,
+                invoiceSettings.bankIFSC
             )
             pdfPath = invoiceBuilder.createPdf(
                     invoice,
