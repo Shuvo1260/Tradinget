@@ -80,6 +80,7 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
         binding.addInvoice.setOnClickListener {
             var intent = Intent(this, CreateInvoice::class.java)
             intent.putExtra(Config.LEDGER, ledger)
+            intent.putExtra(Config.STAKEHOLDER, stakeholder)
             startActivity(intent)
             overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
         }

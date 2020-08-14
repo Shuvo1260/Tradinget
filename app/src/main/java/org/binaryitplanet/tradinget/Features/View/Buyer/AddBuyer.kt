@@ -27,6 +27,7 @@ class AddBuyer : AppCompatActivity(), StakeholderView {
     private lateinit var mobileNumber: String
     private lateinit var altMobileNumber: String
     private lateinit var address: String
+    private lateinit var stateCode: String
     private lateinit var gstNumber: String
     private lateinit var panNumber: String
 
@@ -70,6 +71,7 @@ class AddBuyer : AppCompatActivity(), StakeholderView {
         stakeholder.firmName = firmName
         stakeholder.mobileNumber = mobileNumber
         stakeholder.address = address
+        stakeholder.stateCode = stateCode
         stakeholder.gstNumber = gstNumber
         stakeholder.panNumber = panNumber
 
@@ -107,6 +109,7 @@ class AddBuyer : AppCompatActivity(), StakeholderView {
             mobileNumber,
             altMobileNumber,
             address,
+            stateCode,
             gstNumber,
             panNumber
         )
@@ -141,6 +144,7 @@ class AddBuyer : AppCompatActivity(), StakeholderView {
         binding.mobileNumber.setText(stakeholder.mobileNumber)
         binding.altMobileNumber.setText(stakeholder.altMobileNumber)
         binding.address.setText(stakeholder.address)
+        binding.stateCode.setText(stakeholder.stateCode)
         binding.gstNumber.setText(stakeholder.gstNumber)
         binding.panNumber.setText(stakeholder.panNumber)
 
@@ -153,6 +157,7 @@ class AddBuyer : AppCompatActivity(), StakeholderView {
         mobileNumber = binding.mobileNumber.text.toString()
         altMobileNumber = binding.altMobileNumber.text.toString()
         address = binding.address.text.toString()
+        stateCode = binding.stateCode.text.toString()
         gstNumber = binding.gstNumber.text.toString()
         panNumber = binding.panNumber.text.toString()
 
@@ -179,6 +184,11 @@ class AddBuyer : AppCompatActivity(), StakeholderView {
         if (address.isNullOrEmpty()) {
             binding.address.error = Config.REQUIRED_FIELD
             binding.address.requestFocus()
+            return false
+        }
+        if (stateCode.isNullOrEmpty()) {
+            binding.stateCode.error = Config.REQUIRED_FIELD
+            binding.stateCode.requestFocus()
             return false
         }
         if (gstNumber.isNullOrEmpty()) {

@@ -29,6 +29,9 @@ data class StakeholderUtils(
     @ColumnInfo(name = Config.COLUMN_ADDRESS)
     var address: String?,
 
+    @ColumnInfo(name = Config.COLUMN_STATE_CODE)
+    var stateCode: String?,
+
     @ColumnInfo(name = Config.COLUMN_GST_NUMBER)
     var gstNumber: String?,
 

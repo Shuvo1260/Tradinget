@@ -1,10 +1,7 @@
 package org.binaryitplanet.tradinget.Features.Adapter
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +16,7 @@ import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.LedgerUtils
 import org.binaryitplanet.tradinget.Utils.PacketUtils
+import org.binaryitplanet.tradinget.Utils.StakeholderUtils
 import android.util.Pair as UtilPair
 
 class LedgerAdapter(

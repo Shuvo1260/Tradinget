@@ -28,7 +28,6 @@ import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.LedgerUtils
 import org.binaryitplanet.tradinget.Utils.StakeholderUtils
-import org.binaryitplanet.tradinget.databinding.ActivityViewBrokerBinding
 import org.binaryitplanet.tradinget.databinding.ActivityViewSellerBinding
 
 class ViewSeller : AppCompatActivity(), StakeholderView, ViewLedgers {
@@ -148,10 +147,11 @@ class ViewSeller : AppCompatActivity(), StakeholderView, ViewLedgers {
         binding.name.text = stakeholder.name
         binding.mobileNumber.text = stakeholder.mobileNumber
         binding.altMobileNumber.text = stakeholder.altMobileNumber
-        binding.firmName.text = stakeholder.firmName
-        binding.address.text = stakeholder.address
-        binding.gstNumber.text = stakeholder.gstNumber
-        binding.panNumber.text = stakeholder.panNumber
+        binding.firmName.text = Config.FIRM_NAME + ": " + stakeholder.firmName
+        binding.address.text = Config.ADDRESS + ": " + stakeholder.address
+        binding.stateCode.text = Config.STATE_CODE + ": " + stakeholder.stateCode
+        binding.gstNumber.text = Config.GST_NUMBER + ": " + stakeholder.gstNumber
+        binding.panNumber.text = Config.PAN_NUMBER + ": " + stakeholder.panNumber
 
         binding.mobileNumber.setOnClickListener {
             makeCall(stakeholder.mobileNumber)

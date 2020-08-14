@@ -27,7 +27,6 @@ import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.LedgerUtils
 import org.binaryitplanet.tradinget.Utils.StakeholderUtils
-import org.binaryitplanet.tradinget.databinding.ActivityAddBrokerBinding
 import org.binaryitplanet.tradinget.databinding.ActivityViewBrokerBinding
 
 class ViewBroker : AppCompatActivity(), StakeholderView, ViewLedgers {
@@ -142,26 +141,27 @@ class ViewBroker : AppCompatActivity(), StakeholderView, ViewLedgers {
         binding.name.text = stakeholder.name
         binding.mobileNumber.text = stakeholder.mobileNumber
         binding.altMobileNumber.text = stakeholder.altMobileNumber
+        binding.stateCode.text = Config.STATE_CODE + ": " + stakeholder.stateCode
 
         if (stakeholder.firmName.isNullOrEmpty())
             binding.firmName.visibility = View.GONE
         else
-            binding.firmName.text = stakeholder.firmName
+            binding.firmName.text = Config.FIRM_NAME + ": " + stakeholder.firmName
 
         if (stakeholder.address.isNullOrEmpty())
             binding.address.visibility = View.GONE
         else
-            binding.address.text = stakeholder.address
+            binding.address.text = Config.ADDRESS + ": " + stakeholder.address
 
         if (stakeholder.gstNumber.isNullOrEmpty())
             binding.gstNumber.visibility = View.GONE
         else
-            binding.gstNumber.text = stakeholder.gstNumber
+            binding.gstNumber.text = Config.GST_NUMBER + ": " + stakeholder.gstNumber
 
         if (stakeholder.panNumber.isNullOrEmpty())
             binding.panNumber.visibility = View.GONE
         else
-            binding.panNumber.text = stakeholder.panNumber
+            binding.panNumber.text = Config.PAN_NUMBER + ": " + stakeholder.panNumber
 
         binding.mobileNumber.setOnClickListener {
             makeCall(stakeholder.mobileNumber)

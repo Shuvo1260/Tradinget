@@ -17,10 +17,7 @@ import org.binaryitplanet.tradinget.Features.Adapter.NoteListAdapter
 import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedgers
 import org.binaryitplanet.tradinget.R
-import org.binaryitplanet.tradinget.Utils.Config
-import org.binaryitplanet.tradinget.Utils.GoodUtils
-import org.binaryitplanet.tradinget.Utils.InvoiceUtils
-import org.binaryitplanet.tradinget.Utils.LedgerUtils
+import org.binaryitplanet.tradinget.Utils.*
 import org.binaryitplanet.tradinget.databinding.ActivityCreateInvoiceBinding
 import java.util.*
 import kotlin.collections.ArrayList
@@ -30,7 +27,6 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
     private lateinit var binding: ActivityCreateInvoiceBinding
 
     // Variables
-    private lateinit var invoiceName: String
 
     private var goodsList = arrayListOf<GoodUtils>()
     private var notesList = arrayListOf<String>()
@@ -61,6 +57,7 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
     private lateinit var pdfPath: String
 
     private lateinit var ledger: LedgerUtils
+    private lateinit var buyer: StakeholderUtils
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -173,11 +170,6 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
     }
 
     private fun checkValidity(): Boolean {
-//        if (binding.invoiceNo.text.toString().isNullOrEmpty()) {
-//            binding.invoiceNo.error = Config.REQUIRED_FIELD
-//            binding.invoiceNo.requestFocus()
-//            return false
-//        }
 
         if (goodsList.size < 1) {
             binding.goodsName.error = Config.REQUIRED_FIELD
@@ -196,10 +188,9 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
 
     override fun onResume() {
         super.onResume()
-//        val presenter = LedgerPresenterIml(this, this)
-//        presenter.fetchLedgerIdList()
 
         ledger = intent?.getSerializableExtra(Config.LEDGER) as LedgerUtils
+        buyer = intent?.getSerializableExtra(Config.STAKEHOLDER) as StakeholderUtils
         
         setViews()
     }
@@ -222,12 +213,14 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
 
         ecommerceDateString = getFormattedDate(ecommerceDay, ecommerceMonth, ecommerceYear).toString()
         binding.eCommerceDate.text = ecommerceDateString
+        ecommerceDateString = "N.A."
 
         invoiceDateString = getFormattedDate(invoiceDay, invoiceMonth, invoiceYear).toString()
         binding.invoiceDate.text = invoiceDateString
 
         shippingDateString = getFormattedDate(shippingDay, shippingMonth, shippingYear).toString()
         binding.shippingDate.text = shippingDateString
+        shippingDateString = "N.A."
 
         binding.eCommerceDate.setOnClickListener {
 
@@ -279,22 +272,6 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
         )
     }
 
-
-//    override fun onFetchLedgerIdListListener(ledgerList: List<String>) {
-//        super.onFetchLedgerIdListListener(ledgerList)
-//        this.ledgerList = ledgerList as ArrayList<String>
-//
-//        val adapter = ArrayAdapter<String>(
-//            this, android.R.layout.simple_list_item_1, this.ledgerList)
-//
-//        binding.invoiceNo.setAdapter(adapter)
-//
-//        val taxPayableTypes = arrayListOf<String>("Yes", "No")
-//        val taxAdapter = ArrayAdapter<String>(
-//            this, android.R.layout.simple_list_item_1, taxPayableTypes
-//        )
-//        binding.taxPayableOnReverseCharge.setAdapter(taxAdapter)
-//    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -365,6 +342,39 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
 
             var finalAmount = totalAmount + cgstAmount + sgstAmount + igstAmount - roundingDifference
 
+            var buyerAddressLength = buyer.address?.length!!
+            var buyerAddress = buyer.address!!
+            var buyerAddresses = arrayListOf<String>()
+
+            if (buyerAddressLength >= 30) {
+                buyerAddresses.add(buyerAddress.substring(0, 29))
+            } else {
+                buyerAddresses.add(buyerAddress.substring(0, buyerAddressLength-1))
+                Log.d(TAG, "Length: ${buyerAddresses[0]} ")
+            }
+            if (buyerAddressLength >= 60) {
+                buyerAddresses.add(buyerAddress.substring(30, 59))
+            } else if (buyerAddressLength in 31..59) {
+                buyerAddresses.add(buyerAddress.substring(30, buyerAddressLength-1))
+            } else {
+                buyerAddresses.add("")
+            }
+            if (buyerAddressLength >= 90) {
+                buyerAddresses.add(buyerAddress.substring(60, 89))
+            } else if (buyerAddressLength in 61..89) {
+                buyerAddresses.add(buyerAddress.substring(60, buyerAddressLength-1))
+            } else {
+                buyerAddresses.add("")
+            }
+            if (buyerAddressLength >= 120) {
+                buyerAddresses.add(buyerAddress.substring(90, 89))
+            } else if (buyerAddressLength in 91..119) {
+                buyerAddresses.add(buyerAddress.substring(90, buyerAddressLength-1))
+            } else {
+                buyerAddresses.add("")
+            }
+
+
             val invoiceBuilder = InvoiceBuilder(this)
             val invoice = InvoiceUtils(
                 ledger.ledgerId,
@@ -385,14 +395,14 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
                 getValue(binding.sellerStateCode.text.toString()),
                 getValue(binding.sellerPAN.text.toString()),
                 getValue(binding.sellerGSTIN.text.toString()),
-                getValue(binding.buyerName.text.toString()),
-                binding.buyerAddress1.text.toString(),
-                binding.buyerAddress2.text.toString(),
-                binding.buyerAddress3.text.toString(),
-                binding.buyerAddress4.text.toString(),
-                getValue(binding.buyerStateCode.text.toString()),
-                getValue(binding.buyerPAN.text.toString()),
-                getValue(binding.buyerGSTIN.text.toString()),
+                buyer.name,
+                buyerAddresses[0],
+                buyerAddresses[1],
+                buyerAddresses[2],
+                buyerAddresses[3],
+                buyer.stateCode,
+                buyer.panNumber,
+                buyer.gstNumber,
                 getValue(binding.taxPayableOnReverseCharge.text.toString()),
                 getValue(binding.goodsHscSacCode.text.toString()),
                 "$cgstRate",
@@ -424,9 +434,6 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
             )
 
             if (!pdfPath.isNullOrEmpty()) {
-//                val presenter = LedgerPresenterIml(this, this)
-////                presenter.fetchLedgerById(binding.invoiceNo.text.toString().trim())
-//                presenter.fetchLedgerById(ledger.ledgerId.trim())
 
                 ledger.invoicePath = pdfPath
                 val presenter = LedgerPresenterIml(this, this)
@@ -435,12 +442,6 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
         }
     }
 
-//    override fun onFetchLedger(ledger: LedgerUtils) {
-//        super.onFetchLedger(ledger)
-//        ledger.invoicePath = pdfPath
-//        val presenter = LedgerPresenterIml(this, this)
-//        presenter.updateLedger(ledger)
-//    }
 
     override fun onLedgerUpdateListener(status: Boolean) {
         super.onLedgerUpdateListener(status)
@@ -478,10 +479,6 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers {
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
-    }
-
-    private fun getValues() {
-        invoiceName = Config.INVOICE_NAME + Calendar.getInstance().timeInMillis
     }
 
 
