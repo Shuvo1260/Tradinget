@@ -17,24 +17,32 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.binaryitplanet.rentalreminderapp.Features.Adapter.SellerLedgerListAdapter
 import org.binaryitplanet.tradinget.Features.Adapter.LedgerAdapter
 import org.binaryitplanet.tradinget.Features.Common.StakeholderView
 import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
+import org.binaryitplanet.tradinget.Features.Prsenter.SellerLedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.StakeholderPresenterIml
 import org.binaryitplanet.tradinget.Features.View.Broker.AddBroker
 import org.binaryitplanet.tradinget.Features.View.Ledger.AddLedger
+import org.binaryitplanet.tradinget.Features.View.Ledger.AddSellerLedger
+import org.binaryitplanet.tradinget.Features.View.Ledger.SellerLedgerView
 import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedgers
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.LedgerUtils
+import org.binaryitplanet.tradinget.Utils.SellerLedgerUtils
 import org.binaryitplanet.tradinget.Utils.StakeholderUtils
 import org.binaryitplanet.tradinget.databinding.ActivityViewSellerBinding
 
-class ViewSeller : AppCompatActivity(), StakeholderView, ViewLedgers {
+class ViewSeller : AppCompatActivity(), StakeholderView, SellerLedgerView {
 
     private val TAG = "ViewSeller"
     private lateinit var binding: ActivityViewSellerBinding
     private lateinit var stakeholder: StakeholderUtils
+    private var ledgerList = arrayListOf<SellerLedgerUtils>()
+    private var totalCredit: Double = 0.0
+    private var totalDebit: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +67,7 @@ class ViewSeller : AppCompatActivity(), StakeholderView, ViewLedgers {
         }
 
         binding.add.setOnClickListener {
-            val intent = Intent(this, AddLedger::class.java)
+            val intent = Intent(this, AddSellerLedger::class.java)
             intent.putExtra(Config.STAKEHOLDER, stakeholder)
             startActivity(intent)
         }
@@ -75,21 +83,89 @@ class ViewSeller : AppCompatActivity(), StakeholderView, ViewLedgers {
         super.onFetchStakeholderListener(stakeholder)
         this.stakeholder = stakeholder
         setupViews()
-        val presenter = LedgerPresenterIml(this, this)
-        presenter.fetchLedgerListByStakeholderId(stakeholder.id!!)
+        val presenter = SellerLedgerPresenterIml(this, this)
+        presenter.fetchLedgerListBySellerId(stakeholder.id!!)
     }
 
-    override fun onFetchLedgerListListener(ledgerList: List<LedgerUtils>) {
+    override fun onFetchLedgerListListener(ledgerList: List<SellerLedgerUtils>) {
         super.onFetchLedgerListListener(ledgerList)
-        val adapter = LedgerAdapter(
+        this.ledgerList = ledgerList as ArrayList<SellerLedgerUtils>
+        totalCredit = 0.0
+        totalDebit = 0.0
+        ledgerList.forEach {
+            if (it.transactionType == Config.CREDIT) {
+                totalCredit += it.amount
+            } else {
+                totalDebit += it.amount
+            }
+        }
+        binding.totalCredit.text = "Total credit: ${Config.RUPEE_SIGN} $totalCredit"
+        binding.totalDebit.text = "Total debit: ${Config.RUPEE_SIGN} $totalDebit"
+        setupList()
+    }
+
+    private fun setupList() {
+
+        val adapter = SellerLedgerListAdapter(
             this,
-            ledgerList as ArrayList<LedgerUtils>,
-            false
+            ledgerList,
+            false,
+            this
         )
 
         binding.list.adapter = adapter
         binding.list.layoutManager = LinearLayoutManager(this)
         binding.list.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
+    }
+
+    override fun onSellerLedgerDeleteClick(position: Int) {
+        super.onSellerLedgerDeleteClick(position)
+        Log.d(TAG, "DeleteParticular: $position")
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle(Config.DELETE_LEDGER_TITLE)
+        builder.setMessage(Config.DELETE_LEDGER_MESSAGE)
+
+        builder.setIcon(R.drawable.ic_launcher)
+
+        builder.setPositiveButton(
+            Config.YES_MESSAGE
+        ){
+                dialog: DialogInterface?, which: Int ->
+
+
+
+            val presenter = SellerLedgerPresenterIml(this, this)
+            presenter.deleteLedger(ledgerList[position])
+        }
+
+        builder.setNegativeButton(
+            Config.NO_MESSAGE
+        ){
+                dialog: DialogInterface?, which: Int ->
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    override fun onDeleteLedgerListener(status: Boolean) {
+        super.onDeleteLedgerListener(status)
+        if (status) {
+            Toast.makeText(
+                this,
+                Config.SUCCESS_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+            val presenter = SellerLedgerPresenterIml(this, this)
+            presenter.fetchLedgerListBySellerId(stakeholder.id!!)
+        } else {
+            Toast.makeText(
+                this,
+                Config.FAILED_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun deleteData() {
