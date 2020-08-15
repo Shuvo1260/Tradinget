@@ -91,7 +91,7 @@ class InvoiceBuilder(
 
 
             var fontName = BaseFont.createFont(
-                FontFactory.TIMES_ROMAN, "UTF-8", BaseFont.EMBEDDED)
+                FontFactory.COURIER_BOLD, "UTF-8", BaseFont.EMBEDDED)
 
             var titleFont = Font(fontName, Config.TITLE_FONT_SIZE, Font.NORMAL, BaseColor.BLACK)
             addNewItem(document, "Invoice", Element.ALIGN_CENTER, titleFont)

@@ -118,7 +118,7 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers, InvoiceSettingsView {
                 totalPacketAmount += total
                 gstRateEstimation = (totalPacketAmount * (gstRateTotal / 100)).toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
 
-                binding.gstRateEstimation.text = gstRateEstimation.toString()
+                binding.gstRateEstimation.text = "GST amount: $gstRateEstimation"
             }
         }
     }
