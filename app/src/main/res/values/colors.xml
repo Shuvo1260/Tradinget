@@ -9,4 +9,5 @@
     <color name="green">#00FF0A</color>
     <color name="red">#FF1100</color>
     <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
+    <color name="dividerColor">#7F90A1</color>
 </resources>
