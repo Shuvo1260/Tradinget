@@ -1,6 +1,7 @@
 package org.binaryitplanet.tradinget.Features.View.Invoice
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -51,6 +52,23 @@ class InvoiceSettings : Fragment(), InvoiceSettingsView {
         super.onResume()
         val presenter = InvoicePresenterIml(context!!, this)
         presenter.fetchInvoiceSettings()
+//        setViews()
+    }
+
+    private fun setViews() {
+
+        binding.name.text = "Name: N.A."
+        binding.firmName.text = "Firm name: N.A."
+        binding.mobileNumber.text = "Mobile number: N.A."
+        binding.altMobileNumber.text = "Alt mobile number: N.A."
+        binding.address.text = "Address: N.A."
+        binding.stateCode.text = "State code: N.A."
+        binding.gstNumber.text = "GST number: N.A."
+        binding.panNumber.text = "PAN number: N.A."
+        binding.bankNameAndBrunch.text = "Bank name and brunch: N.A."
+        binding.bankAccount.text = "Bank account: N.A."
+        binding.ifsc.text = "Bank IFSC: N.A."
+        binding.hsnNumber.text = "HSN number: N.A."
     }
 
     override fun onFetchInvoiceSettingsListener(
@@ -77,6 +95,12 @@ class InvoiceSettings : Fragment(), InvoiceSettingsView {
         binding.bankNameAndBrunch.text = "Bank name and brunch: ${invoiceSettings.bankNameAndBrunch}"
         binding.bankAccount.text = "Bank account: ${invoiceSettings.bankAccount}"
         binding.ifsc.text = "Bank IFSC: ${invoiceSettings.bankIFSC}"
+        binding.hsnNumber.text = "HSN number: ${invoiceSettings.hsnNumber}"
+
+        if (invoiceSettings.imageUrl.isNullOrEmpty())
+            binding.addImage.visibility = View.GONE
+        else
+            binding.addImage.setImageURI(Uri.parse(invoiceSettings.imageUrl))
 
 
 

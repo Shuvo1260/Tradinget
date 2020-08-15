@@ -1,6 +1,9 @@
 package org.binaryitplanet.tradinget.Features.View.Invoice
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -36,6 +39,8 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
     private lateinit var bankNameAndBrunch: String
     private lateinit var currentAccount: String
     private lateinit var ifsc: String
+    private lateinit var hsnNumber: String
+    private lateinit var imageUrl: String
 
     private var operationFlag = true
 
@@ -76,6 +81,45 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
         }
 
 
+        binding.addImage.setOnClickListener {
+
+            val permissions:Array<String> = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(permissions, Config.PICK_IMAGE_REQUEST_CODE)
+            }
+        }
+
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == Config.PICK_IMAGE_REQUEST_CODE && grantResults.isNotEmpty()) {
+            val galleryIntent = Intent()
+            galleryIntent.type = "image/*"
+            galleryIntent.action = Intent.ACTION_GET_CONTENT
+            val intent = Intent.createChooser(galleryIntent, Config.PICK_IMAGE)
+            startActivityForResult(intent, Config.PICK_IMAGE_REQUEST_CODE)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK
+            && requestCode == Config.PICK_IMAGE_REQUEST_CODE
+            && data != null
+            && data.data != null
+        ) {
+            val imageUri = data.data
+            imageUrl = imageUri.toString()
+            Log.d(TAG, "ImagePath: $imageUrl")
+            binding.addImage.setImageURI(imageUri)
+
+        }
     }
 
     override fun onResume() {
@@ -175,7 +219,9 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
             panNumber,
             bankNameAndBrunch,
             currentAccount,
-            ifsc
+            ifsc,
+            hsnNumber,
+            imageUrl!!
         )
 
         val presenter = InvoicePresenterIml(this, this)
@@ -219,6 +265,7 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
         bankNameAndBrunch = binding.bankName.text.toString()
         currentAccount = binding.currentAccount.text.toString()
         ifsc = binding.ifsc.text.toString()
+        hsnNumber = binding.hsnNumber.text.toString()
 
         if (name.isNullOrEmpty()) {
             binding.name.error = Config.REQUIRED_FIELD
@@ -258,6 +305,11 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
         if (panNumber.isNullOrEmpty()) {
             binding.panNumber.error = Config.REQUIRED_FIELD
             binding.panNumber.requestFocus()
+            return false
+        }
+        if (hsnNumber.isNullOrEmpty()) {
+            binding.hsnNumber.error = Config.REQUIRED_FIELD
+            binding.hsnNumber.requestFocus()
             return false
         }
         if (bankNameAndBrunch.isNullOrEmpty()) {

@@ -52,6 +52,12 @@ data class InvoiceSettingsUtils(
     var bankAccount: String?,
 
     @ColumnInfo(name = Config.COLUMN_BANK_IFSC)
-    var bankIFSC: String?
+    var bankIFSC: String?,
+
+    @ColumnInfo(name = Config.COLUMN_HSN_NUMBER)
+    var hsnNumber: String?,
+
+    @ColumnInfo(name = Config.COLUMN_IMAGE_URL)
+    var imageUrl: String
 ): Serializable {
 }

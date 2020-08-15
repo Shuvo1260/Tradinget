@@ -20,6 +20,7 @@ import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedgers
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.*
 import org.binaryitplanet.tradinget.databinding.ActivityCreateInvoiceBinding
+import java.math.RoundingMode
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -60,6 +61,10 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers, InvoiceSettingsView {
     private lateinit var buyer: StakeholderUtils
     private lateinit var invoiceSettings: InvoiceSettingsUtils
     private var notesList = arrayListOf<NotesUtils>()
+
+    private var gstRateEstimation: Double = 0.0
+    private var gstRateTotal: Double = 0.0
+    private var totalPacketAmount: Double = 0.0
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,6 +113,12 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers, InvoiceSettingsView {
                 binding.mou.setText("")
                 binding.quantity.setText("")
                 binding.goodsRate.setText("")
+
+                gstRateTotal += gstRate
+                totalPacketAmount += total
+                gstRateEstimation = (totalPacketAmount * (gstRateTotal / 100)).toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+
+                binding.gstRateEstimation.text = gstRateEstimation.toString()
             }
         }
     }
@@ -161,6 +172,12 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers, InvoiceSettingsView {
                 Config.INVOICE_SETTINGS_FAILED_MESSAGE,
                 Toast.LENGTH_SHORT
             ).show()
+            return false
+        }
+
+        if (binding.invoiceNo.text.toString().isNullOrEmpty()){
+            binding.invoiceNo.error = Config.REQUIRED_FIELD
+            binding.invoiceNo.requestFocus()
             return false
         }
 
@@ -320,7 +337,7 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers, InvoiceSettingsView {
             var notes = "Notes\n"
             var totalGSTRate = 0.0
 
-            hsnSACCode = "binding.goodsHscSacCode.text.toString()"
+            hsnSACCode = invoiceSettings.hsnNumber!!
 
             notesList.forEach {
                 notes += "  ${it.note}\n"
@@ -344,20 +361,24 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers, InvoiceSettingsView {
                 totalGSTRate = it.gstRate
             }
 
+            totalGSTRate = totalGSTRate.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
 
             if (stateType == Config.SAME_STATE) {
-                cgstRate = totalGSTRate / 2
-                sgstRate = totalGSTRate / 2
+                cgstRate = (totalGSTRate / 2).toBigDecimal().setScale(3, RoundingMode.UP).toDouble()
+                sgstRate = (totalGSTRate / 2).toBigDecimal().setScale(3, RoundingMode.UP).toDouble()
             } else {
-                igstRate = totalGSTRate
+                igstRate = totalGSTRate.toBigDecimal().setScale(3, RoundingMode.UP).toDouble()
             }
 
-            var cgstAmount = totalAmount * (cgstRate / 100)
-            var sgstAmount = totalAmount * (sgstRate / 100)
-            var igstAmount = totalAmount * (igstRate / 100)
+            var cgstAmount = (totalAmount * (cgstRate / 100))
+                .toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+            var sgstAmount = (totalAmount * (sgstRate / 100))
+                .toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+            var igstAmount = (totalAmount * (igstRate / 100))
+                .toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
 
-            var finalAmount = totalAmount + cgstAmount + sgstAmount + igstAmount - roundingDifference
-
+            var finalAmount = (totalAmount + cgstAmount + sgstAmount + igstAmount - roundingDifference)
+                .toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
 
             // Buyer details starts
             var buyerAddressLength = buyer.address?.length!!
@@ -396,6 +417,7 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers, InvoiceSettingsView {
             val invoiceBuilder = InvoiceBuilder(this)
             val invoice = InvoiceUtils(
                 ledger.ledgerId,
+                binding.invoiceNo.text.toString(),
                 invoiceDateString,
                 getValue(binding.terms.text.toString()),
                 getValue(binding.placeOfSupply.text.toString()),
@@ -432,11 +454,13 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers, InvoiceSettingsView {
                 "-$roundingDifference",
                 totalRate.toString(),
                 totalAmount.toString(),
+                AmountToWordsConverter.convert(totalAmount.toInt()),
                 finalAmount.toString(),
                 totalQuantity.toString(),
                 invoiceSettings.bankNameAndBrunch,
                 invoiceSettings.bankAccount,
-                invoiceSettings.bankIFSC
+                invoiceSettings.bankIFSC,
+                invoiceSettings.imageUrl
             )
             pdfPath = invoiceBuilder.createPdf(
                     invoice,

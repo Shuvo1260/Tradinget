@@ -251,6 +251,25 @@
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hsnSACCode"
+                    android:textColorHint="@color/colorPrimary"
+                    app:boxStrokeColor="@color/white"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/hsnNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
 
 
                 <TextView
@@ -380,8 +399,21 @@
                         app:layout_constraintTop_toTopOf="@+id/noteLayout"
                         />
 
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+                <ImageView
+                    android:id="@+id/addImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_marginHorizontal="@dimen/_40sdp"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_add_image"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintTop_toBottomOf="@+id/dateLayout" />
 
             </LinearLayout>
         </ScrollView>

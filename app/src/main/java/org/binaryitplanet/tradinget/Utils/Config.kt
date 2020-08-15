@@ -162,6 +162,7 @@ class Config {
         const val COLUMN_INVOICE_URL = "Invoice_url"
 
 
+        const val COLUMN_HSN_NUMBER = "HSN number"
         const val COLUMN_NOTE = "Note"
         const val COLUMN_BANK_NAME = "Bank_name"
         const val COLUMN_BANK_ACCOUNT = "Bank_account"

@@ -60,6 +60,14 @@ class InvoiceBuilder(
             document.addAuthor(Config.INVOICE_AUTHOR)
             document.addCreator(Config.INVOICE_CREATOR)
 
+            // Image section
+
+//            var image: Image = Image(ImageDataFactory.create(invoice.imageUrl))
+//            image.setTextAlignment(TextAlignment.CENTER)
+//            image.scaleAbsolute(200F,200F)
+//            document.add()
+
+
 
             // Table section
 
@@ -113,7 +121,7 @@ class InvoiceBuilder(
                 5.0f
             ))
             invoiceDetailsTable.addCell(getCell(
-                invoice.ledgerId,
+                invoice.invoiceNo,
                 FontFactory.TIMES,
                 8f,
                 BaseColor.BLACK,
@@ -929,6 +937,17 @@ class InvoiceBuilder(
             )
 
             invoiceTable.addCell(goodsFooter)
+            invoiceTable.addCell(
+                getCell(
+                    invoice.amountInWord,
+                    FontFactory.TIMES,
+                    8f,
+                    BaseColor.BLACK,
+                    BaseColor.WHITE,
+                    Element.ALIGN_LEFT,
+                    5.0f
+                )
+            )
 
             document.add(invoiceTable)
             // Invoice table ends

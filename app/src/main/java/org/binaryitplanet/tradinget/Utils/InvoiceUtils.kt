@@ -4,6 +4,7 @@ import java.io.Serializable
 
 data class InvoiceUtils(
     var ledgerId: String?,
+    var invoiceNo: String?,
     var invoiceDate: String?,
     var terms: String?,
     var placeOfSupply: String?,
@@ -40,10 +41,12 @@ data class InvoiceUtils(
     var roundingDifference: String?,
     var netBillAmount: String?,
     var totalAmount: String?,
+    var amountInWord: String?,
     var finalAmount: String?,
     var totalQuality: String,
     var bankNameAndBrunch: String?,
     var currentAccount: String?,
-    var ifsc: String?
+    var ifsc: String?,
+    var imageUrl: String?
 ): Serializable {
 }

@@ -21,6 +21,9 @@ data class LedgerUtils(
     @ColumnInfo(name = Config.COLUMN_STAKEHOLDER_NAME)
     var stakeHolderName: String,
 
+    @ColumnInfo(name = Config.COLUMN_MOBILE_NUMBER)
+    var mobileNumber: String,
+
     @ColumnInfo(name = Config.COLUMN_BROKER_ID)
     var brokerId: Long,
 

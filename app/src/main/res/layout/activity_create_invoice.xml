@@ -44,6 +44,30 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/invoiceNoLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/invoiceNo"
+                    android:textColorHint="@color/colorPrimary"
+                    app:boxStrokeColor="@color/white"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/invoiceDetailsTitle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/invoiceNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/termsLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
@@ -54,7 +78,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/invoiceDetailsTitle">
+                    app:layout_constraintTop_toBottomOf="@+id/invoiceNoLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/terms"
@@ -519,8 +543,18 @@
                         />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-<!--                Goods section ends-->
+                Goods section ends
 
+                <TextView
+                    android:id="@+id/gstRateEstimation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/goodsDetailsLayout"
+                    />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/roundingDifferenceLayout"
@@ -530,11 +564,11 @@
                     android:hint="@string/roundingDifference"
                     android:textColorHint="@color/colorPrimary"
                     app:boxStrokeColor="@color/white"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/goodsDetailsLayout">
+                    app:layout_constraintTop_toBottomOf="@+id/gstRateEstimation">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/roundingDifference"
@@ -542,6 +576,7 @@
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
                         android:singleLine="true"
+                        android:inputType="numberDecimal"
                         android:textColor="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 

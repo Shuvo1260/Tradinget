@@ -97,6 +97,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
 
+//    implementation 'com.itextpdf:itext7-core:7.0.2'
     implementation 'com.itextpdf:itextpdf:5.5.13'
 //    implementation 'com.itextpdf:layout:7.0.0'
 
