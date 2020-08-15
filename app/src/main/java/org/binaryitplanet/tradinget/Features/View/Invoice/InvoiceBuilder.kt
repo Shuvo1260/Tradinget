@@ -1,23 +1,31 @@
 package org.binaryitplanet.tradinget.Features.View.Invoice
 
+import android.R.attr
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.print.PrintAttributes
 import android.print.PrintManager
+import android.provider.MediaStore
 import android.util.Log
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.*
 import org.binaryitplanet.tradinget.Features.Adapter.InvoicePrintAdapter
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.InvoiceUtils
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.net.URL
 
+
+@Suppress("DEPRECATION")
 class InvoiceBuilder(
     val context: Context
 ) {
 
     private val TAG = "InvoiceBuilder"
-
     // PDF creating section starts
     fun createPdf(
         invoice: InvoiceUtils,
@@ -62,11 +70,21 @@ class InvoiceBuilder(
 
             // Image section
 
-//            var image: Image = Image(ImageDataFactory.create(invoice.imageUrl))
-//            image.setTextAlignment(TextAlignment.CENTER)
-//            image.scaleAbsolute(200F,200F)
-//            document.add()
+            if (!invoice.imageUrl.isNullOrEmpty()) {
+                val bitmap = MediaStore.Images.Media.getBitmap(
+                    context.contentResolver,
+                    Uri.parse(invoice.imageUrl)
+                )
 
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
+                val byteArray: ByteArray = stream.toByteArray()
+
+                val image = Image.getInstance(byteArray)
+                image.scaleAbsolute((bitmap.width % 100).toFloat(), (bitmap.height % 100).toFloat())
+                image.alignment = Element.ALIGN_CENTER
+                document.add(image)
+            }
 
 
             // Table section
@@ -77,6 +95,7 @@ class InvoiceBuilder(
 
             var titleFont = Font(fontName, Config.TITLE_FONT_SIZE, Font.NORMAL, BaseColor.BLACK)
             addNewItem(document, "Invoice", Element.ALIGN_CENTER, titleFont)
+
 
             // preparing the table
             var invoiceTable = PdfPTable(1)

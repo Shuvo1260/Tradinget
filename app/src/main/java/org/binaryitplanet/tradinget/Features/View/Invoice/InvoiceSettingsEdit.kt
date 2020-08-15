@@ -3,6 +3,7 @@ package org.binaryitplanet.tradinget.Features.View.Invoice
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -159,6 +160,11 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
         binding.bankName.setText(invoiceSettingsUtils.bankNameAndBrunch)
         binding.currentAccount.setText(invoiceSettingsUtils.bankAccount)
         binding.ifsc.setText(invoiceSettingsUtils.bankIFSC)
+        binding.hsnNumber.setText(invoiceSettingsUtils.hsnNumber)
+
+        if (!invoiceSettingsUtils.imageUrl.isNullOrEmpty()) {
+            binding.addImage.setImageURI(Uri.parse(invoiceSettingsUtils.imageUrl))
+        }
     }
 
     private fun updateData() {
@@ -177,6 +183,8 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
         invoiceSettingsUtils.bankNameAndBrunch = bankNameAndBrunch
         invoiceSettingsUtils.bankAccount = currentAccount
         invoiceSettingsUtils.bankIFSC = ifsc
+        invoiceSettingsUtils.imageUrl = imageUrl
+        invoiceSettingsUtils.hsnNumber = hsnNumber
 
         val presenter = InvoicePresenterIml(this, this)
         presenter.updateInvoiceSettings(
