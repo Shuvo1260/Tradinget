@@ -81,7 +81,9 @@ class InvoiceBuilder(
                 val byteArray: ByteArray = stream.toByteArray()
 
                 val image = Image.getInstance(byteArray)
-                image.scaleAbsolute((bitmap.width % 100).toFloat(), (bitmap.height % 100).toFloat())
+                val width = (bitmap.width.toFloat() / bitmap.height.toFloat()) * 100.0F
+                Log.d(TAG, "Width: $width")
+                image.scaleAbsolute(width, 100F)
                 image.alignment = Element.ALIGN_CENTER
                 document.add(image)
             }
