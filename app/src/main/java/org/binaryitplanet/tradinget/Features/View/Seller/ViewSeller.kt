@@ -18,8 +18,10 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.binaryitplanet.rentalreminderapp.Features.Adapter.SellerLedgerListAdapter
+import org.binaryitplanet.tradinget.Features.Adapter.BuyAdapter
 import org.binaryitplanet.tradinget.Features.Adapter.LedgerAdapter
 import org.binaryitplanet.tradinget.Features.Common.StakeholderView
+import org.binaryitplanet.tradinget.Features.Prsenter.BuyPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.SellerLedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.StakeholderPresenterIml
@@ -29,20 +31,15 @@ import org.binaryitplanet.tradinget.Features.View.Ledger.AddSellerLedger
 import org.binaryitplanet.tradinget.Features.View.Ledger.SellerLedgerView
 import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedgers
 import org.binaryitplanet.tradinget.R
-import org.binaryitplanet.tradinget.Utils.Config
-import org.binaryitplanet.tradinget.Utils.LedgerUtils
-import org.binaryitplanet.tradinget.Utils.SellerLedgerUtils
-import org.binaryitplanet.tradinget.Utils.StakeholderUtils
+import org.binaryitplanet.tradinget.Utils.*
 import org.binaryitplanet.tradinget.databinding.ActivityViewSellerBinding
 
-class ViewSeller : AppCompatActivity(), StakeholderView, SellerLedgerView {
+class ViewSeller : AppCompatActivity(), StakeholderView, BuyView, SellerLedgerView {
 
     private val TAG = "ViewSeller"
     private lateinit var binding: ActivityViewSellerBinding
     private lateinit var stakeholder: StakeholderUtils
     private var ledgerList = arrayListOf<SellerLedgerUtils>()
-    private var totalCredit: Double = 0.0
-    private var totalDebit: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +64,7 @@ class ViewSeller : AppCompatActivity(), StakeholderView, SellerLedgerView {
         }
 
         binding.add.setOnClickListener {
-            val intent = Intent(this, AddSellerLedger::class.java)
+            val intent = Intent(this, BuyProduct::class.java)
             intent.putExtra(Config.STAKEHOLDER, stakeholder)
             startActivity(intent)
         }
@@ -77,45 +74,26 @@ class ViewSeller : AppCompatActivity(), StakeholderView, SellerLedgerView {
         super.onResume()
         val presenter = StakeholderPresenterIml(this, this)
         presenter.fetchStakeholderById(stakeholder.id!!)
+
+        val buyPresenter = BuyPresenterIml(this, this)
+        buyPresenter.fetchBuyListBySellerId(stakeholder.id!!)
+    }
+
+    override fun fetchBuyListListener(buyList: List<BuyUtils>) {
+        super.fetchBuyListListener(buyList)
+        Log.d(TAG, "BuyList: $buyList")
+
+        val adapter = BuyAdapter(this, buyList as ArrayList<BuyUtils>)
+        binding.list.adapter = adapter
+        binding.list.layoutManager = LinearLayoutManager(this)
+        binding.list.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
+
     }
 
     override fun onFetchStakeholderListener(stakeholder: StakeholderUtils) {
         super.onFetchStakeholderListener(stakeholder)
         this.stakeholder = stakeholder
         setupViews()
-        val presenter = SellerLedgerPresenterIml(this, this)
-        presenter.fetchLedgerListBySellerId(stakeholder.id!!)
-    }
-
-    override fun onFetchLedgerListListener(ledgerList: List<SellerLedgerUtils>) {
-        super.onFetchLedgerListListener(ledgerList)
-        this.ledgerList = ledgerList as ArrayList<SellerLedgerUtils>
-        totalCredit = 0.0
-        totalDebit = 0.0
-        ledgerList.forEach {
-            if (it.transactionType == Config.CREDIT) {
-                totalCredit += it.amount
-            } else {
-                totalDebit += it.amount
-            }
-        }
-        binding.totalCredit.text = "Total credit: ${Config.RUPEE_SIGN} $totalCredit"
-        binding.totalDebit.text = "Total debit: ${Config.RUPEE_SIGN} $totalDebit"
-        setupList()
-    }
-
-    private fun setupList() {
-
-        val adapter = SellerLedgerListAdapter(
-            this,
-            ledgerList,
-            false,
-            this
-        )
-
-        binding.list.adapter = adapter
-        binding.list.layoutManager = LinearLayoutManager(this)
-        binding.list.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
     }
 
     override fun onSellerLedgerDeleteClick(position: Int) {

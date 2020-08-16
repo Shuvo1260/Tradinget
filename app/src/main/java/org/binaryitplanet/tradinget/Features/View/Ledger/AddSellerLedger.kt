@@ -74,21 +74,21 @@ class AddSellerLedger : AppCompatActivity(), SellerLedgerView {
 
         rentDateMillis = year?.toLong()!! * 100 + months.indexOf(month)
 
-        val sellerledger = SellerLedgerUtils(
-            null,
-            seller.id,
-            transactionType!!,
-            paymentType!!,
-            amount!!.toDouble(),
-            issueMonth,
-            issueYear,
-            remark!!,
-            issueDate!!,
-            dateMillis
-        )
-
-        val presenter = SellerLedgerPresenterIml(this, this)
-        presenter.insertLedger(sellerledger)
+//        val sellerledger = SellerLedgerUtils(
+//            null,
+//            seller.id,
+//            transactionType!!,
+//            paymentType!!,
+//            amount!!.toDouble(),
+//            issueMonth,
+//            issueYear,
+//            remark!!,
+//            issueDate!!,
+//            dateMillis
+//        )
+//
+//        val presenter = SellerLedgerPresenterIml(this, this)
+//        presenter.insertLedger(sellerledger)
     }
 
     override fun onInsertLedgerListener(status: Boolean) {
@@ -111,39 +111,39 @@ class AddSellerLedger : AppCompatActivity(), SellerLedgerView {
 
     // Checking validity
     private fun checkValidity(): Boolean {
-        transactionType = binding.type.text.toString()
-        amount = binding.amount.text.toString()
-        month = binding.month.text.toString()
-        year = binding.year.text.toString()
-        remark = binding.remark.text.toString()
-        paymentType = binding.paymentType.text.toString()
-
-        if (transactionType.isNullOrEmpty()) {
-            binding.type.error = Config.REQUIRED_FIELD
-            binding.type.requestFocus()
-            return false
-        }
-        if (paymentType.isNullOrEmpty()) {
-            binding.paymentType.error = Config.REQUIRED_FIELD
-            binding.paymentType.requestFocus()
-            return false
-        }
-
-        if (amount.isNullOrEmpty()) {
-            binding.amount.error = Config.REQUIRED_FIELD
-            binding.amount.requestFocus()
-            return false
-        }
-        if (month.isNullOrEmpty()) {
-            binding.month.error = Config.REQUIRED_FIELD
-            binding.month.requestFocus()
-            return false
-        }
-        if (year.isNullOrEmpty()) {
-            binding.year.error = Config.REQUIRED_FIELD
-            binding.year.requestFocus()
-            return false
-        }
+////        transactionType = binding.type.text.toString()
+////        amount = binding.amount.text.toString()
+////        month = binding.month.text.toString()
+////        year = binding.year.text.toString()
+////        remark = binding.remark.text.toString()
+////        paymentType = binding.paymentType.text.toString()
+//
+//        if (transactionType.isNullOrEmpty()) {
+//            binding.type.error = Config.REQUIRED_FIELD
+//            binding.type.requestFocus()
+//            return false
+//        }
+//        if (paymentType.isNullOrEmpty()) {
+//            binding.paymentType.error = Config.REQUIRED_FIELD
+//            binding.paymentType.requestFocus()
+//            return false
+//        }
+//
+//        if (amount.isNullOrEmpty()) {
+//            binding.amount.error = Config.REQUIRED_FIELD
+//            binding.amount.requestFocus()
+//            return false
+//        }
+//        if (month.isNullOrEmpty()) {
+//            binding.month.error = Config.REQUIRED_FIELD
+//            binding.month.requestFocus()
+//            return false
+//        }
+//        if (year.isNullOrEmpty()) {
+//            binding.year.error = Config.REQUIRED_FIELD
+//            binding.year.requestFocus()
+//            return false
+//        }
 
         return true
     }
@@ -188,16 +188,6 @@ class AddSellerLedger : AppCompatActivity(), SellerLedgerView {
             android.R.layout.simple_list_item_1,
             transactionTypes
         )
-        var monthsAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            months
-        )
-        var yearsAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            years
-        )
 
         var paymentAdapter = ArrayAdapter(
             this,
@@ -208,13 +198,9 @@ class AddSellerLedger : AppCompatActivity(), SellerLedgerView {
 
         binding.type.setText(transactionTypes[0])
         binding.paymentType.setText(paymentTypes[0])
-        binding.month.setText(months[issueMonth])
-        binding.year.setText(issueYear.toString())
 
         binding.type.setAdapter(transactionAdapter)
         binding.paymentType.setAdapter(paymentAdapter)
-        binding.month.setAdapter(monthsAdapter)
-        binding.year.setAdapter(yearsAdapter)
     }
 
 

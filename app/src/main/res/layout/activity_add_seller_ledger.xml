@@ -79,57 +79,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
+                android:hint="@string/discountAmount"
+                android:textColorHint="@color/colorAccent"
+                app:boxStrokeColor="@color/white"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:weightSum="2"
-                >
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <com.google.android.material.textfield.TextInputLayout
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/discount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/month"
-                    android:textColorHint="@color/colorAccent"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_weight="1"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-
-                    <AutoCompleteTextView
-                        android:id="@+id/month"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:inputType="none"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/year"
-                    android:textColorHint="@color/colorAccent"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_weight="1"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/year"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:inputType="none"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                    android:textColor="@color/white"
+                    android:inputType="numberDecimal"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

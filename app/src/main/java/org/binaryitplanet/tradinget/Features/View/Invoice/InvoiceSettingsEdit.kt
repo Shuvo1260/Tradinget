@@ -41,7 +41,7 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
     private lateinit var currentAccount: String
     private lateinit var ifsc: String
     private lateinit var hsnNumber: String
-    private lateinit var imageUrl: String
+    private var imageUrl: String? = null
 
     private var operationFlag = true
 
@@ -183,7 +183,7 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
         invoiceSettingsUtils.bankNameAndBrunch = bankNameAndBrunch
         invoiceSettingsUtils.bankAccount = currentAccount
         invoiceSettingsUtils.bankIFSC = ifsc
-        invoiceSettingsUtils.imageUrl = imageUrl
+        invoiceSettingsUtils.imageUrl = imageUrl!!
         invoiceSettingsUtils.hsnNumber = hsnNumber
 
         val presenter = InvoicePresenterIml(this, this)
@@ -229,7 +229,8 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
             currentAccount,
             ifsc,
             hsnNumber,
-            imageUrl!!
+            imageUrl
+
         )
 
         val presenter = InvoicePresenterIml(this, this)

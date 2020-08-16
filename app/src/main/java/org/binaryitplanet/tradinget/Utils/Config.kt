@@ -98,6 +98,7 @@ class Config {
         // Tables
         const val TABLE_STAKEHOLDER = "Stakeholder_table"
         const val TABLE_PACKET = "Packet_table"
+        const val TABLE_BUY = "Buy_table"
         const val TABLE_LEDGER = "Ledger_table"
         const val TABLE_INVOICE_SETTINGS = "Invoice_settings_table"
         const val TABLE_NOTES = "Notes_table"

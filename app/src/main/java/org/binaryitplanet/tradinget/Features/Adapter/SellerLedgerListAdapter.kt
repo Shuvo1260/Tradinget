@@ -40,8 +40,6 @@ class SellerLedgerListAdapter(
         val view = holder.itemView
         val months = context.resources.getStringArray(R.array.months)
         view.paymentType.text = ledgerList[position].paymentType
-        view.monthYear.text = months[ledgerList[position].month] + ", " +
-                ledgerList[position].year
         view.date.text = ledgerList[position].date
         view.amount.text = ledgerList[position].amount.toString()
         view.rupeeSign.text = context.resources.getString(R.string.rupeeSign)

@@ -11,8 +11,8 @@ data class SellerLedgerUtils(
     @ColumnInfo(name = Config.COLUMN_ID)
     val id: Long?,
 
-    @ColumnInfo(name = Config.COLUMN_SELLER_ID)
-    val sellerId: Long?,
+    @ColumnInfo(name = Config.COLUMN_LEDGER_ID)
+    val ledgerId: Long?,
 
     @ColumnInfo(name = Config.COLUMN_TRANSACTION_TYPE)
     var transactionType: String,
@@ -20,14 +20,11 @@ data class SellerLedgerUtils(
     @ColumnInfo(name = Config.COLUMN_PAYMENT_TYPE)
     var paymentType: String,
 
+    @ColumnInfo(name = Config.COLUMN_DISCOUNT_AMOUNT)
+    var discount: Double,
+
     @ColumnInfo(name = Config.COLUMN_TOTAL_AMOUNT)
     var amount: Double,
-
-    @ColumnInfo(name = Config.COLUMN_MONTH)
-    var month: Int,
-
-    @ColumnInfo(name = Config.COLUMN_YEAR)
-    var year: Int,
 
     @ColumnInfo(name = Config.COLUMN_REMARK)
     var remark: String,

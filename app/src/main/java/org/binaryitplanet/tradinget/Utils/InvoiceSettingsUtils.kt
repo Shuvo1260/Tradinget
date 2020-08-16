@@ -58,6 +58,6 @@ data class InvoiceSettingsUtils(
     var hsnNumber: String?,
 
     @ColumnInfo(name = Config.COLUMN_IMAGE_URL)
-    var imageUrl: String
+    var imageUrl: String?
 ): Serializable {
 }
