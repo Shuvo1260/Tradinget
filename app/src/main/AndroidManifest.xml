@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Features.View.Seller.BuyProduct"></activity>
+        <activity android:name=".Features.View.Seller.ViewBuy"></activity>
+        <activity android:name=".Features.View.Seller.BuyProduct" />
         <activity
             android:name=".Features.View.Ledger.AddSellerLedger"
             android:screenOrientation="portrait" />

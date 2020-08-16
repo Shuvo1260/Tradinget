@@ -14,7 +14,6 @@ import org.binaryitplanet.tradinget.Utils.SellerLedgerUtils
 class SellerLedgerListAdapter(
     val context: Context,
     val ledgerList: ArrayList<SellerLedgerUtils>,
-    val isNew: Boolean,
     var listener: SellerLedgerView
 ):  RecyclerView.Adapter<SellerLedgerListAdapter.ViewHolder>() {
 
@@ -38,12 +37,11 @@ class SellerLedgerListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val view = holder.itemView
-        val months = context.resources.getStringArray(R.array.months)
-        view.paymentType.text = ledgerList[position].paymentType
+        view.paymentType.text = "Payment type: " + ledgerList[position].paymentType
         view.date.text = ledgerList[position].date
         view.amount.text = ledgerList[position].amount.toString()
         view.rupeeSign.text = context.resources.getString(R.string.rupeeSign)
-        view.remark.text = ledgerList[position].remark
+        view.remark.text = "Remark: ${getValue(ledgerList[position].remark)}"
 
         if (ledgerList[position].transactionType == "Debit") {
             view.amount.setTextColor(
@@ -64,6 +62,12 @@ class SellerLedgerListAdapter(
         }
     }
 
+    private fun getValue(brokerName: String?): String {
+        return if (brokerName.isNullOrEmpty())
+            "N.A."
+        else
+            brokerName
+    }
     // Holding the view
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {}
 

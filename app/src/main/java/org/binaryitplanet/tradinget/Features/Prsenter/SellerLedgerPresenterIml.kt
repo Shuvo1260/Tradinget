@@ -53,11 +53,11 @@ class SellerLedgerPresenterIml(
         }
     }
 
-    override fun fetchLedgerListBySellerId(sellerId: Long) {
+    override fun fetchLedgerListById(id: Long) {
         try {
             val databaseManager = DatabaseManager.getInstance(context)!!
             val ledgerList = databaseManager.getSellerLedgerDAO()
-                .fetchLedgerBySellerId(sellerId)
+                .fetchLedgerById(id)
             sellerLedgerView.onFetchLedgerListListener(ledgerList)
 
         } catch (e: Exception){

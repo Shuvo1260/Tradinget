@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.view_buy_list_item.view.*
 import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedger
+import org.binaryitplanet.tradinget.Features.View.Seller.ViewBuy
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.*
 import android.util.Pair as UtilPair
@@ -56,13 +57,10 @@ class BuyAdapter(
         view.setOnClickListener {
             Log.d(TAG, "PacketClicked: $position")
 
-//            var intent: Intent? = Intent(context, ViewLedger::class.java)
-//
-//
-//            // Passing selected item data
-//            intent!!.putExtra(Config.LEDGER, buyList[position])
-//            intent!!.putExtra(Config.BROKER_FLAG, isBroker)
-//            context.startActivity(intent)
+            var intent: Intent? = Intent(context, ViewBuy::class.java)
+            // Passing selected item data
+            intent!!.putExtra(Config.BUY, buyList[position])
+            context.startActivity(intent)
         }
     }
 

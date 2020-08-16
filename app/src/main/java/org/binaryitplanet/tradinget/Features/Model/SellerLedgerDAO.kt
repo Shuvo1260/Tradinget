@@ -17,6 +17,6 @@ interface SellerLedgerDAO {
     @Update
     fun update(ledger: SellerLedgerUtils): Int
 
-    @Query("SELECT * FROM SELLER_LEDGER_TABLE WHERE Ledger_ID ==:sellerId ORDER BY Date_milli ASC")
-    fun fetchLedgerBySellerId(sellerId: Long): List<SellerLedgerUtils>
+    @Query("SELECT * FROM SELLER_LEDGER_TABLE WHERE Ledger_ID ==:id ORDER BY Date_milli ASC")
+    fun fetchLedgerById(id: Long): List<SellerLedgerUtils>
 }

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import org.binaryitplanet.tradinget.Features.Prsenter.SellerLedgerPresenterIml
 import org.binaryitplanet.tradinget.R
+import org.binaryitplanet.tradinget.Utils.BuyUtils
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.SellerLedgerUtils
 import org.binaryitplanet.tradinget.Utils.StakeholderUtils
@@ -22,11 +23,10 @@ class AddSellerLedger : AppCompatActivity(), SellerLedgerView {
     private val TAG = "AddSellerLedger"
     private lateinit var binding: ActivityAddSellerLedgerBinding
 
-    private var month: String? = null
-    private var year: String? = null
     private var transactionType: String? = null
     private var paymentType: String? = null
     private var amount: String? = null
+    private var discountAmount: Double = 0.0
     private var remark: String? = null
     private var issueDate: String? = null
 
@@ -35,10 +35,9 @@ class AddSellerLedger : AppCompatActivity(), SellerLedgerView {
     private var issueMonth: Int = 0
     private var issueYear: Int = 0
     private var dateMillis: Long = 0
-    private var rentDateMillis: Long = 0
     private lateinit var months: Array<String>
 
-    private lateinit var seller: StakeholderUtils
+    private lateinit var buy: BuyUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,28 +66,25 @@ class AddSellerLedger : AppCompatActivity(), SellerLedgerView {
 
     override fun onResume() {
         super.onResume()
-        seller = intent?.getSerializableExtra(Config.STAKEHOLDER) as StakeholderUtils
+        buy = intent?.getSerializableExtra(Config.BUY) as BuyUtils
     }
 
     private fun saveData() {
 
-        rentDateMillis = year?.toLong()!! * 100 + months.indexOf(month)
+        val sellerLedger = SellerLedgerUtils(
+            null,
+            buy.id,
+            transactionType!!,
+            paymentType!!,
+            discountAmount,
+            amount!!.toDouble() - discountAmount,
+            remark!!,
+            issueDate!!,
+            dateMillis
+        )
 
-//        val sellerledger = SellerLedgerUtils(
-//            null,
-//            seller.id,
-//            transactionType!!,
-//            paymentType!!,
-//            amount!!.toDouble(),
-//            issueMonth,
-//            issueYear,
-//            remark!!,
-//            issueDate!!,
-//            dateMillis
-//        )
-//
-//        val presenter = SellerLedgerPresenterIml(this, this)
-//        presenter.insertLedger(sellerledger)
+        val presenter = SellerLedgerPresenterIml(this, this)
+        presenter.insertLedger(sellerLedger)
     }
 
     override fun onInsertLedgerListener(status: Boolean) {
@@ -111,39 +107,30 @@ class AddSellerLedger : AppCompatActivity(), SellerLedgerView {
 
     // Checking validity
     private fun checkValidity(): Boolean {
-////        transactionType = binding.type.text.toString()
-////        amount = binding.amount.text.toString()
-////        month = binding.month.text.toString()
-////        year = binding.year.text.toString()
-////        remark = binding.remark.text.toString()
-////        paymentType = binding.paymentType.text.toString()
-//
-//        if (transactionType.isNullOrEmpty()) {
-//            binding.type.error = Config.REQUIRED_FIELD
-//            binding.type.requestFocus()
-//            return false
-//        }
-//        if (paymentType.isNullOrEmpty()) {
-//            binding.paymentType.error = Config.REQUIRED_FIELD
-//            binding.paymentType.requestFocus()
-//            return false
-//        }
-//
-//        if (amount.isNullOrEmpty()) {
-//            binding.amount.error = Config.REQUIRED_FIELD
-//            binding.amount.requestFocus()
-//            return false
-//        }
-//        if (month.isNullOrEmpty()) {
-//            binding.month.error = Config.REQUIRED_FIELD
-//            binding.month.requestFocus()
-//            return false
-//        }
-//        if (year.isNullOrEmpty()) {
-//            binding.year.error = Config.REQUIRED_FIELD
-//            binding.year.requestFocus()
-//            return false
-//        }
+        transactionType = binding.type.text.toString()
+        amount = binding.amount.text.toString()
+        remark = binding.remark.text.toString()
+        paymentType = binding.paymentType.text.toString()
+
+        if (!binding.discount.text.toString().isNullOrEmpty())
+            discountAmount = binding.discount.text.toString().toDouble()
+
+        if (transactionType.isNullOrEmpty()) {
+            binding.type.error = Config.REQUIRED_FIELD
+            binding.type.requestFocus()
+            return false
+        }
+        if (paymentType.isNullOrEmpty()) {
+            binding.paymentType.error = Config.REQUIRED_FIELD
+            binding.paymentType.requestFocus()
+            return false
+        }
+
+        if (amount.isNullOrEmpty()) {
+            binding.amount.error = Config.REQUIRED_FIELD
+            binding.amount.requestFocus()
+            return false
+        }
 
         return true
     }

@@ -34,12 +34,11 @@ import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.*
 import org.binaryitplanet.tradinget.databinding.ActivityViewSellerBinding
 
-class ViewSeller : AppCompatActivity(), StakeholderView, BuyView, SellerLedgerView {
+class ViewSeller : AppCompatActivity(), StakeholderView, BuyView {
 
     private val TAG = "ViewSeller"
     private lateinit var binding: ActivityViewSellerBinding
     private lateinit var stakeholder: StakeholderUtils
-    private var ledgerList = arrayListOf<SellerLedgerUtils>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,56 +93,6 @@ class ViewSeller : AppCompatActivity(), StakeholderView, BuyView, SellerLedgerVi
         super.onFetchStakeholderListener(stakeholder)
         this.stakeholder = stakeholder
         setupViews()
-    }
-
-    override fun onSellerLedgerDeleteClick(position: Int) {
-        super.onSellerLedgerDeleteClick(position)
-        Log.d(TAG, "DeleteParticular: $position")
-        val builder = AlertDialog.Builder(this)
-
-        builder.setTitle(Config.DELETE_LEDGER_TITLE)
-        builder.setMessage(Config.DELETE_LEDGER_MESSAGE)
-
-        builder.setIcon(R.drawable.ic_launcher)
-
-        builder.setPositiveButton(
-            Config.YES_MESSAGE
-        ){
-                dialog: DialogInterface?, which: Int ->
-
-
-
-            val presenter = SellerLedgerPresenterIml(this, this)
-            presenter.deleteLedger(ledgerList[position])
-        }
-
-        builder.setNegativeButton(
-            Config.NO_MESSAGE
-        ){
-                dialog: DialogInterface?, which: Int ->
-        }
-
-        val alertDialog = builder.create()
-        alertDialog.show()
-    }
-
-    override fun onDeleteLedgerListener(status: Boolean) {
-        super.onDeleteLedgerListener(status)
-        if (status) {
-            Toast.makeText(
-                this,
-                Config.SUCCESS_MESSAGE,
-                Toast.LENGTH_SHORT
-            ).show()
-            val presenter = SellerLedgerPresenterIml(this, this)
-            presenter.fetchLedgerListBySellerId(stakeholder.id!!)
-        } else {
-            Toast.makeText(
-                this,
-                Config.FAILED_MESSAGE,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
     }
 
     private fun deleteData() {
