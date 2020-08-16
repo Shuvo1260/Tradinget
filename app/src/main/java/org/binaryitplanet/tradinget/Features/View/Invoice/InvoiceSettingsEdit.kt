@@ -19,6 +19,7 @@ import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.InvoiceSettingsUtils
 import org.binaryitplanet.tradinget.Utils.NotesUtils
 import org.binaryitplanet.tradinget.databinding.ActivityInvoiceSettingsEditBinding
+import java.lang.Exception
 
 class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
     private val TAG = "InvoiceSettingsEdit"
@@ -41,7 +42,7 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
     private lateinit var currentAccount: String
     private lateinit var ifsc: String
     private lateinit var hsnNumber: String
-    private var imageUrl: String? = null
+    private var imageUrl: String? = ""
 
     private var operationFlag = true
 
@@ -81,14 +82,20 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
             }
         }
 
+        operationFlag = intent?.getBooleanExtra(Config.OPERATION_FLAG, true)!!
 
-        binding.addImage.setOnClickListener {
-
-            val permissions:Array<String> = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(permissions, Config.PICK_IMAGE_REQUEST_CODE)
-            }
+        if (!operationFlag) {
+            val presenter = InvoicePresenterIml(this, this)
+            presenter.fetchInvoiceSettings()
         }
+
+//        binding.addImage.setOnClickListener {
+//
+//            val permissions:Array<String> = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                requestPermissions(permissions, Config.PICK_IMAGE_REQUEST_CODE)
+//            }
+//        }
 
 
     }
@@ -107,31 +114,34 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
             startActivityForResult(intent, Config.PICK_IMAGE_REQUEST_CODE)
         }
     }
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (resultCode == Activity.RESULT_OK
+//            && requestCode == Config.PICK_IMAGE_REQUEST_CODE
+//            && data != null
+//            && data.data != null
+//        ) {
+//            try {
+//                val imageUri = data.data
+//                imageUrl = imageUri.toString()
+//                Log.d(TAG, "ImagePath: $imageUrl")
+//                binding.addImage.setImageURI(imageUri)
+//            } catch (e: Exception) {
+//                Log.d(TAG, "Image loading failed: ${e.message}")
+//                Toast.makeText(
+//                    this,
+//                    Config.FAILED_MESSAGE,
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//
+//        }
+//    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK
-            && requestCode == Config.PICK_IMAGE_REQUEST_CODE
-            && data != null
-            && data.data != null
-        ) {
-            val imageUri = data.data
-            imageUrl = imageUri.toString()
-            Log.d(TAG, "ImagePath: $imageUrl")
-            binding.addImage.setImageURI(imageUri)
-
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        operationFlag = intent?.getBooleanExtra(Config.OPERATION_FLAG, true)!!
-
-        if (!operationFlag) {
-            val presenter = InvoicePresenterIml(this, this)
-            presenter.fetchInvoiceSettings()
-        }
-    }
+//    override fun onResume() {
+//        super.onResume()
+//    }
 
     override fun onFetchInvoiceSettingsListener(
         invoiceSEttings: InvoiceSettingsUtils,
@@ -162,9 +172,9 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
         binding.ifsc.setText(invoiceSettingsUtils.bankIFSC)
         binding.hsnNumber.setText(invoiceSettingsUtils.hsnNumber)
 
-        if (!invoiceSettingsUtils.imageUrl.isNullOrEmpty()) {
-            binding.addImage.setImageURI(Uri.parse(invoiceSettingsUtils.imageUrl))
-        }
+//        if (!invoiceSettingsUtils.imageUrl.isNullOrEmpty()) {
+//            binding.addImage.setImageURI(Uri.parse(invoiceSettingsUtils.imageUrl))
+//        }
     }
 
     private fun updateData() {
@@ -212,32 +222,42 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
     }
 
     private fun saveData() {
-        invoiceSettingsUtils = InvoiceSettingsUtils(
-            null,
-            name,
-            firmName,
-            mobileNumber,
-            altMobileNumber,
-            address1,
-            address2,
-            address3,
-            address4,
-            stateCode,
-            gstNumber,
-            panNumber,
-            bankNameAndBrunch,
-            currentAccount,
-            ifsc,
-            hsnNumber,
-            imageUrl
+        try {
 
-        )
+            invoiceSettingsUtils = InvoiceSettingsUtils(
+                null,
+                name,
+                firmName,
+                mobileNumber,
+                altMobileNumber,
+                address1,
+                address2,
+                address3,
+                address4,
+                stateCode,
+                gstNumber,
+                panNumber,
+                bankNameAndBrunch,
+                currentAccount,
+                ifsc,
+                hsnNumber,
+                imageUrl
 
-        val presenter = InvoicePresenterIml(this, this)
-        presenter.insertInvoiceSettings(
-            invoiceSettingsUtils,
-            notesList
-        )
+            )
+
+            val presenter = InvoicePresenterIml(this, this)
+            presenter.insertInvoiceSettings(
+                invoiceSettingsUtils,
+                notesList
+            )
+        }catch (e: Exception) {
+            Log.d(TAG, "InvoiceSettingsSavingError: ${e.message}")
+            Toast.makeText(
+                this,
+                Config.FAILED_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     override fun onInsertInvoiceSettingsListener(status: Boolean) {
@@ -291,11 +311,11 @@ class InvoiceSettingsEdit : AppCompatActivity(), InvoiceSettingsView {
             binding.mobileNumber.requestFocus()
             return false
         }
-        if (altMobileNumber.isNullOrEmpty()) {
-            binding.altMobileNumber.error = Config.REQUIRED_FIELD
-            binding.altMobileNumber.requestFocus()
-            return false
-        }
+//        if (altMobileNumber.isNullOrEmpty()) {
+//            binding.altMobileNumber.error = Config.REQUIRED_FIELD
+//            binding.altMobileNumber.requestFocus()
+//            return false
+//        }
         if (address1.isNullOrEmpty()) {
             binding.address1.error = Config.REQUIRED_FIELD
             binding.address1.requestFocus()

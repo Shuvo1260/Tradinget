@@ -173,11 +173,11 @@ class AddBroker : AppCompatActivity(), StakeholderView {
             binding.mobileNumber.requestFocus()
             return false
         }
-        if (altMobileNumber.isNullOrEmpty()) {
-            binding.altMobileNumber.error = Config.REQUIRED_FIELD
-            binding.altMobileNumber.requestFocus()
-            return false
-        }
+//        if (altMobileNumber.isNullOrEmpty()) {
+//            binding.altMobileNumber.error = Config.REQUIRED_FIELD
+//            binding.altMobileNumber.requestFocus()
+//            return false
+//        }
         if (stateCode.isNullOrEmpty()) {
             binding.stateCode.error = Config.REQUIRED_FIELD
             binding.stateCode.requestFocus()

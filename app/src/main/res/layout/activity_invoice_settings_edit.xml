@@ -403,17 +403,18 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <ImageView
-                    android:id="@+id/addImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_120sdp"
-                    android:layout_marginHorizontal="@dimen/_40sdp"
-                    android:layout_marginVertical="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:src="@drawable/ic_add_image"
-                    android:scaleType="fitCenter"
-                    app:layout_constraintTop_toBottomOf="@+id/dateLayout" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/addImage"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="@dimen/_120sdp"-->
+<!--                    android:layout_marginHorizontal="@dimen/_40sdp"-->
+<!--                    android:layout_marginVertical="@dimen/_10sdp"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    android:src="@drawable/ic_add_image"-->
+<!--                    android:scaleType="fitCenter"-->
+<!--                    android:visibility="gone"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/dateLayout" />-->
 
             </LinearLayout>
         </ScrollView>

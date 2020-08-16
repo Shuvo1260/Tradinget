@@ -53,25 +53,36 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_14sdp"
             android:transitionName="@string/weightTransition"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/price"
+            app:layout_constraintEnd_toStartOf="@id/rate"
             app:layout_constraintStart_toStartOf="@+id/packetNumber"
-            app:layout_constraintTop_toBottomOf="@+id/packetName"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/packetName" />
+
+        <TextView
+            android:id="@+id/rate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="@string/rate"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/weight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/weight"
+            app:layout_constraintTop_toTopOf="@+id/weight" />
 
         <TextView
             android:id="@+id/price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="@string/price"
+            android:gravity="center"
+            android:text="@string/rate"
             android:textColor="@color/white"
             android:textSize="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:transitionName="@string/priceTransition"
-            app:layout_constraintBottom_toBottomOf="@+id/weight"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/weight"
-            app:layout_constraintTop_toTopOf="@+id/weight" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weight" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

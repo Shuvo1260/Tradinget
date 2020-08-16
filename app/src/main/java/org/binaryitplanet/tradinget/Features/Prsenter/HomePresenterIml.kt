@@ -60,6 +60,16 @@ class HomePresenterIml(
 
             val sellerDueAmount = totalSellerAmount - (totalCredit - totalDebit)
 
+
+            val totalOverDuePaidAmount = databaseManager.getLedgerDAO()
+                .getTotalOverDuePaidAmount(currentTime)
+            val totalOverDueTotalAmount = databaseManager.getLedgerDAO()
+                .getTotalOverDueTotalAmount(currentTime)
+            val totalUnderDuePaidAmount = databaseManager.getLedgerDAO()
+                .getTotalUnderDuePaidAmount(currentTime)
+            val totalUnderDueTotalAmount = databaseManager.getLedgerDAO()
+                .getTotalUnderDueTotalAmount(currentTime)
+
             homeView.onHomeItemsFetchListner(
                 totalPayment,
                 dueAmount,
@@ -67,6 +77,8 @@ class HomePresenterIml(
                 totalValue,
                 overDueDate,
                 underDueDate,
+                totalOverDueTotalAmount - totalOverDuePaidAmount,
+                totalUnderDueTotalAmount - totalUnderDuePaidAmount,
                 totalSellerAmount,
                 sellerDueAmount
             )

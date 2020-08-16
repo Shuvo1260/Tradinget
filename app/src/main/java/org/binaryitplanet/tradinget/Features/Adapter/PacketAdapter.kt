@@ -45,9 +45,10 @@ class PacketAdapter(
         view.packetNumber.text = packetList[position].packetNumber
         view.packetName.text = packetList[position].packetName
 
-        view.weight.text = packetList[position].weight.toString() + " " + Config.CTS
-        view.price.text = Config.RUPEE_SIGN + " " + packetList[position].price.toString()
+        view.weight.text = "Weight: " + packetList[position].weight.toString() + " " + Config.CTS
+        view.rate.text = "Rate: " + Config.RUPEE_SIGN + " " + packetList[position].rate.toString()
 
+        view.price.text = "Total: " + Config.RUPEE_SIGN + " " + packetList[position].price.toString()
 
 
         view.setOnClickListener {

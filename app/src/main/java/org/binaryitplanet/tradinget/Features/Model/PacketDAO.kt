@@ -18,6 +18,9 @@ interface PacketDAO {
     @Query("SELECT * FROM Packet_table WHERE ID ==:id")
     fun getPacketById(id: Long): PacketUtils
     
-    @Query("SELECT * FROM Packet_table ORDER BY Packet_number ASC")
+    @Query("SELECT * FROM Packet_table WHERE Weight > 0 ORDER BY Packet_number ASC")
     fun getPacketList(): List<PacketUtils>
+
+    @Query("SELECT * FROM Packet_table WHERE Weight <= 0 ORDER BY Packet_number ASC")
+    fun getSoldPacketList(): List<PacketUtils>
 }

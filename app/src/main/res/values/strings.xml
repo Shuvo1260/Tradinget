@@ -35,7 +35,7 @@
 
     <!--    Hints-->
 
-    <string name="paymentThisMonthHint">Total payment\nof this month</string>
+    <string name="paymentThisMonthHint">Total sales\nof this month</string>
     <string name="duePaymentHint">Due\npayment</string>
     <string name="totalInventoryWeightHint">Total\ninventory weight</string>
     <string name="totalInventoryValueHint">Total\ninventory value</string>

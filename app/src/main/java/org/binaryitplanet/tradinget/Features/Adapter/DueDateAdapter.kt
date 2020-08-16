@@ -47,6 +47,8 @@ class DueDateAdapter(
         view.dueAmount.text = "Due amount: ${Config.RUPEE_SIGN} " +
                 (ledgerList[position].totalAmount - ledgerList[position].paidAmount)
 
+        view.dueDate.text = "Due date: ${ledgerList[position].dueDate}"
+
         view.call.setOnClickListener {
             makeCall(ledgerList[position].mobileNumber)
         }

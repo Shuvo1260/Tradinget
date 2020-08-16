@@ -135,7 +135,7 @@ class ViewBuy : AppCompatActivity(), BuyView, SellerLedgerView {
             }
         }
 
-        val dueAmount = buy.amount - (totaCredit - totaDebit)
+        val dueAmount = buy.amount - (totaDebit - totaCredit)
 
         binding.totalCredit.text = "Total credit: ${Config.RUPEE_SIGN} $totaCredit"
         binding.totalDebit.text = "Total debit: ${Config.RUPEE_SIGN} $totaDebit"

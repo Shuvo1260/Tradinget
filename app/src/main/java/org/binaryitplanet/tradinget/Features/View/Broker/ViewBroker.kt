@@ -75,6 +75,7 @@ class ViewBroker : AppCompatActivity(), StakeholderView, ViewLedgers {
 
     override fun onFetchLedgerListListener(ledgerList: List<LedgerUtils>) {
         super.onFetchLedgerListListener(ledgerList)
+        Log.d(TAG, "LedgerList: $ledgerList")
         val adapter = LedgerAdapter(
             this,
             ledgerList as ArrayList<LedgerUtils>,

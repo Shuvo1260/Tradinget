@@ -54,7 +54,7 @@ class InvoiceBuilder(
                     Log.d(TAG, "PathFailed: ${file.absolutePath}")
             }
             // Preparing document
-            var invoicePath = File(file, invoice.ledgerId + Config.PDF_FORMAT)
+            var invoicePath = File(file, invoice.invoiceNo + Config.PDF_FORMAT)
 
             var document = Document(PageSize.A4)
 
@@ -70,23 +70,23 @@ class InvoiceBuilder(
 
             // Image section
 
-            if (!invoice.imageUrl.isNullOrEmpty()) {
-                val bitmap = MediaStore.Images.Media.getBitmap(
-                    context.contentResolver,
-                    Uri.parse(invoice.imageUrl)
-                )
-
-                val stream = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
-                val byteArray: ByteArray = stream.toByteArray()
-
-                val image = Image.getInstance(byteArray)
-                val width = (bitmap.width.toFloat() / bitmap.height.toFloat()) * 100.0F
-                Log.d(TAG, "Width: $width")
-                image.scaleAbsolute(width, 100F)
-                image.alignment = Element.ALIGN_CENTER
-                document.add(image)
-            }
+//            if (!invoice.imageUrl.isNullOrEmpty()) {
+//                val bitmap = MediaStore.Images.Media.getBitmap(
+//                    context.contentResolver,
+//                    Uri.parse(invoice.imageUrl)
+//                )
+//
+//                val stream = ByteArrayOutputStream()
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
+//                val byteArray: ByteArray = stream.toByteArray()
+//
+//                val image = Image.getInstance(byteArray)
+//                val width = (bitmap.width.toFloat() / bitmap.height.toFloat()) * 100.0F
+//                Log.d(TAG, "Width: $width")
+//                image.scaleAbsolute(width, 100F)
+//                image.alignment = Element.ALIGN_CENTER
+//                document.add(image)
+//            }
 
 
             // Table section

@@ -37,6 +37,18 @@ interface LedgerDAO {
     @Query("SELECT COUNT(Due_date_milli) FROM LEDGER_TABLE WHERE Due_date_milli > :currentTime AND Paid_amount < Total_amount")
     fun getTotalUnderDueDate(currentTime: Long): Int
 
+    @Query("SELECT SUM(Total_amount) FROM LEDGER_TABLE WHERE Due_date_milli <= :currentTime AND Paid_amount < Total_amount")
+    fun getTotalOverDueTotalAmount(currentTime: Long): Double
+
+    @Query("SELECT SUM(Total_amount) FROM LEDGER_TABLE WHERE Due_date_milli > :currentTime AND Paid_amount < Total_amount")
+    fun getTotalUnderDueTotalAmount(currentTime: Long): Double
+
+    @Query("SELECT SUM(Paid_amount) FROM LEDGER_TABLE WHERE Due_date_milli <= :currentTime AND Paid_amount < Total_amount")
+    fun getTotalOverDuePaidAmount(currentTime: Long): Double
+
+    @Query("SELECT SUM(Paid_amount) FROM LEDGER_TABLE WHERE Due_date_milli > :currentTime AND Paid_amount < Total_amount")
+    fun getTotalUnderDuePaidAmount(currentTime: Long): Double
+
     @Query("SELECT * FROM LEDGER_TABLE WHERE Due_date_milli <= :currentTime AND Paid_amount < Total_amount")
     fun getOverDueDateList(currentTime: Long): List<LedgerUtils>
 

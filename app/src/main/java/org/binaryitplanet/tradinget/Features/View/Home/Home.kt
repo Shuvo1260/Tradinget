@@ -38,6 +38,8 @@ class Home : Fragment(), HomeView {
         inventoryValue: Double,
         overDueDate: Int,
         underDueDate: Int,
+        overDueAmount: Double,
+        underDueAmount: Double,
         totalSellerAmount: Double,
         sellerDueAmount: Double
     ) {
@@ -48,6 +50,8 @@ class Home : Fragment(), HomeView {
             inventoryValue,
             overDueDate,
             underDueDate,
+            overDueAmount,
+            underDueAmount,
             totalSellerAmount,
             sellerDueAmount
         )
@@ -58,8 +62,8 @@ class Home : Fragment(), HomeView {
         binding.totalSellerAmount.text = Config.RUPEE_SIGN + " " + totalSellerAmount
         binding.sellerDueAmount.text = Config.RUPEE_SIGN + " " + sellerDueAmount
 
-        binding.overDueDate.text = overDueDate.toString()
-        binding.underDueDate.text = underDueDate.toString()
+        binding.overDueDate.text = overDueDate.toString() + "\n${Config.RUPEE_SIGN} $overDueAmount"
+        binding.underDueDate.text = underDueDate.toString() + "\n${Config.RUPEE_SIGN} $underDueAmount"
     }
 
     private fun setupListeners() {

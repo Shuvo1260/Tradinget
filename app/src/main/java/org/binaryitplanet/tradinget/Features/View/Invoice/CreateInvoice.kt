@@ -454,7 +454,7 @@ class CreateInvoice : AppCompatActivity(), ViewLedgers, InvoiceSettingsView {
                 "-$roundingDifference",
                 totalRate.toString(),
                 totalAmount.toString(),
-                AmountToWordsConverter.convert(totalAmount.toInt()),
+                AmountToWordsConverter.convert(finalAmount.toInt()),
                 finalAmount.toString(),
                 totalQuantity.toString(),
                 invoiceSettings.bankNameAndBrunch,

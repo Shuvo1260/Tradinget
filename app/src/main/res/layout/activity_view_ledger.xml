@@ -223,18 +223,6 @@
                             app:layout_constraintStart_toEndOf="@id/totalAmount"
                             app:layout_constraintEnd_toEndOf="parent"
                             />
-                        <TextView
-                            android:id="@+id/brokerage"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:text="@string/weight"
-                            android:layout_marginEnd="@dimen/_5sdp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            app:layout_constraintTop_toBottomOf="@id/totalAmount"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/due"
-                            />
 
                         <TextView
                             android:id="@+id/due"
@@ -242,10 +230,10 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:text="@string/packet"
-                            android:gravity="end"
-                            app:layout_constraintTop_toTopOf="@id/brokerage"
-                            app:layout_constraintBottom_toBottomOf="@id/brokerage"
-                            app:layout_constraintStart_toEndOf="@id/brokerage"
+                            android:gravity="start"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            app:layout_constraintTop_toBottomOf="@id/totalAmount"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             />
                         <TextView
@@ -256,7 +244,7 @@
                             android:text="@string/weight"
                             android:layout_marginEnd="@dimen/_5sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            app:layout_constraintTop_toBottomOf="@id/brokerage"
+                            app:layout_constraintTop_toBottomOf="@id/due"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/dueDate"
                             />

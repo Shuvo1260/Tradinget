@@ -277,7 +277,7 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView, Transactio
         binding.totalAmount.text = "Total amount: " + Config.RUPEE_SIGN + " " + ledger.totalAmount.toString()
         binding.paidAmount.text = "Paid: " + Config.RUPEE_SIGN + " "  + ledger.paidAmount.toString()
 
-        binding.brokerage.text = "Brokerage: " + Config.RUPEE_SIGN + " "  + ledger.brokerageAmount.toString()
+//        binding.brokerage.text = "Brokerage: " + Config.RUPEE_SIGN + " "  + ledger.brokerageAmount.toString()
         binding.due.text = "Due: " + Config.RUPEE_SIGN + " " + (ledger.totalAmount - ledger.paidAmount).toString()
 
         binding.date.text = "Date: " + ledger.date

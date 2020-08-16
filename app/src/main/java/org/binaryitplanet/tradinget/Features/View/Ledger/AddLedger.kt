@@ -350,8 +350,8 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
         var brokerName: String? = null
 
         if (brokerPosition != -1){
-            brokerList[brokerPosition].id!!
-            brokerList[brokerPosition].name
+            brokerId = brokerList[brokerPosition].id!!
+            brokerName = brokerList[brokerPosition].name
         }
 
         val ledgerUtils = LedgerUtils(

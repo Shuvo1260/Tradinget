@@ -8,4 +8,5 @@ interface PacketPresenter {
     fun updatePacket(packet: PacketUtils)
     fun fetchPacketById(id: Long)
     fun fetchPacketList()
+    fun fetchSoldPacketList()
 }

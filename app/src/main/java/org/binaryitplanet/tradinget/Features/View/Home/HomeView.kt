@@ -10,6 +10,8 @@ interface HomeView {
         inventoryValue: Double,
         overDueDate: Int,
         underDueDate: Int,
+        overDueAmount: Double,
+        underDueAmount: Double,
         totalSellerAmount: Double,
         sellerDueAmount: Double
     ){}

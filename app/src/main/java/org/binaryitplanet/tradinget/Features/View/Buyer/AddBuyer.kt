@@ -176,11 +176,11 @@ class AddBuyer : AppCompatActivity(), StakeholderView {
             binding.mobileNumber.requestFocus()
             return false
         }
-        if (altMobileNumber.isNullOrEmpty()) {
-            binding.altMobileNumber.error = Config.REQUIRED_FIELD
-            binding.altMobileNumber.requestFocus()
-            return false
-        }
+//        if (altMobileNumber.isNullOrEmpty()) {
+//            binding.altMobileNumber.error = Config.REQUIRED_FIELD
+//            binding.altMobileNumber.requestFocus()
+//            return false
+//        }
         if (address.isNullOrEmpty()) {
             binding.address.error = Config.REQUIRED_FIELD
             binding.address.requestFocus()
