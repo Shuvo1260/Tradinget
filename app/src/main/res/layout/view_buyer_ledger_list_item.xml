@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorPrimary"
+        android:layout_margin="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:elevation="@dimen/_20sdp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
+            >
+
+            <TextView
+                android:id="@+id/paymentType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Rent" />
+
+
+            <TextView
+                android:id="@+id/dateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/paymentType"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@string/dateTitle"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_12sdp"
+                />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/dateTitle"
+                app:layout_constraintTop_toTopOf="@id/dateTitle"
+                app:layout_constraintBottom_toBottomOf="@id/dateTitle"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                tools:text="05/07/2020"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_12sdp"
+                />
+
+            <TextView
+                android:id="@+id/remark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toStartOf="@+id/delete"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dateTitle"
+                tools:text="Remark details" />
+
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/maximus_bold"
+                android:textColor="@color/green"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toTopOf="@id/remark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/paymentType"
+                tools:text="50000" />
+
+            <TextView
+                android:id="@+id/rupeeSign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/amount"
+                app:layout_constraintEnd_toStartOf="@id/amount"
+                app:layout_constraintBottom_toBottomOf="@id/amount"
+                android:text="@string/rupeeSign"
+                android:fontFamily="@font/maximus_bold"
+                android:textColor="@color/green"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginRight="2dp"
+                />
+
+            <ImageView
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/amount"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/ic_delete_red"
+                android:layout_marginTop="@dimen/_5sdp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/bottomMargin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/remark"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:orientation="horizontal"
+        ></LinearLayout>
+</LinearLayout>

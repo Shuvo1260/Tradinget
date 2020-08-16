@@ -1,5 +1,6 @@
 package org.binaryitplanet.tradinget.Features.View.Ledger
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -8,30 +9,33 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_view_ledger.*
+import org.binaryitplanet.rentalreminderapp.Features.Adapter.BuyerLedgerListAdapter
 import org.binaryitplanet.tradinget.Features.Adapter.SoldPacketAdapter
 import org.binaryitplanet.tradinget.Features.Common.StakeholderView
+import org.binaryitplanet.tradinget.Features.Prsenter.BuyerLedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
+import org.binaryitplanet.tradinget.Features.Prsenter.SellerLedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.StakeholderPresenterIml
 import org.binaryitplanet.tradinget.Features.View.Invoice.CreateInvoice
 import org.binaryitplanet.tradinget.Features.View.Invoice.InvoiceBuilder
 import org.binaryitplanet.tradinget.R
-import org.binaryitplanet.tradinget.Utils.Config
-import org.binaryitplanet.tradinget.Utils.LedgerUtils
-import org.binaryitplanet.tradinget.Utils.SoldPacketUtils
-import org.binaryitplanet.tradinget.Utils.StakeholderUtils
+import org.binaryitplanet.tradinget.Utils.*
 import org.binaryitplanet.tradinget.databinding.ActivityViewLedgerBinding
 
-class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
+class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView, TransactionView{
     private val TAG = "ViewLedger"
     private lateinit var binding: ActivityViewLedgerBinding
 
     private lateinit var ledger: LedgerUtils
     private lateinit var stakeholder: StakeholderUtils
     private var isBroker: Boolean = false
+    private var ledgerList = arrayListOf<BuyerLedgerUtils>()
+    private var brokerLedgerList = arrayListOf<BuyerLedgerUtils>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +60,7 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
         binding.makeTransaction.setOnClickListener {
             val intent = Intent(this, Transaction::class.java)
             intent.putExtra(Config.LEDGER, ledger)
-            intent.putExtra(Config.OPERATION_FLAG, true)
+            intent.putExtra(Config.OPERATION_FLAG, false)
             startActivity(intent)
             overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
         }
@@ -64,7 +68,7 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
         binding.brokerTransaction.setOnClickListener {
             val intent = Intent(this, Transaction::class.java)
             intent.putExtra(Config.LEDGER, ledger)
-            intent.putExtra(Config.OPERATION_FLAG, false)
+            intent.putExtra(Config.OPERATION_FLAG, true)
             startActivity(intent)
             overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
         }
@@ -95,10 +99,114 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
 
     override fun onResume() {
         super.onResume()
+        fetchData()
+    }
+
+    private fun fetchData(){
+
         val ledgerPresenter = LedgerPresenterIml(this, this)
         ledgerPresenter.fetchLedgerById(ledger.ledgerId!!)
 
         ledgerPresenter.fetchSoldPacketListByLedgerId(ledger.ledgerId!!)
+
+        val presenter = BuyerLedgerPresenterIml(this, this)
+        presenter.fetchBuyerLedger(ledger.id!!, true)
+        presenter.fetchBuyerLedger(ledger.id!!, false)
+    }
+
+    override fun onFetchLedgerListener(ledger: List<BuyerLedgerUtils>) {
+        super.onFetchLedgerListener(ledger)
+        ledgerList = ledger as ArrayList<BuyerLedgerUtils>
+        if (ledgerList.size == 0)
+            binding.ledger.visibility = View.GONE
+        else
+            binding.ledger.visibility = View.VISIBLE
+
+        val adapter = BuyerLedgerListAdapter(
+            this,
+            ledgerList,
+            this
+        )
+
+        binding.ledgerList.adapter = adapter
+        binding.ledgerList.layoutManager = LinearLayoutManager(this)
+        binding.ledgerList.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
+    }
+
+    override fun onFetchBrokerLedgerListener(brokerLedger: List<BuyerLedgerUtils>) {
+        super.onFetchBrokerLedgerListener(brokerLedger)
+        brokerLedgerList = brokerLedger as ArrayList<BuyerLedgerUtils>
+        if (brokerLedgerList.size == 0)
+            binding.brokerLedger.visibility = View.GONE
+        else
+            binding.brokerLedger.visibility = View.VISIBLE
+
+        Log.d(TAG, "BrokerLedgerList: $brokerLedgerList")
+        val adapter = BuyerLedgerListAdapter(
+            this,
+            brokerLedgerList,
+            this
+        )
+
+        binding.brokerLedgerList.adapter = adapter
+        binding.brokerLedgerList.layoutManager = LinearLayoutManager(this)
+        binding.brokerLedgerList.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
+    }
+
+    override fun onLedgerDeleteClickListener(position: Int, type: Boolean) {
+        super.onLedgerDeleteClickListener(position, type)
+        Log.d(TAG, "Deleting")
+
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle(Config.DELETE_LEDGER_TITLE)
+        builder.setMessage(Config.DELETE_LEDGER_MESSAGE)
+
+        builder.setIcon(R.drawable.ic_launcher)
+
+        builder.setPositiveButton(
+            Config.YES_MESSAGE
+        ){
+                dialog: DialogInterface?, which: Int ->
+
+            val presenter = BuyerLedgerPresenterIml(this, this)
+            if (type) {
+                if (brokerLedgerList[position].transactionType == Config.CREDIT) {
+                    ledger.brokerAmountPaid -= brokerLedgerList[position].amount
+                    ledger.brokerAmountRemaining += brokerLedgerList[position].amount
+                }else {
+                    ledger.brokerAmountPaid += brokerLedgerList[position].amount
+                    ledger.brokerAmountRemaining -= brokerLedgerList[position].amount
+                }
+                presenter.deleteBuyerLedger(ledger, brokerLedgerList[position])
+            } else {
+                if (ledgerList[position].transactionType == Config.CREDIT) {
+                    ledger.paidAmount -= ledgerList[position].amount
+                } else {
+                    ledger.paidAmount += ledgerList[position].amount
+                }
+
+                presenter.deleteBuyerLedger(ledger, ledgerList[position])
+            }
+        }
+
+        builder.setNegativeButton(
+            Config.NO_MESSAGE
+        ){
+                dialog: DialogInterface?, which: Int ->
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+    }
+
+    override fun onDeleteLedgerListener(status: Boolean) {
+        super.onDeleteLedgerListener(status)
+        if (status) {
+            Log.d(TAG, "Deleted:")
+            fetchData()
+        }
     }
 
     override fun onFetchLedger(ledger: LedgerUtils) {
@@ -158,7 +266,7 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView {
         binding.brokerAmount.text = "Broker amount: " + Config.RUPEE_SIGN + " " + ledger.brokerAmount.toString()
 
         binding.brokerAmountPaid.text = "Paid broker amount: " + Config.RUPEE_SIGN + " " + ledger.brokerAmountPaid.toString()
-        binding.brokerAmountRemaining.text = "Remaining broker amount: " + Config.RUPEE_SIGN + " " + ledger.brokerAmountRemaining
+        binding.brokerAmountRemaining.text = "Due broker amount: " + Config.RUPEE_SIGN + " " + ledger.brokerAmountRemaining
 
         binding.discountPercentage.text = "Discount percentage: " + ledger.discountPercentage.toString() + "%"
         binding.discountAmount.text = "Discount amount: " + Config.RUPEE_SIGN + " " + ledger.discountAmount.toString()

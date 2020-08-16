@@ -102,6 +102,7 @@ class Config {
         const val TABLE_INVOICE_SETTINGS = "Invoice_settings_table"
         const val TABLE_NOTES = "Notes_table"
         const val TABLE_SELLER_LEDGER = "Seller_ledger_table"
+        const val TABLE_BUYER_LEDGER = "Buyer_ledger_table"
         const val TABLE_SOLD_PACKET = "Sold_packet_table"
         const val TABLE_PACKET_DETAILS = "Packet_details_table"
 
@@ -171,6 +172,7 @@ class Config {
         const val COLUMN_TRANSACTION_TYPE = "Transaction_type"
         const val COLUMN_PAYMENT_TYPE = "Payment_type"
         const val COLUMN_YEAR = "Year"
+        const val COLUMN_IS_BROKER = "Is_broker"
 
         // Invoice
         val PDF_FORMAT = ".pdf"

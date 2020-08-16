@@ -44,7 +44,7 @@ class LedgerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var view = holder.itemView
 
-        view.ledgerId.text = ledgerList[position].ledgerId
+        view.ledgerId.text = "Packet name: " + ledgerList[position].firstPacketName
 
         view.date.text = "Date: " + ledgerList[position].date
         view.dueDate.text = "Due date: " + ledgerList[position].dueDate

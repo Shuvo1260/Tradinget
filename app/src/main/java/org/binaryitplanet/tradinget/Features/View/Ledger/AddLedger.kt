@@ -4,12 +4,8 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.net.Uri
-import android.os.AsyncTask
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.widget.ArrayAdapter
@@ -17,7 +13,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.squareup.picasso.Picasso
 import org.binaryitplanet.tradinget.Features.Adapter.BrokerDropDownAdapter
 import org.binaryitplanet.tradinget.Features.Adapter.LedgerPacketAdapter
 import org.binaryitplanet.tradinget.Features.Adapter.PacketDropDownAdapter
@@ -225,6 +220,7 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
 
         val paymentTypes = resources.getStringArray(R.array.paymentType)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, paymentTypes)
+        binding.paymentType.setText(paymentTypes[0])
         binding.paymentType.setAdapter(adapter)
     }
 
@@ -350,6 +346,13 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
         val dateMilli = calendar.timeInMillis
         calendar.set(dueYear, dueMonth, dueDay)
         val dueDateMilli = calendar.timeInMillis
+        var brokerId: Long? = null
+        var brokerName: String? = null
+
+        if (brokerPosition != -1){
+            brokerList[brokerPosition].id!!
+            brokerList[brokerPosition].name
+        }
 
         val ledgerUtils = LedgerUtils(
             null,
@@ -357,8 +360,8 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             stakeholder.id!!,
             stakeholder.name,
             stakeholder.mobileNumber,
-            brokerList[brokerPosition].id!!,
-            brokerList[brokerPosition].name,
+            brokerId,
+            brokerName,
             brokerPercentage,
             brokerAmount,
             0.0,
@@ -370,6 +373,7 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             totalPrice - discountAmount,
             0.0,
             soldPacketList.size,
+            soldPacketList[0].packetName,
             Calendar.getInstance().get(Calendar.MONTH),
             dateString,
             dateMilli,
@@ -417,11 +421,11 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             return false
         }
 
-        if (brokerPosition == -1) {
-            binding.broker.error = Config.REQUIRED_FIELD
-            binding.broker.requestFocus()
-            return false
-        }
+//        if (brokerPosition == -1) {
+//            binding.broker.error = Config.REQUIRED_FIELD
+//            binding.broker.requestFocus()
+//            return false
+//        }
 
         remark = binding.remark.text.toString()
         paymentType = binding.paymentType.text.toString()
@@ -432,32 +436,32 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             return false
         }
 
-        if (binding.brokerPercentage.text.toString().isNullOrEmpty()) {
-            binding.brokerPercentage.error = Config.REQUIRED_FIELD
-            binding.brokerPercentage.requestFocus()
-            return false
+        if (!binding.brokerPercentage.text.toString().isNullOrEmpty()) {
+//            binding.brokerPercentage.error = Config.REQUIRED_FIELD
+//            binding.brokerPercentage.requestFocus()
+//            return false
+            brokerPercentage = binding.brokerPercentage.text.toString().toDouble()
         }
-        if (binding.brokerAmount.text.toString().isNullOrEmpty()) {
-            binding.brokerAmount.error = Config.REQUIRED_FIELD
-            binding.brokerAmount.requestFocus()
-            return false
+        if (!binding.brokerAmount.text.toString().isNullOrEmpty()) {
+//            binding.brokerAmount.error = Config.REQUIRED_FIELD
+//            binding.brokerAmount.requestFocus()
+//            return false
+            brokerAmount = binding.brokerAmount.text.toString().toDouble()
         }
-        if (binding.discountPercentage.text.toString().isNullOrEmpty()) {
-            binding.discountPercentage.error = Config.REQUIRED_FIELD
-            binding.discountPercentage.requestFocus()
-            return false
+        if (!binding.discountPercentage.text.toString().isNullOrEmpty()) {
+//            binding.discountPercentage.error = Config.REQUIRED_FIELD
+//            binding.discountPercentage.requestFocus()
+//            return false
+            discountPercentage = binding.discountPercentage.text.toString().toDouble()
         }
-        if (binding.discountAmount.text.toString().isNullOrEmpty()) {
-            binding.discountAmount.error = Config.REQUIRED_FIELD
-            binding.discountAmount.requestFocus()
-            return false
+        if (!binding.discountAmount.text.toString().isNullOrEmpty()) {
+//            binding.discountAmount.error = Config.REQUIRED_FIELD
+//            binding.discountAmount.requestFocus()
+//            return false
+
+            discountAmount = binding.discountAmount.text.toString().toDouble()
         }
 
-
-        brokerPercentage = binding.brokerPercentage.text.toString().toDouble()
-        brokerAmount = binding.brokerAmount.text.toString().toDouble()
-        discountPercentage = binding.discountPercentage.text.toString().toDouble()
-        discountAmount = binding.discountAmount.text.toString().toDouble()
         return true
     }
 

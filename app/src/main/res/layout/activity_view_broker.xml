@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:text="@string/name"
             android:textColor="@color/white"
-            android:textSize="@dimen/_18sdp"
             android:gravity="center"
             android:textStyle="bold"
             android:transitionName="@string/nameTransition"
@@ -46,7 +45,7 @@
             android:text="@string/mobileNumber"
             android:transitionName="@string/mobileNumberTransition"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
+            
             android:textIsSelectable="true"
             app:layout_constraintEnd_toStartOf="@+id/altMobileNumber"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +59,7 @@
             android:text="@string/altMobileNumber"
             android:transitionName="@string/altMobileNumberTransition"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
+            
             android:gravity="end"
             android:textIsSelectable="true"
             app:layout_constraintStart_toEndOf="@id/mobileNumber"
@@ -73,7 +72,7 @@
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:text="@string/firmName"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
+            
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mobileNumber" />
@@ -85,7 +84,7 @@
             android:layout_marginVertical="@dimen/_10sdp"
             android:text="@string/address"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
+            
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/firmName" />
@@ -97,7 +96,7 @@
             android:layout_marginVertical="@dimen/_10sdp"
             android:text="@string/stateCode"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
+            
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/address" />
@@ -109,7 +108,7 @@
             android:layout_marginVertical="@dimen/_10sdp"
             android:text="@string/gstNumber"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
+            
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/stateCode" />
@@ -121,7 +120,7 @@
             android:layout_marginVertical="@dimen/_10sdp"
             android:text="@string/panNumber"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
+            
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gstNumber" />
@@ -133,7 +132,7 @@
             android:layout_marginVertical="@dimen/_10sdp"
             android:text="@string/ledgers"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_14sdp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -25,10 +25,10 @@ data class LedgerUtils(
     var mobileNumber: String,
 
     @ColumnInfo(name = Config.COLUMN_BROKER_ID)
-    var brokerId: Long,
+    var brokerId: Long?,
 
     @ColumnInfo(name = Config.COLUMN_BROKER_NAME)
-    var brokerName: String,
+    var brokerName: String?,
 
     @ColumnInfo(name = Config.COLUMN_BROKER_PERCENTAGE)
     var brokerPercentage: Double,
@@ -62,6 +62,9 @@ data class LedgerUtils(
 
     @ColumnInfo(name = Config.COLUMN_TOTAL_PACKETS)
     var totalPackets: Int,
+
+    @ColumnInfo(name = Config.COLUMN_PACKET_NAME)
+    var firstPacketName: String,
 
     @ColumnInfo(name = Config.COLUMN_MONTH)
     var month: Int,
