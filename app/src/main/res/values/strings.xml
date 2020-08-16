@@ -93,4 +93,6 @@
     <string name="amount">Amount</string>
     <string name="month">Month</string>
     <string name="year">Year</string>
+    <string name="sellerDuePayment">Seller\ndue payment</string>
+    <string name="totalSellerAmount">Total\nseller amount</string>
 </resources>

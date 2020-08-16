@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import org.binaryitplanet.tradinget.Features.Model.DatabaseManager
 import org.binaryitplanet.tradinget.Features.View.Home.HomeView
+import org.binaryitplanet.tradinget.Utils.Config
 import java.lang.Exception
 import java.util.*
 
@@ -48,13 +49,26 @@ class HomePresenterIml(
             val underDueDate = databaseManager.getLedgerDAO()
                 .getTotalUnderDueDate(currentTime)
 
+
+            val totalSellerAmount = databaseManager.getBuyDAO()
+                .fetchTotalSellerAmount()
+
+            val totalCredit = databaseManager.getSellerLedgerDAO()
+                .fetchTotalCreditDebit(Config.CREDIT)
+            val totalDebit = databaseManager.getSellerLedgerDAO()
+                .fetchTotalCreditDebit(Config.DEBIT)
+
+            val sellerDueAmount = totalSellerAmount - (totalCredit - totalDebit)
+
             homeView.onHomeItemsFetchListner(
                 totalPayment,
                 dueAmount,
                 totalWeight,
                 totalValue,
                 overDueDate,
-                underDueDate
+                underDueDate,
+                totalSellerAmount,
+                sellerDueAmount
             )
         }catch (e: Exception){
             Log.d(TAG, "HomeItemFetchException: ${e.message}")

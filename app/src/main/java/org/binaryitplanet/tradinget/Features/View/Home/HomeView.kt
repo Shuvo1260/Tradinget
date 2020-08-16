@@ -9,7 +9,9 @@ interface HomeView {
         weight: Double,
         inventoryValue: Double,
         overDueDate: Int,
-        underDueDate: Int
+        underDueDate: Int,
+        totalSellerAmount: Double,
+        sellerDueAmount: Double
     ){}
 
     fun onDueDateListFetchLisnter(dueDateList: List<LedgerUtils>){}

@@ -37,7 +37,9 @@ class Home : Fragment(), HomeView {
         weight: Double,
         inventoryValue: Double,
         overDueDate: Int,
-        underDueDate: Int
+        underDueDate: Int,
+        totalSellerAmount: Double,
+        sellerDueAmount: Double
     ) {
         super.onHomeItemsFetchListner(
             totalPayment,
@@ -45,12 +47,16 @@ class Home : Fragment(), HomeView {
             weight,
             inventoryValue,
             overDueDate,
-            underDueDate
+            underDueDate,
+            totalSellerAmount,
+            sellerDueAmount
         )
         binding.paymentOfThisMonth.text = Config.RUPEE_SIGN + " " + totalPayment
         binding.duePayment.text = Config.RUPEE_SIGN + " " + duePayment
         binding.totalInventoryWeight.text = weight.toString() + " " + Config.CTS
         binding.totalInventoryValue.text = Config.RUPEE_SIGN + " " + inventoryValue
+        binding.totalSellerAmount.text = Config.RUPEE_SIGN + " " + totalSellerAmount
+        binding.sellerDueAmount.text = Config.RUPEE_SIGN + " " + sellerDueAmount
 
         binding.overDueDate.text = overDueDate.toString()
         binding.underDueDate.text = underDueDate.toString()

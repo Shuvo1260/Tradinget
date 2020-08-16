@@ -129,7 +129,7 @@
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/totalSellerAmountLayout"
             app:layout_constraintEnd_toStartOf="@id/underDueDateLayout"
             app:layout_constraintTop_toBottomOf="@id/totalInventoryWeightLayout"
             >
@@ -176,6 +176,62 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/underDueDateHint"
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/totalSellerAmountLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/sellerDueAmountLayout"
+            app:layout_constraintTop_toBottomOf="@id/overDueDateLayout"
+            >
+
+            <TextView
+                android:id="@+id/totalSellerAmount"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:background="@drawable/view_home_item"
+                android:gravity="center"
+                android:text="20000"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/totalSellerAmount"
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/sellerDueAmountLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/totalSellerAmountLayout"
+            app:layout_constraintBottom_toBottomOf="@id/totalSellerAmountLayout"
+            app:layout_constraintStart_toEndOf="@id/totalSellerAmountLayout"
+            >
+
+            <TextView
+                android:id="@+id/sellerDueAmount"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:background="@drawable/view_home_item"
+                android:gravity="center"
+                android:text="20000"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/sellerDuePayment"
                 android:textColor="@color/white" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

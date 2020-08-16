@@ -22,4 +22,7 @@ interface BuyDAO {
     @Query("SELECT * FROM Buy_table WHERE ID ==:id")
     fun fetchBuyById(id: Long): BuyUtils
 
+    @Query("SELECT SUM(Total_amount) FROM Buy_table ")
+    fun fetchTotalSellerAmount(): Double
+
 }

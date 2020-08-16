@@ -19,4 +19,7 @@ interface SellerLedgerDAO {
 
     @Query("SELECT * FROM SELLER_LEDGER_TABLE WHERE Ledger_ID ==:id ORDER BY Date_milli ASC")
     fun fetchLedgerById(id: Long): List<SellerLedgerUtils>
+
+    @Query("SELECT SUM(Total_amount) FROM SELLER_LEDGER_TABLE WHERE Transaction_type ==:type")
+    fun fetchTotalCreditDebit(type: String): Double
 }
