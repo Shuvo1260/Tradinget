@@ -215,13 +215,19 @@ class LedgerPresenterIml(
         }
     }
 
-    override fun fetchSoldPacketList() {
+    override fun fetchSoldPacketList(isOrderName: Boolean) {
 
         try {
             val databaseManager = DatabaseManager.getInstance(context)!!
-            val soldPacketList = databaseManager.getSoldPacketDAO()
-                .getSoldPacketList()
-            viewLedgers.onFetchSoldPacketListListener(soldPacketList)
+            if (isOrderName) {
+                val soldPacketList = databaseManager.getSoldPacketDAO()
+                    .getSoldPacketListOrderByName()
+                viewLedgers.onFetchSoldPacketListListener(soldPacketList)
+            } else {
+                val soldPacketList = databaseManager.getSoldPacketDAO()
+                    .getSoldPacketListOrderByDate()
+                viewLedgers.onFetchSoldPacketListListener(soldPacketList)
+            }
         } catch (e: Exception) {
             Log.d(TAG, "FetchSoldPacketListByError: ${e.message}")
         }

@@ -4,11 +4,35 @@
     tools:context=".Features.View.Inventory.SoldPackets">
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
         >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            >
+            <Button
+                android:id="@+id/sortName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Sort by buyer name"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                />
+            <Button
+                android:id="@+id/sortDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:text="Sort by date"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
@@ -16,7 +40,7 @@
             android:layout_height="match_parent"
             />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
 
 
 </layout>

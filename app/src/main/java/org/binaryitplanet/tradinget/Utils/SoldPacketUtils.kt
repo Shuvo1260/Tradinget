@@ -15,6 +15,15 @@ data class SoldPacketUtils(
     @ColumnInfo(name = Config.COLUMN_LEDGER_ID)
     var ledgerId: String?,
 
+    @ColumnInfo(name = Config.COLUMN_STAKEHOLDER_NAME)
+    var buyerName: String?,
+
+    @ColumnInfo(name = Config.COLUMN_DATE)
+    var date: String?,
+
+    @ColumnInfo(name = Config.COLUMN_DATE_MILLI)
+    var dateInMilli: Long,
+
     @ColumnInfo(name = Config.COLUMN_PACKET_NUMBER)
     var packetNumber: String,
 

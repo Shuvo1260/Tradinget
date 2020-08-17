@@ -111,10 +111,16 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
                     subPacketNumber = subPacketList[subPacketPosition].packetDetailsNumber
                     sieve = subPacketList[subPacketPosition].sieve
                 }
+                val calendar = Calendar.getInstance()
+                calendar.set(year, month, day)
+                val dateMilli = calendar.timeInMillis
                 soldPacketList.add(
                     SoldPacketUtils(
                         null,
                         ledgerId,
+                        stakeholder.name,
+                        dateString,
+                        dateMilli,
                         packetList[packetPosition].packetNumber,
                         packetList[packetPosition].packetName,
                         subPacketNumber,
@@ -377,6 +383,12 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
                 Log.d(TAG, "Date: $dayOfMonth/$month/$year")
                 dateString = getFormattedDate(day, month, year).toString()
                 binding.date.text = dateString
+                val calendar = Calendar.getInstance()
+                calendar.set(year, month, day)
+                val dateMilli = calendar.timeInMillis
+                soldPacketList.forEach {
+                    it.dateInMilli = dateMilli
+                }
             }, year, month, day)
             datePickerDialog.show()
         }

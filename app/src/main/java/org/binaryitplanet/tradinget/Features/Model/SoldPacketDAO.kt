@@ -18,8 +18,11 @@ interface SoldPacketDAO {
     @Query("SELECT * FROM Sold_packet_table WHERE Ledger_ID ==:ledgerId")
     fun getSoldPacketListByLedgerId(ledgerId: String): List<SoldPacketUtils>
 
-    @Query("SELECT * FROM Sold_packet_table")
-    fun getSoldPacketList(): List<SoldPacketUtils>
+    @Query("SELECT * FROM Sold_packet_table ORDER BY Stakeholder_name ASC")
+    fun getSoldPacketListOrderByName(): List<SoldPacketUtils>
+
+    @Query("SELECT * FROM Sold_packet_table ORDER BY Date_milli ASC")
+    fun getSoldPacketListOrderByDate(): List<SoldPacketUtils>
 
     @Query("DELETE FROM Sold_packet_table WHERE Ledger_ID ==:ledgerId")
     fun deleteAllSoldPacketsByLedgerId(ledgerId: String)

@@ -24,7 +24,7 @@ interface LedgerPresenter {
 
     fun fetchSoldPacketListByLedgerId(ledgerId: String)
 
-    fun fetchSoldPacketList()
+    fun fetchSoldPacketList(isOrderName: Boolean)
 
     fun fetchLedgerIdList()
 

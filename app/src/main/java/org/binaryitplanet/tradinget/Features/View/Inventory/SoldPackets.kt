@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.binaryitplanet.tradinget.Features.Adapter.PacketAdapter
+import org.binaryitplanet.tradinget.Features.Adapter.ShowSoldPacketAdapter
 import org.binaryitplanet.tradinget.Features.Adapter.SoldPacketAdapter
 import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.PacketPresenterIml
@@ -19,7 +20,7 @@ import org.binaryitplanet.tradinget.Utils.SoldPacketUtils
 import org.binaryitplanet.tradinget.databinding.FragmentPacketsBinding
 import org.binaryitplanet.tradinget.databinding.FragmentSoldPacketsBinding
 
-class SoldPackets : Fragment(), InventoryView {
+class SoldPackets : Fragment(), InventoryView, ViewLedgers {
 
 
     private val TAG = "SoldPackets"
@@ -36,24 +37,44 @@ class SoldPackets : Fragment(), InventoryView {
             false
         )
 
+        binding.sortName.setOnClickListener {
+            val presenter = LedgerPresenterIml(context!!, this)
+            presenter.fetchSoldPacketList(true)
+        }
+
+        binding.sortDate.setOnClickListener {
+            val presenter = LedgerPresenterIml(context!!, this)
+            presenter.fetchSoldPacketList(false)
+        }
+
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        val presenter = PacketPresenterIml(context!!, this)
-        presenter.fetchSoldPacketList()
+        val presenter = LedgerPresenterIml(context!!, this)
+        presenter.fetchSoldPacketList(true)
     }
 
-    override fun onFetchPacketListListener(PacketList: List<PacketUtils>) {
-        super.onFetchPacketListListener(PacketList)
-        val adapter = PacketAdapter(
-            context!!, PacketList as ArrayList<PacketUtils>)
+    override fun onFetchSoldPacketListListener(soldPacketList: List<SoldPacketUtils>) {
+        super.onFetchSoldPacketListListener(soldPacketList)
+        val adapter = ShowSoldPacketAdapter(
+            context!!, soldPacketList as ArrayList<SoldPacketUtils>)
 
         binding.list.adapter = adapter
         binding.list.layoutManager = LinearLayoutManager(context!!)
         binding.list.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
     }
+//
+//    override fun onFetchPacketListListener(PacketList: List<PacketUtils>) {
+//        super.onFetchPacketListListener(PacketList)
+//        val adapter = PacketAdapter(
+//            context!!, PacketList as ArrayList<PacketUtils>)
+//
+//        binding.list.adapter = adapter
+//        binding.list.layoutManager = LinearLayoutManager(context!!)
+//        binding.list.setItemViewCacheSize(Config.LIST_CACHED_SIZE)
+//    }
 
 
 }
