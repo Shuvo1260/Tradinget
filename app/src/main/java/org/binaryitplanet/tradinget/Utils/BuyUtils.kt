@@ -15,36 +15,36 @@ data class BuyUtils(
     val sellerId: Long?,
 
     @ColumnInfo(name = Config.COLUMN_WEIGHT)
-    val weight: Double,
+    var weight: Double,
 
     @ColumnInfo(name = Config.COLUMN_RATE)
-    val rate: Double,
+    var rate: Double,
 
     @ColumnInfo(name = Config.COLUMN_DISCOUNT_AMOUNT)
-    val discountAmount: Double,
+    var discountAmount: Double,
 
     @ColumnInfo(name = Config.COLUMN_TOTAL_AMOUNT)
-    val amount: Double,
+    var amount: Double,
 
     @ColumnInfo(name = Config.COLUMN_DATE)
-    val purchaseDate: String,
+    var purchaseDate: String,
 
     @ColumnInfo(name = Config.COLUMN_DATE_MILLI)
-    val purchaseDateMilli: Long,
+    var purchaseDateMilli: Long,
 
     @ColumnInfo(name = Config.COLUMN_DUE_DATE)
-    val dueDate: String,
+    var dueDate: String,
 
     @ColumnInfo(name = Config.COLUMN_DUE_DATE_MILLI)
-    val dueDateMilli: Long,
+    var dueDateMilli: Long,
 
     @ColumnInfo(name = Config.COLUMN_BROKER_NAME)
-    val brokerName: String?,
+    var brokerName: String?,
 
     @ColumnInfo(name = Config.COLUMN_BROKER_ID)
-    val brokerId: Long,
+    var brokerId: Long,
 
     @ColumnInfo(name = Config.COLUMN_REMARK)
-    val remark: String?
+    var remark: String?
 ): Serializable {
 }

@@ -22,6 +22,7 @@ import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.BuyUtils
 import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.SellerLedgerUtils
+import org.binaryitplanet.tradinget.Utils.StakeholderUtils
 import org.binaryitplanet.tradinget.databinding.ActivityViewBuyBinding
 
 class ViewBuy : AppCompatActivity(), BuyView, SellerLedgerView {
@@ -62,9 +63,11 @@ class ViewBuy : AppCompatActivity(), BuyView, SellerLedgerView {
     }
 
     private fun editData() {
+        val stakeholder = intent?.getSerializableExtra(Config.STAKEHOLDER) as StakeholderUtils
         val intent = Intent(this, BuyProduct::class.java)
         intent.putExtra(Config.OPERATION_FLAG, false)
-        intent.putExtra(Config.STAKEHOLDER, buy)
+        intent.putExtra(Config.BUY, buy)
+        intent.putExtra(Config.STAKEHOLDER, stakeholder)
         startActivity(intent)
         overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
     }

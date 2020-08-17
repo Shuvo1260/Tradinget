@@ -17,19 +17,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.binaryitplanet.rentalreminderapp.Features.Adapter.SellerLedgerListAdapter
 import org.binaryitplanet.tradinget.Features.Adapter.BuyAdapter
-import org.binaryitplanet.tradinget.Features.Adapter.LedgerAdapter
 import org.binaryitplanet.tradinget.Features.Common.StakeholderView
 import org.binaryitplanet.tradinget.Features.Prsenter.BuyPresenterIml
-import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
-import org.binaryitplanet.tradinget.Features.Prsenter.SellerLedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.StakeholderPresenterIml
 import org.binaryitplanet.tradinget.Features.View.Broker.AddBroker
-import org.binaryitplanet.tradinget.Features.View.Ledger.AddLedger
-import org.binaryitplanet.tradinget.Features.View.Ledger.AddSellerLedger
-import org.binaryitplanet.tradinget.Features.View.Ledger.SellerLedgerView
-import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedgers
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.*
 import org.binaryitplanet.tradinget.databinding.ActivityViewSellerBinding
@@ -65,6 +57,7 @@ class ViewSeller : AppCompatActivity(), StakeholderView, BuyView {
         binding.add.setOnClickListener {
             val intent = Intent(this, BuyProduct::class.java)
             intent.putExtra(Config.STAKEHOLDER, stakeholder)
+            intent.putExtra(Config.OPERATION_FLAG, true)
             startActivity(intent)
         }
     }
@@ -82,7 +75,7 @@ class ViewSeller : AppCompatActivity(), StakeholderView, BuyView {
         super.fetchBuyListListener(buyList)
         Log.d(TAG, "BuyList: $buyList")
 
-        val adapter = BuyAdapter(this, buyList as ArrayList<BuyUtils>)
+        val adapter = BuyAdapter(this, buyList as ArrayList<BuyUtils>, stakeholder)
         binding.list.adapter = adapter
         binding.list.layoutManager = LinearLayoutManager(this)
         binding.list.setItemViewCacheSize(Config.LIST_CACHED_SIZE)

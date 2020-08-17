@@ -44,6 +44,9 @@ class BuyProduct : AppCompatActivity(), StakeholderView, BuyView {
     private var brokerPosition = -1
     private var brokerList = arrayListOf<StakeholderUtils>()
 
+    private var operationFlag = true
+    private lateinit var buy: BuyUtils
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buy_product)
@@ -55,12 +58,53 @@ class BuyProduct : AppCompatActivity(), StakeholderView, BuyView {
 
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.done && checkValidity()) {
-                saveData()
+                if (operationFlag)
+                    saveData()
+                else
+                    updateData()
             }
             return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
         }
 
         setupDate()
+    }
+
+    private fun updateData() {
+        buy.weight = weight
+        buy.rate = rate
+        buy.discountAmount = discountAmount
+        buy.amount = weight * rate
+        buy.purchaseDate = purchaseDate
+        buy.purchaseDateMilli = purchaseDateMilli
+        buy.dueDate = dueDate
+        buy.dueDateMilli = dueDateMilli
+        buy.remark = remark
+
+        if (brokerPosition != -1) {
+            buy.brokerId = brokerList[brokerPosition].id!!
+            buy.brokerName = brokerList[brokerPosition].name
+        }
+
+        val presenter = BuyPresenterIml(this, this)
+        presenter.updateBuy(buy)
+    }
+
+    override fun updateBuyListener(status: Boolean) {
+        super.updateBuyListener(status)
+        if (status) {
+            Toast.makeText(
+                this,
+                Config.SUCCESS_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+            onBackPressed()
+        } else {
+            Toast.makeText(
+                this,
+                Config.FAILED_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun saveData() {
@@ -132,12 +176,43 @@ class BuyProduct : AppCompatActivity(), StakeholderView, BuyView {
 
     override fun onResume() {
         super.onResume()
+        operationFlag = intent?.getBooleanExtra(Config.OPERATION_FLAG, true)!!
         seller = intent?.getSerializableExtra(Config.STAKEHOLDER) as StakeholderUtils
+        if (!operationFlag) {
+            buy = intent?.getSerializableExtra(Config.BUY) as BuyUtils
+            setViews()
+        }
 
         val brokerPresenter = StakeholderPresenterIml(this, this)
         brokerPresenter.fetchStakeholder(Config.TYPE_ID_BROKER)
     }
 
+    private fun setViews() {
+        binding.weight.setText(buy.weight.toString())
+        binding.rate.setText(buy.rate.toString())
+        binding.discountAmount.setText(buy.discountAmount.toString())
+        binding.remark.setText(buy.remark)
+
+        binding.purchaseDate.text = buy.purchaseDate
+        binding.paymentDate.text = buy.dueDate
+
+        purchaseDateMilli = buy.purchaseDateMilli
+        dueDateMilli = buy.dueDateMilli
+
+        purchaseDate = buy.purchaseDate
+        dueDate = buy.dueDate
+
+        val purchaseDates = purchaseDate.split("/")
+        val dueDates = dueDate.split("/")
+
+        purchaseDay = purchaseDates[0].toInt()
+        purchaseMonth = purchaseDates[1].toInt()
+        purchaseYear = purchaseDates[2].toInt()
+
+        dueDay = dueDates[0].toInt()
+        dueMonth = dueDates[1].toInt()
+        dueYear = dueDates[2].toInt()
+    }
 
 
     override fun onFetchStakeholderListListener(stakeholderList: List<StakeholderUtils>) {

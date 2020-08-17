@@ -8,15 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.view_buy_list_item.view.*
-import org.binaryitplanet.tradinget.Features.View.Ledger.ViewLedger
 import org.binaryitplanet.tradinget.Features.View.Seller.ViewBuy
 import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.*
-import android.util.Pair as UtilPair
 
 class BuyAdapter(
     val context: Context,
-    val buyList: ArrayList<BuyUtils>
+    val buyList: ArrayList<BuyUtils>,
+    val stakeholder: StakeholderUtils
 ): RecyclerView.Adapter<BuyAdapter.ViewHolder>() {
     private val TAG = "PacketAdapter"
     // Holding the view
@@ -60,6 +59,7 @@ class BuyAdapter(
             var intent: Intent? = Intent(context, ViewBuy::class.java)
             // Passing selected item data
             intent!!.putExtra(Config.BUY, buyList[position])
+            intent!!.putExtra(Config.STAKEHOLDER, stakeholder)
             context.startActivity(intent)
         }
     }
