@@ -129,8 +129,8 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView, Transactio
 
         builder.setPositiveButton(Config.YES_MESSAGE){
                 dialog: DialogInterface?, which: Int ->
-//            val presenter = StakeholderPresenterIml(this, this)
-//            presenter.deleteStakeholder(stakeholder)
+            val presenter = LedgerPresenterIml(this, this)
+            presenter.deleteLedger(ledger)
         }
 
         builder.setNegativeButton(
@@ -141,6 +141,24 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView, Transactio
 
         val alertDialog = builder.create()
         alertDialog.show()
+    }
+
+    override fun onLedgerDeleteListener(status: Boolean) {
+        super.onLedgerDeleteListener(status)
+        if (status) {
+            Toast.makeText(
+                this,
+                Config.SUCCESS_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+            onBackPressed()
+        } else {
+            Toast.makeText(
+                this,
+                Config.FAILED_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     override fun onResume() {
