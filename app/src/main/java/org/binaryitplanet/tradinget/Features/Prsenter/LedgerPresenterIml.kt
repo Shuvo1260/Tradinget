@@ -84,9 +84,36 @@ class LedgerPresenterIml(
             val databaseManager = DatabaseManager.getInstance(context)!!
             val id = databaseManager.getLedgerDAO().delete(ledgerUtils)
 
-//            val soldPacketList = databaseManager
-//                .getSoldPacketDAO()
-//                .getSoldPacketListByLedgerId(ledgerUtils.ledgerId!!) as ArrayList<SoldPacketUtils>
+            var packetList = databaseManager.getPacketDAO()
+                .getPacketList() as ArrayList<PacketUtils>
+            var subPacketList = databaseManager.getPacketDetailsDAO()
+                .getAllPacketDetailsList() as ArrayList<PacketDetailsUtils>
+
+            var soldPacketList = databaseManager.getSoldPacketDAO()
+                .getSoldPacketListByLedgerId(ledgerUtils.ledgerId!!)
+            soldPacketList.forEach {soldIt->
+                packetList.forEach {
+                    if (it.packetNumber == soldIt.packetNumber
+                        && it.packetName == soldIt.packetName) {
+                        it.weight += soldIt.weight
+                        it.price += (soldIt.weight * it.rate)
+
+                        databaseManager.getPacketDAO().update(it)
+                    }
+
+                }
+                if (soldIt.subPacketIndex != -1) {
+                    subPacketList.forEach {
+                        if (soldIt.packetDetailsNumber == it.packetDetailsNumber
+                            && it.packetNumber == soldIt.packetNumber) {
+                            it.soldWeight -= soldIt.weight
+                            it.remainingWeight += soldIt.weight
+                            databaseManager.getPacketDetailsDAO()
+                                .update(it)
+                        }
+                    }
+                }
+            }
             if (id > 0) {
                 databaseManager.getSoldPacketDAO()
                     .deleteAllSoldPacketsByLedgerId(ledgerUtils.ledgerId!!)

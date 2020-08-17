@@ -13,7 +13,10 @@ interface LedgerPresenter {
         subPacketList: ArrayList<PacketDetailsUtils>
     )
     fun deleteLedger(ledgerUtils: LedgerUtils)
-    fun updateLedger(ledgerUtils: LedgerUtils, soldPacketList: ArrayList<SoldPacketUtils>)
+    fun updateLedger(
+        ledgerUtils: LedgerUtils,
+        soldPacketList: ArrayList<SoldPacketUtils>
+    )
     fun updateLedger(ledgerUtils: LedgerUtils)
     fun fetchLedgerById(id: String)
     fun fetchLedgerListByStakeholderId(id: Long)

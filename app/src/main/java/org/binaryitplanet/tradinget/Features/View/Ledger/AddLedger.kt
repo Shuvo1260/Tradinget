@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -326,6 +327,14 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
         val presenter = LedgerPresenterIml(this, this)
         presenter.fetchSoldPacketListByLedgerId(ledgerId!!)
 
+        binding.packetList.visibility = View.GONE
+        binding.weightLayout.visibility = View.GONE
+        binding.packetLayout.visibility = View.GONE
+        binding.subPacketLayout.visibility = View.GONE
+        binding.rateLayout.visibility = View.GONE
+        binding.addPacket.visibility = View.GONE
+
+
     }
 
     override fun onFetchSoldPacketListListener(soldPacketList: List<SoldPacketUtils>) {
@@ -501,7 +510,6 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             imageURL,
             null
         )
-        Log.d(TAG, "Size: $ledger")
 
         val presenter = LedgerPresenterIml(this, this)
         presenter.insertLedger(
