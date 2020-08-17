@@ -40,7 +40,15 @@ class StakeholderPresenterIml(
             if (id > 0) {
 
                 if (stakeholder.type == Config.TYPE_ID_BUYER){
-                    //
+                    val ledgerList = databaseManager.getLedgerDAO()
+                        .getLedgerListByStakeholderId(stakeholder.id!!)
+                    databaseManager.getLedgerDAO()
+                        .deleteLedgerByStakeholderId(stakeholder.id!!)
+
+                    ledgerList.forEach {
+                        databaseManager.getBuyerLedgerDAO()
+                            .deleteBuyerLedgerByLedgerId(it.id!!)
+                    }
                 } else if (stakeholder.type  == Config.TYPE_ID_SELLER) {
                     val ledgerList = databaseManager.getBuyDAO()
                         .fetchBuyListBySellerId(stakeholder.id!!)

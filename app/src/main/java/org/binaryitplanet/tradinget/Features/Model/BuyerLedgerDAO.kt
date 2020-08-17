@@ -18,4 +18,7 @@ interface BuyerLedgerDAO {
 
     @Query("SELECT * FROM Buyer_ledger_table WHERE Ledger_ID ==:ledgerId AND Is_broker ==:type ORDER BY Date_milli ASC")
     fun fetchBuyerLedgerByIdAndType(ledgerId: Long, type: Boolean): List<BuyerLedgerUtils>
+
+    @Query("DELETE FROM BUYER_LEDGER_TABLE WHERE Ledger_ID ==:id")
+    fun deleteBuyerLedgerByLedgerId(id: Long)
 }

@@ -61,4 +61,7 @@ interface LedgerDAO {
 
     @Query("SELECT * FROM LEDGER_TABLE WHERE Paid_amount < Total_amount ORDER BY Stakeholder_name ASC")
     fun getPendingLedgerList(): List<LedgerUtils>
+
+    @Query("DELETE FROM LEDGER_TABLE WHERE Stakeholder_ID ==:id")
+    fun deleteLedgerByStakeholderId(id: Long)
 }
