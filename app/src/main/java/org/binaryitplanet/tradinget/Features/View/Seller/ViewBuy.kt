@@ -13,7 +13,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.binaryitplanet.rentalreminderapp.Features.Adapter.SellerLedgerListAdapter
 import org.binaryitplanet.tradinget.Features.Prsenter.BuyPresenterIml
+import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.SellerLedgerPresenterIml
+import org.binaryitplanet.tradinget.Features.View.Ledger.AddLedger
 import org.binaryitplanet.tradinget.Features.View.Ledger.AddSellerLedger
 import org.binaryitplanet.tradinget.Features.View.Ledger.SellerLedgerView
 import org.binaryitplanet.tradinget.R
@@ -46,6 +48,50 @@ class ViewBuy : AppCompatActivity(), BuyView, SellerLedgerView {
             startActivity(intent)
             overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
         }
+
+
+
+        binding.toolbar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.edit) {
+                editData()
+            } else if (it.itemId == R.id.delete) {
+                deleteData()
+            }
+            return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
+        }
+    }
+
+    private fun editData() {
+        val intent = Intent(this, BuyProduct::class.java)
+        intent.putExtra(Config.OPERATION_FLAG, false)
+        intent.putExtra(Config.STAKEHOLDER, buy)
+        startActivity(intent)
+        overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
+    }
+
+    private fun deleteData() {
+
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle(Config.DELETE_LEDGER_TITLE)
+        builder.setMessage(Config.DELETE_LEDGER_MESSAGE)
+
+        builder.setIcon(R.drawable.ic_launcher)
+
+        builder.setPositiveButton(Config.YES_MESSAGE){
+                dialog: DialogInterface?, which: Int ->
+            val presenter = BuyPresenterIml(this, this)
+            presenter.deleteBuy(buy)
+        }
+
+        builder.setNegativeButton(
+            Config.NO_MESSAGE
+        ){
+                dialog: DialogInterface?, which: Int ->
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 
     override fun onResume() {
@@ -163,6 +209,10 @@ class ViewBuy : AppCompatActivity(), BuyView, SellerLedgerView {
 
     // Toolbar menu setting
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.view_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
     private fun setUpToolbar() {
 
         binding.toolbar.title = Config.TOOLBAR_TITLE_BOUGHT_PRODUCT

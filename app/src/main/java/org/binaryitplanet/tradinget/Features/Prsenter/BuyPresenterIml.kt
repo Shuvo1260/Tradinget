@@ -26,7 +26,11 @@ class BuyPresenterIml(
     override fun deleteBuy(buyUtils: BuyUtils) {
         try {
             val databaseManager = DatabaseManager.getInstance(context)!!
-            databaseManager.getBuyDAO().delete(buyUtils)
+            val id = databaseManager.getBuyDAO().delete(buyUtils)
+            if (id > 0) {
+                databaseManager.getSellerLedgerDAO()
+                    .deleteLedgersByBuyId(buyUtils.id!!)
+            }
             buyView.deleteBuyListener(true)
         } catch (e: Exception){
             Log.d(TAG, "BuyUpdateError: ${e.message}")

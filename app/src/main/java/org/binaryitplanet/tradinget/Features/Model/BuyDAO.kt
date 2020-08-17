@@ -19,6 +19,9 @@ interface BuyDAO {
     @Query("SELECT * FROM Buy_table WHERE Seller_ID ==:sellerId ORDER BY Date_milli ASC")
     fun fetchBuyListBySellerId(sellerId: Long): List<BuyUtils>
 
+    @Query("DELETE FROM Buy_table WHERE Seller_ID ==:sellerId")
+    fun deleteBuyListBySellerId(sellerId: Long)
+
     @Query("SELECT * FROM Buy_table WHERE ID ==:id")
     fun fetchBuyById(id: Long): BuyUtils
 

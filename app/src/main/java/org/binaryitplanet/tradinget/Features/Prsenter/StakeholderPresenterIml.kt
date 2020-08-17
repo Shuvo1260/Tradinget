@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import org.binaryitplanet.tradinget.Features.Common.StakeholderView
 import org.binaryitplanet.tradinget.Features.Model.DatabaseManager
+import org.binaryitplanet.tradinget.Utils.Config
 import org.binaryitplanet.tradinget.Utils.StakeholderUtils
 import java.lang.Exception
 
@@ -36,10 +37,27 @@ class StakeholderPresenterIml(
             val databaseManager = DatabaseManager.getInstance(context)!!
             val id = databaseManager.getStakeholderDAO().delete(stakeholder)
 
-            if (id > 0)
+            if (id > 0) {
+
+                if (stakeholder.type == Config.TYPE_ID_BUYER){
+                    //
+                } else if (stakeholder.type  == Config.TYPE_ID_SELLER) {
+                    val ledgerList = databaseManager.getBuyDAO()
+                        .fetchBuyListBySellerId(stakeholder.id!!)
+                    databaseManager.getBuyDAO()
+                        .deleteBuyListBySellerId(stakeholder.id!!)
+                    ledgerList.forEach {
+                        databaseManager.getSellerLedgerDAO()
+                            .deleteLedgersByBuyId(it.id!!)
+                    }
+
+                }
+
                 stakeholderView.onDeleteStakeholderListener(true)
-            else
+            }
+            else {
                 stakeholderView.onDeleteStakeholderListener(false)
+            }
             Log.d(TAG, "Deleting $id: $stakeholder")
         }catch (e: Exception){
             Log.d(TAG, "DeleteStakeholderError: ${e.message}")

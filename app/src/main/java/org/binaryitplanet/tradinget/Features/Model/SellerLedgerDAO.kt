@@ -22,4 +22,7 @@ interface SellerLedgerDAO {
 
     @Query("SELECT SUM(Total_amount) FROM SELLER_LEDGER_TABLE WHERE Transaction_type ==:type")
     fun fetchTotalCreditDebit(type: String): Double
+
+    @Query("DELETE FROM SELLER_LEDGER_TABLE WHERE Ledger_ID ==:id")
+    fun deleteLedgersByBuyId(id: Long)
 }

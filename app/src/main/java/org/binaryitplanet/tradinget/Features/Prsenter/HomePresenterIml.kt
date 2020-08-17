@@ -58,7 +58,7 @@ class HomePresenterIml(
             val totalDebit = databaseManager.getSellerLedgerDAO()
                 .fetchTotalCreditDebit(Config.DEBIT)
 
-            val sellerDueAmount = totalSellerAmount - (totalCredit - totalDebit)
+            val sellerDueAmount = totalSellerAmount - (totalDebit - totalCredit)
 
 
             val totalOverDuePaidAmount = databaseManager.getLedgerDAO()
