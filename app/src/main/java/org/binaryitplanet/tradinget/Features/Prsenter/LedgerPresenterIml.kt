@@ -84,13 +84,12 @@ class LedgerPresenterIml(
             val databaseManager = DatabaseManager.getInstance(context)!!
             val id = databaseManager.getLedgerDAO().delete(ledgerUtils)
 
-            val soldPacketList = databaseManager
-                .getSoldPacketDAO()
-                .getSoldPacketListByLedgerId(ledgerUtils.ledgerId!!) as ArrayList<SoldPacketUtils>
+//            val soldPacketList = databaseManager
+//                .getSoldPacketDAO()
+//                .getSoldPacketListByLedgerId(ledgerUtils.ledgerId!!) as ArrayList<SoldPacketUtils>
             if (id > 0) {
-                soldPacketList.forEach {
-                    databaseManager.getSoldPacketDAO().delete(it)
-                }
+                databaseManager.getSoldPacketDAO()
+                    .deleteAllSoldPacketsByLedgerId(ledgerUtils.ledgerId!!)
                 viewLedgers.onLedgerDeleteListener(true)
             }
             else
@@ -99,6 +98,30 @@ class LedgerPresenterIml(
         }catch (e: Exception){
             Log.d(TAG, "DeleteLedgerError: ${e.message}")
             viewLedgers.onLedgerDeleteListener(false)
+        }
+    }
+
+    override fun updateLedger(
+        ledgerUtils: LedgerUtils,
+        soldPacketList: ArrayList<SoldPacketUtils>
+    ) {
+        try {
+            val databaseManager = DatabaseManager.getInstance(context)!!
+            val id = databaseManager.getLedgerDAO().update(ledgerUtils)
+
+            if (id > 0) {
+                databaseManager.getSoldPacketDAO().deleteAllSoldPacketsByLedgerId(ledgerUtils.ledgerId!!)
+                soldPacketList.forEach{
+                    databaseManager.getSoldPacketDAO().insert(it)
+                }
+                viewLedgers.onLedgerUpdateListener(true)
+            }
+            else
+                viewLedgers.onLedgerUpdateListener(false)
+            Log.d(TAG, "Saving $id: $ledgerUtils")
+        }catch (e: Exception){
+            Log.d(TAG, "UpdateLedgerError: ${e.message}")
+            viewLedgers.onLedgerUpdateListener(false)
         }
     }
 

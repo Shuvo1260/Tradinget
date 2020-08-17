@@ -20,4 +20,7 @@ interface SoldPacketDAO {
 
     @Query("SELECT * FROM Sold_packet_table")
     fun getSoldPacketList(): List<SoldPacketUtils>
+
+    @Query("DELETE FROM Sold_packet_table WHERE Ledger_ID ==:ledgerId")
+    fun deleteAllSoldPacketsByLedgerId(ledgerId: String)
 }

@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -21,6 +22,7 @@ import org.binaryitplanet.tradinget.Features.Prsenter.BuyerLedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.LedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.SellerLedgerPresenterIml
 import org.binaryitplanet.tradinget.Features.Prsenter.StakeholderPresenterIml
+import org.binaryitplanet.tradinget.Features.View.Broker.AddBroker
 import org.binaryitplanet.tradinget.Features.View.Invoice.CreateInvoice
 import org.binaryitplanet.tradinget.Features.View.Invoice.InvoiceBuilder
 import org.binaryitplanet.tradinget.R
@@ -95,6 +97,50 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView, Transactio
             overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
         }
 
+
+        binding.toolbar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.edit) {
+                editData()
+            } else if (it.itemId == R.id.delete) {
+                deleteData()
+            }
+            return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
+        }
+
+    }
+
+    private fun editData() {
+        val intent = Intent(this, AddLedger::class.java)
+        intent.putExtra(Config.OPERATION_FLAG, false)
+        intent.putExtra(Config.STAKEHOLDER, stakeholder)
+        intent.putExtra(Config.LEDGER, ledger)
+        startActivity(intent)
+        overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
+    }
+
+    private fun deleteData() {
+
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle(Config.DELETE_LEDGER_TITLE)
+        builder.setMessage(Config.DELETE_LEDGER_MESSAGE)
+
+        builder.setIcon(R.drawable.ic_launcher)
+
+        builder.setPositiveButton(Config.YES_MESSAGE){
+                dialog: DialogInterface?, which: Int ->
+//            val presenter = StakeholderPresenterIml(this, this)
+//            presenter.deleteStakeholder(stakeholder)
+        }
+
+        builder.setNegativeButton(
+            Config.NO_MESSAGE
+        ){
+                dialog: DialogInterface?, which: Int ->
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 
     override fun onResume() {
@@ -287,6 +333,10 @@ class ViewLedger : AppCompatActivity(), ViewLedgers, StakeholderView, Transactio
     }
 
     // Toolbar menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.view_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
     private fun setUpToolbar() {
 
         binding.toolbar.title = ledger.ledgerId

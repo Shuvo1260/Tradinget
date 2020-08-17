@@ -51,11 +51,11 @@ class Transaction : AppCompatActivity(), TransactionView {
             if (it.itemId == R.id.done && checkValidity()) {
                 if (flag) {
                     if (transactionType == Config.CREDIT) {
-                        ledger.brokerAmountPaid += amount.toDouble()
-                        ledger.brokerAmountRemaining -= amount.toDouble()
-                    } else {
                         ledger.brokerAmountPaid -= amount.toDouble()
                         ledger.brokerAmountRemaining += amount.toDouble()
+                    } else {
+                        ledger.brokerAmountPaid += amount.toDouble()
+                        ledger.brokerAmountRemaining -= amount.toDouble()
                     }
                 } else {
                     if (transactionType == Config.CREDIT) {

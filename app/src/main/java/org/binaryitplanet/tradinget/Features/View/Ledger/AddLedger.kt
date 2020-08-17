@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -28,6 +29,7 @@ import org.binaryitplanet.tradinget.R
 import org.binaryitplanet.tradinget.Utils.*
 import org.binaryitplanet.tradinget.databinding.ActivityAddLedgerBinding
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Suppress("DEPRECATION")
 class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, StakeholderView, ViewLedgers {
@@ -36,7 +38,7 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
     private val TAG = "AddLedger"
     private lateinit var binding: ActivityAddLedgerBinding
     private lateinit var packetList: ArrayList<PacketUtils>
-    private lateinit var subPacketList: ArrayList<PacketDetailsUtils>
+    private var subPacketList = arrayListOf<PacketDetailsUtils>()
     private lateinit var allSubPacketList: ArrayList<PacketDetailsUtils>
     private lateinit var brokerList: ArrayList<StakeholderUtils>
     private lateinit var stakeholder: StakeholderUtils
@@ -72,6 +74,10 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
     private lateinit var remark: String
     private lateinit var progressDialog: ProgressDialog
 
+    private var operationFlag = true
+
+    private lateinit var ledger: LedgerUtils
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +93,11 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.done && checkValidity()) {
                 Log.d(TAG, "Size: ${subPacketList.size}")
-                saveData()
+                if (operationFlag) {
+                    saveData()
+                } else {
+                    updateData()
+                }
             }
             return@setOnMenuItemClickListener super.onOptionsItemSelected(it)
         }
@@ -129,6 +139,66 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             galleryIntent.action = Intent.ACTION_GET_CONTENT
             val intent = Intent.createChooser(galleryIntent, Config.PICK_IMAGE)
             startActivityForResult(intent, Config.PICK_IMAGE_REQUEST_CODE)
+        }
+    }
+
+    private fun updateData() {
+
+        if (brokerPosition != -1){
+            ledger.brokerId = brokerList[brokerPosition].id!!
+            ledger.brokerName = brokerList[brokerPosition].name
+        }
+
+        ledger.paymentType = paymentType
+        ledger.brokerPercentage = brokerPercentage
+        ledger.brokerAmount = brokerAmount
+        ledger.brokerageAmount = totalPrice + brokerAmount
+        ledger.discountPercentage = discountPercentage
+        ledger.discountAmount = discountAmount
+        ledger.remark = remark
+        ledger.date = dateString
+        ledger.dueDate = dueDateString
+        ledger.imageUrl = imageURL
+        ledger.brokerAmountRemaining = brokerAmount - ledger.brokerAmountPaid
+        ledger.totalAmount = totalPrice - discountAmount
+        ledger.totalWeight = totalWeight
+        ledger.totalPackets = soldPacketList.size
+        ledger.firstPacketName = soldPacketList[0].packetName
+
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day)
+        val dateMilli = calendar.timeInMillis
+        calendar.set(dueYear, dueMonth, dueDay)
+        val dueDateMilli = calendar.timeInMillis
+
+        ledger.dateInMilli = dateMilli
+        ledger.dueDateInMilli = dueDateMilli
+
+
+        val presenter = LedgerPresenterIml(this, this)
+        presenter.updateLedger(ledger, soldPacketList)
+
+
+
+        Log.d(TAG, "Ledger: $ledger")
+
+    }
+
+    override fun onLedgerUpdateListener(status: Boolean) {
+        super.onLedgerUpdateListener(status)
+        if (status) {
+            Toast.makeText(
+                this,
+                Config.SUCCESS_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+            onBackPressed()
+        } else {
+            Toast.makeText(
+                this,
+                Config.FAILED_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -180,11 +250,6 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             binding.packet.requestFocus()
             return false
         }
-//        if (subPacketPosition == -1) {
-//            binding.subPacket.error = Config.REQUIRED_FIELD
-//            binding.subPacket.requestFocus()
-//            return false
-//        }
 
         if (weight.isNullOrEmpty()) {
             binding.weight.error = Config.REQUIRED_FIELD
@@ -205,6 +270,7 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
         super.onResume()
 
         stakeholder = intent?.getSerializableExtra(Config.STAKEHOLDER) as StakeholderUtils
+        operationFlag = intent?.getBooleanExtra(Config.OPERATION_FLAG, true)!!
 
         val  presenter = PacketPresenterIml(this, this)
         presenter.fetchPacketList()
@@ -222,6 +288,57 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, paymentTypes)
         binding.paymentType.setText(paymentTypes[0])
         binding.paymentType.setAdapter(adapter)
+
+
+        if (!operationFlag) {
+            ledger = intent?.getSerializableExtra(Config.LEDGER) as LedgerUtils
+            setViews()
+        }
+    }
+
+    private fun setViews() {
+        binding.brokerPercentage.setText(ledger.brokerPercentage.toString())
+        binding.brokerAmount.setText(ledger.brokerAmount.toString())
+        binding.discountPercentage.setText(ledger.discountPercentage.toString())
+        binding.discountAmount.setText(ledger.discountAmount.toString())
+        binding.remark.setText(ledger.remark)
+        imageURL = ledger.imageUrl
+        if (!imageURL.isNullOrEmpty())
+            binding.addImage.setImageURI(Uri.parse(imageURL))
+        binding.date.text = ledger.date
+        binding.dueDate.text = ledger.dueDate
+        dateString = ledger.date
+        dueDateString = ledger.dueDate
+
+        val dates = ledger.date.split("/")
+        day = dates[0].toInt()
+        month = dates[1].toInt()
+        year = dates[2].toInt()
+
+        val dueDates = ledger.dueDate.split("/")
+        dueDay = dueDates[0].toInt()
+        dueMonth = dueDates[1].toInt()
+        dueYear = dueDates[2].toInt()
+
+
+        ledgerId = ledger.ledgerId
+
+        val presenter = LedgerPresenterIml(this, this)
+        presenter.fetchSoldPacketListByLedgerId(ledgerId!!)
+
+    }
+
+    override fun onFetchSoldPacketListListener(soldPacketList: List<SoldPacketUtils>) {
+        super.onFetchSoldPacketListListener(soldPacketList)
+        this.soldPacketList = soldPacketList as ArrayList<SoldPacketUtils>
+        setPacketList()
+        soldPacketList.forEach {
+            totalWeight += it.weight
+            totalRate += it.rate
+            totalPrice += (it.weight * it.rate)
+        }
+
+        Log.d(TAG, "$totalWeight $totalRate $totalPrice")
     }
 
     override fun onFetchAllPacketDetailsListListener(subPacketList: List<PacketDetailsUtils>) {
@@ -384,7 +501,7 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             imageURL,
             null
         )
-        Log.d(TAG, "Size: ${subPacketList.size}")
+        Log.d(TAG, "Size: $ledger")
 
         val presenter = LedgerPresenterIml(this, this)
         presenter.insertLedger(
@@ -421,12 +538,6 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
             return false
         }
 
-//        if (brokerPosition == -1) {
-//            binding.broker.error = Config.REQUIRED_FIELD
-//            binding.broker.requestFocus()
-//            return false
-//        }
-
         remark = binding.remark.text.toString()
         paymentType = binding.paymentType.text.toString()
 
@@ -437,27 +548,15 @@ class AddLedger : AppCompatActivity(), InventoryView, ViewPacketDetails, Stakeho
         }
 
         if (!binding.brokerPercentage.text.toString().isNullOrEmpty()) {
-//            binding.brokerPercentage.error = Config.REQUIRED_FIELD
-//            binding.brokerPercentage.requestFocus()
-//            return false
             brokerPercentage = binding.brokerPercentage.text.toString().toDouble()
         }
         if (!binding.brokerAmount.text.toString().isNullOrEmpty()) {
-//            binding.brokerAmount.error = Config.REQUIRED_FIELD
-//            binding.brokerAmount.requestFocus()
-//            return false
             brokerAmount = binding.brokerAmount.text.toString().toDouble()
         }
         if (!binding.discountPercentage.text.toString().isNullOrEmpty()) {
-//            binding.discountPercentage.error = Config.REQUIRED_FIELD
-//            binding.discountPercentage.requestFocus()
-//            return false
             discountPercentage = binding.discountPercentage.text.toString().toDouble()
         }
         if (!binding.discountAmount.text.toString().isNullOrEmpty()) {
-//            binding.discountAmount.error = Config.REQUIRED_FIELD
-//            binding.discountAmount.requestFocus()
-//            return false
 
             discountAmount = binding.discountAmount.text.toString().toDouble()
         }
